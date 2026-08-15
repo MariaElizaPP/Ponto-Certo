@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ponto Certo</title>
+    <link rel="stylesheet" href= "../../public/css/navbar/navbar.css">
+    <link rel="stylesheet" href= "../../public/css/detalhes.css">
+</head>
+<body>
+    
+    <header>
+        <nav class= "navbar">
+
+        <a class="logo" href="index.html">
+            <img src="/public/images/logo_ponto.svg" alt="Logo Ponto Certo">
+            </a>
+
+
+        <ul class="nav-list">
+            <li><a href="/src/views/index.html"> Página Inicial </a></li>
+            <li><a href="#"> Meus Pedidos</a></li>
+        </ul>
+
+        <ul class= "nav_icones">
+            <li><a href="#"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
+            <li><a href="#"><img src="/public/images/favoritos.svg" alt="favoritos"></a></li>
+            <li><a href="#"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
+        
+        </ul>
+        
+        </nav>
+
+    
+  </header>
+   <div class="breadcrumbs">
+        <div class="breadcrumbs_coluna">
+            <a href="#" class="breadcrumbs_item">Lãs de Barbantes</a>
+        </div>
+        <img src="/public/images/breadcrumbs_seta.svg" alt="SetaBreadcrumbs">
+        <div class="breadcrumbs_coluna">
+            <a href="#" class="breadcrumbs_item">Fio de malha</a>
+        </div>
+        <img src="/public/images/breadcrumbs_seta.svg" alt="SetaBreadcrumbs">
+        <div class="breadcrumbs_coluna">
+            <span class="breadcrumbs_item">Fio Hobby Círculo 160m</span>
+        </div>
+        
+    </div>
+
+    <section class="principal">
+        <div class="galeria">
+            <div class="img">
+                <img src="/public/images/fiodemalha.webp" alt="imgproduto">
+            </div>
+        </div>
+
+        <div class="informacoes-produto">
+            <h3 class="nome-produto">Fio Hobby Círculo 160m</h3>
+            <div class="info-preco">
+                <div class="preco">R$ 23,66</div>
+            </div>
+            <p class="texto">
+                A Lã Hobby Círculo 160m garante qualidade, durabilidade e maciez em um só fio. 
+                O Hobby Círculo possui tecnologia antipilling, o que garante que a peça não crie bolinhas após as lavagens. 
+                O fio Hobby ainda tem um toque macio e cores que vão fazer você se apaixonar. TEX - 625
+
+                Espessura TEX 625, ideal para peças bem estruturadas
+                Possui tecnologia antipilling, evitando formação de bolinhas
+                Garante qualidade, durabilidade e excelente desempenho
+                Fio com toque macio e confortável
+                Indicado para trabalhos em tricô e crochê
+
+                Agulhas Recomendadas: 5mm - 7mm para Tricô / 4mm - 6mm para Crochê
+                TEX: 625
+                Composição: 100% Acrílico
+                Peça: 9cmx19cm
+                Peso: 100g (equivalente à 160m)
+            </p>
+            <div class="cores">
+                <div class="cor cor-selecionada" style="background-color: #B23A48;"></div>
+                <div class="cor" style="background-color: #FFFFFF;"></div>
+                <div class="cor" style="background-color: #D98E3F;"></div>
+                <div class="cor" style="background-color: #1C3A3A;"></div>
+                <div class="cor" style="background-color: #E8C4A2;"></div>
+                <div class="cor" style="background-color: #D96C8C;"></div>
+                <div class="cor" style="background-color: #6E8FB5;"></div>
+            </div>
+            <div class="add-carrinho-container">
+               <div class="contador">
+                    <button class="remover">
+                        <img src="/public/images/remover.svg">
+                    </button>
+                    <span class="contar">0</span>
+                    <button class="adicionar">
+                        <img src="/public/images/adicionar.svg">
+                    </button>
+                    
+                    
+               </div> 
+               <button class="adicionar-carrinho">Adicionar ao Carrinho</button>
+                
+            </div>
+            <button class="comprar">Comprar Agora</button>
+            
+            
+        </div>
+    </section>
+
+    <script src="/public/js/cor_selecionada.js"></script>
+    <script src="/public/js/quantidade.js"></script>
+</body>
+</html>
