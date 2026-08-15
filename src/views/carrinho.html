@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ponto Certo</title>
+  <link rel="stylesheet" href="../../public/css/navbar/navbar.css">
+  <link rel="stylesheet" href="../../public/css/carrinho.css">
+</head>
+
+<body>
+  <header>
+    <nav class= "navbar">
+
+      <a class="logo" href="index.html">
+          <img src="/public/images/logo_ponto.svg" alt="Logo Ponto Certo">
+        </a>
+        
+      <ul class="nav-list">
+        <li><a href="#"> Página Inicial </a></li>
+        <li><a href="#"> Meus Pedidos</a></li>
+      </ul>
+
+      <ul class= "nav_icones">
+        <li><a href="#"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
+        <li><a href="#"><img src="/public/images/favoritos.svg" alt="favoritos"></a></li>
+        <li><a href="#"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
+       
+      </ul>
+    </nav>
+  </header>
+
+  <main class="carrinho">
+
+    <div class="coluna-tabela">
+      <div class="tabela-container">
+        <table class="tabela-carrinho">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Preço</th>
+            <th>Quantidade</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr class="produto-linha" data-preco="46.00">
+
+            <td class="celula-produto">
+              <button class="botao-remover"><img src="../../public/images/remover.svg" alt="remover botao"></button>
+              <img src="../../public/images/produto_carrinho.svg" alt="Kit 9 Agulhas Crochê">
+              <span class="nome-produto-carrinho">Kit 9 Agulhas Crochê</span>
+            </td>
+
+            <td class="preco-unitario">R$46,00</td>
+
+            <td>
+              <div class="quantidade">
+                <button class="botao-diminuir" aria-label="Diminuir quantidade">-</button>
+                <span class="quantidade-valor">1</span>
+                <button class="botao-aumentar" aria-label="Aumentar quantidade">+</button>
+              </div>
+            </td>
+
+            <td class="total-produto">R$46,00</td>
+          </tr>
+
+
+          <tr class="produto-linha" data-preco="46.00">
+
+            <td class="celula-produto">
+              <button class="botao-remover"><img src="../../public/images/remover.svg" alt="remover botao"></button>
+              <img src="../../public/images/produto_carrinho.svg" alt="Kit 9 Agulhas Crochê">
+              <span class="nome-produto-carrinho">Kit 9 Agulhas Crochê</span>
+            </td>
+
+            <td class="preco-unitario">R$46,00</td>
+
+            <td>
+              <div class="quantidade">
+                <button class="botao-diminuir" aria-label="Diminuir quantidade">-</button>
+                <span class="quantidade-valor">1</span>
+                <button class="botao-aumentar" aria-label="Aumentar quantidade">+</button>
+              </div>
+            </td>
+
+            <td class="total-produto">R$46,00</td>
+          </tr>
+
+          <tr class="produto-linha" data-preco="46.00">
+
+            <td class="celula-produto">
+              <button class="botao-remover"><img src="../../public/images/remover.svg" alt="remover botao"></button>
+              <img src="../../public/images/produto_carrinho.svg" alt="Kit 9 Agulhas Crochê">
+              <span class="nome-produto-carrinho">Kit 9 Agulhas Crochê</span>
+            </td>
+
+            <td class="preco-unitario">R$46,00</td>
+
+            <td>
+              <div class="quantidade">
+                <button class="botao-diminuir" aria-label="Diminuir quantidade">-</button>
+                <span class="quantidade-valor">1</span>
+                <button class="botao-aumentar" aria-label="Aumentar quantidade">+</button>
+              </div>
+            </td>
+
+            <td class="total-produto">R$46,00</td>
+          </tr>
+
+        </tbody> 
+        </table>
+   </div>
+  </div>
+ 
+  <div class="coluna-resumo">
+    <div class="resumo-compra">
+
+      <div class="cabecalho-resumo">
+       <span class="titulo-resumo">Resumo da Compra</span>
+      </div>
+
+      <div class="linha-resumo">
+        <span>SUBTOTAL</span>
+        <span class="valor-subtotal">R$0,00</span>
+      </div>
+
+      <div class="linha-resumo">
+        <span>FRETE</span>
+        <span class="valor-frete">---</span>
+      </div>
+
+      <div class="linha-resumo">
+        <span>TOTAL</span>
+        <span class="valor-total">R$0,00</span>
+      </div>
+
+      <button class="botao-continuar">Continuar</button>
+    </div>
+
+    <div class="frete-card">
+      <span class="titulo-frete">Consultar Frete</span>
+      <div class="campos-frete">
+        <input type="text" placeholder="Insira o CEP" class="input-cep" />
+        <button class="botao-consultar-frete">Consultar o Frete</button>
+      </div>
+    </div>
+      
+
+  </div>
+</main>
+ <script src="../../public/js/carrinho.js"></script>
+</body>
+</html>
+
+
