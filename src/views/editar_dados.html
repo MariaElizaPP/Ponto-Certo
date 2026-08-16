@@ -35,38 +35,39 @@
   </div>
   
   <div class="main">
-    <h3 class="titulo">Cadastrar Cartão</h3>
+    <h3 class="titulo">Editar</h3>
     <div class="info-cartao">
-        <span class="titulo-dbancarios">Dados Bancários</span>
+        <span class="titulo-dbancarios">Dados Pessoais</span>
         <form>
             <div class="campos">
                 <div class="campo">
-                    <label class="nome-campos">Número do cartão</label>
-                    <input class="placeholder" id="numero-cartao" inputmode="numeric" pattern="[0-9]{13,19}" maxlength="19" placeholder="Insira o número" required></input>
-                    <span class="erro-msg" id="erro-numero-cartao"></span>
+                    <label class="nome-campos">Nome completo</label>
+                    <input class="placeholder" id="nome" placeholder="Insira o nome completo" required></input>
+                    <span class="erro-msg" id="erro-nome"></span>
                 </div>
 
                 <div class="campo">
-                    <label class="nome-campos" >Bandeira do cartão</label>
+                    <label class="nome-campos">Gênero</label>
                     <select class="placeholder" id="bandeira" required>
-                        <option value="" disabled selected hidden>Escolha a bandeira</option>
-                        <option value="visa">Visa</option>
-                        <option value="elo">Elo</option>
-                        <option value="mastercard">Mastercard</option>
+                        <option value="" disabled selected hidden>Escolha o seu gênero</option>
+                        <option value="homem">Homem</option>
+                        <option value="mulher">Mulher</option>
+                        <option value="ninformar">Prefiro não informar</option>
+                        <option value="outros">Outros</option>
                     </select>
-                    <span class="erro-msg" id="erro-bandeira"></span>
+                    <span class="erro-genero" id="erro-genero"></span>
                 </div>
 
                 <div class="campo">
-                    <label class="nome-campos">Nome impresso no cartão</label>
-                    <input class="placeholder" placeholder="Insira o nome" id="nome-cartao" pattern="[A-Za-zÀ-ÿ\s]+" required></input>
-                    <span class="erro-msg" id="erro-nome-cartao"></span>
+                    <label class="nome-campos">CPF</label>
+                    <input class="placeholder" placeholder="Insira o CPF" id="cpf" required></input>
+                    <span class="erro-msg" id="erro-cpf"></span>
                 </div>
 
                 <div class="campo">
-                    <label class="nome-campos">Código de Segurança</label>
-                    <input class="placeholder" placeholder="Insira o CVV" id="cvv" inputmode="numeric" pattern="[0-9]{3,4}" maxlength="4" required></input>
-                    <span class="erro-msg" id="erro-cvv"></span>
+                    <label class="nome-campos">Telefone</label>
+                    <input class="placeholder" placeholder="(00) 00000-0000" id="telefone" inputmode="numeric" pattern="[0-9]" maxlength="11" required></input>
+                    <span class="erro-msg" id="erro-telefone"></span>
                 </div>
 
         

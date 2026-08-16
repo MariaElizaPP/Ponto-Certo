@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ponto Certo</title>
+    <link rel="stylesheet" href= "../../../public/css/navbar/navbar.css">
+    <link rel="stylesheet" href="../../../public/css/alterar_senha.css">
+</head>
+<body>
+    <header>
+    <nav class= "navbar">
+
+      <a class="logo" href="index.html">
+          <img src="/public/images/logo_ponto.svg" alt="Logo Ponto Certo">
+        </a>
+
+
+      <ul class="nav-list">
+        <li><a href="/src/views/index.html"> Página Inicial </a></li>
+        <li><a href="#"> Meus Pedidos</a></li>
+      </ul>
+
+      <ul class= "nav_icones">
+        <li><a href="carrinho.html"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
+        <li><a href="#"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
+       
+      </ul>
+      
+    </nav>
+  </header>
+
+  <div class="voltar-icone">
+    <a href="#" class="btn-voltar"><img class="img-voltar" src="/public/images/voltar.svg" alt="voltar"></a>
+  </div>
+  
+  <div class="main">
+    <h3 class="titulo">Alterar senha</h3>
+    <div class="info-cartao">
+        <form>
+            <div class="campos">
+                <div class="campo">
+                    <label class="nome-campos">Senha</label>
+                    <input class="placeholder" id="senha" placeholder="Insira o número" required></input>
+                    <span class="erro-msg" id="erro-senha"></span>
+                </div>
+                <div class="campo">
+                    <label class="nome-campos">Confirmar senha</label>
+                    <input class="placeholder" id="confirmar-senha"placeholder="Insira o número" required></input>
+                    <span class="erro-msg" id="erro-confirmar-senha"></span>
+                </div>
+
+                
+
+             
+            </div>
+        </form>
+        
+    </div>
+    
+    
+    <div class="botoes">
+        <button class="voltar" type="reset">Voltar</button>
+        <button class="cadastrar" type="submit">Cadastrar</button>
+    </div>
+  </div>
+
+  <script src="../../../public/js/alterar_senha.js"></script>
+  
+</body>
+</html>
