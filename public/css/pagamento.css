@@ -7,7 +7,13 @@
     --amarelo-100: #FFF489;
     --neutro-100: #212121;
     --neutro-80: #404040;
+    --neutro-60: #7E7E7E;
     --neutro-subcategoria: #414141;
+    --alerta-vermelho: #D52525;
+    --alerta-verde: #6C9F38;
+    --alerta-verde-hover: #5A862C;
+    --alerta-amarelo: #E4CB31;
+    --alerta-amarelo-hover: #B8A42A;
     
 }
 
@@ -75,7 +81,7 @@
 .link-adicionar-endereco{
   color: #FFF8B8;
   font-size: 13px;
-  font-family: "Inter";
+  font-family: "Montserrat";
 }
 
 .item-endereco{
@@ -84,7 +90,7 @@
   padding: 16px 20px;
   gap: 12px;
   border-bottom: 1px solid #dedfe1;
-  cursor: pointer
+  cursor: pointer;
 }
 
 .radio-pagamento {
@@ -113,7 +119,7 @@
 .link-alterar {
   color: var(--primary-color);
   font-size: 13px;
-  font-family: "Inter";
+  font-family: "Montserrat";
 }
 
 .botao-excluir {
@@ -204,6 +210,38 @@
   color: #333333;
 }
 
+/*input do valor do cartao*/
+
+.input-cartao{
+  display: flex;
+  gap: 12px;
+  border-radius: 8px;
+  padding: 12px 16px;
+  width: 280px;
+  
+}
+
+.input-titulo{
+  font-size: 12px;
+  font-family: "Montserrat";
+  color: #505050;
+
+}
+
+.valor-cartao{
+  padding: 10px 12px;
+  border: 1px solid #DFDFDF;
+  border-radius: 100px;
+  background-color:#F8F8F8 ;
+  font-size: 14px;
+  font-family: "Montserrat";
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  font-size: 13px;
+  color:#CACACA ;
+}
+
 /*resumo*/
 
 
@@ -266,16 +304,45 @@
   text-decoration: underline;
 }
 
+.secao-cupom{
+  border-bottom: 2px dashed #d0d0d0;
+  padding-bottom: 10px;
+}
 
 .container-cupom {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding:8px 20px 20px 20px;
-  border-bottom: 2px dashed #d0d0d0;
+  padding:8px 20px 12px 20px;
+  
 }
 
-.container-cupom.escondido {
+.lista-cupons-aplicados{
+  padding: 0 20px 8px 20px;
+  font-size: 14px;
+  font-family: "Montserrat", regular;
+  color: var(--neutro-80);
+}
+
+.cupom.aplicado{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 0;
+}
+.lista-cupons-aplicados button{
+  font-family: "Montserrat", regular;
+  color: var(--primary-color);
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  padding: 3px 40px;
+  font-size: 13px;
+
+}
+
+.escondido{
   display: none;
 }
 
@@ -317,7 +384,7 @@
   color: var(--primary-color);
 }
 
-.botao-finalizar {
+.btn-modal-abrir{
   display: block;
   margin-left: auto;
   margin-top: 24px;
@@ -343,3 +410,151 @@
   flex: 1;
   min-width: 0; 
 }
+
+.icone-sucesso{
+  display: block;
+  margin-top: 28px;
+  width: 16px;
+  height: 11px;
+  display: block;
+  align-items: center;
+  
+}
+
+/*modal finalizar - tema sucesso*/
+
+/*isso aq serve para qualquer tema de modal- config padrao dos modais*/
+.modal-abrir{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  width: 400px;
+  height: 211px;
+  max-width: 90%;
+  padding: 24px;
+  background-color: #fff;
+  font-family: "Montserrat";
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--neutro-60);
+  border: none;
+  border-radius: 12px;
+  
+  flex-direction: column;
+  text-align: center;
+  gap: 16px;
+  overflow: hidden;
+  
+
+}
+
+/*pra o modal n ficar abrindo sozinho por conta do display flex e do showModal() no js*/
+.modal-abrir[open]{
+  display: flex;
+}
+
+.modal-abrir h3{
+  font-family: "Montserrat", regular;
+  font-size: 18px;
+  color: var(--neutro-100);
+}
+
+.btn-modal-fechar{
+  text-align: center;
+  text-decoration: none;
+  border: var(--alerta-verde);
+  background-color: var(--alerta-verde);
+  color: #fff;
+  width: 360px;
+  height: 42px;
+  border-radius: 8px;
+  justify-content: center;
+  font-weight: 600px;
+  cursor: pointer;
+  
+}
+
+.btn-tema-sucesso:hover{
+  background-color: var(--alerta-verde-hover);
+}
+
+
+
+.btn-tema-sucesso{
+  display: flex;
+  align-items: center;
+  background-color: var(--alerta-verde);
+  color: #fff;
+  justify-content: center;
+  
+}
+
+.modal-abrir dialog::backdrop{
+  background-color: rgba(115, 24, 24, 0);
+}
+
+
+.botoes-modais{
+  align-items: center;
+  gap: 16px;
+  display: flex;
+}
+
+/*eh o <a> que está no botão dentro do modal de sucesso para voltar*/
+a{
+  text-decoration: none;
+}
+
+/*modal de alerta*/
+.btn-tema-alerta{
+  text-align: center;
+  background-color: var(--alerta-amarelo);
+  color: #fff;
+  width: 174px;
+  height: 42px;
+  border-radius: 8px;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+  font-family: "Montserrat", regular;
+}
+
+.btn-tema-alerta:hover{
+  background-color: var(--alerta-amarelo-hover);
+}
+
+.btn-modal-cancelar{
+  text-align: center;
+  border: 1px solid var(--alerta-amarelo);
+  background-color: #fff;
+  color: var(--alerta-amarelo);
+  width: 174px;
+  height: 42px;
+  border-radius: 8px;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: "Montserrat", regular;
+}
+
+/*msg*/
+
+.mensagem-cupom {
+  font-family: "Montserrat";
+  font-size: 12px;
+  color: var(--alerta-vermelho);
+  padding: 10px 12px;
+}
+
+.mensagem-erro-cartoes{
+  display: block;
+  font-family: "Montserrat";
+  font-size: 12px;
+  color: var(--alerta-vermelho);
+  padding: 0px 20px;
+}
+

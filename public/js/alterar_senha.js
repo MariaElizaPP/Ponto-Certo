@@ -28,6 +28,8 @@ document.querySelector('.cadastrar').addEventListener('click', function(e){
     }
 
     if(!valido) return 
+
+    document.getElementById('modal-abrir').showModal();
     
 });
 

@@ -35,7 +35,8 @@ document.querySelector('.cadastrar').addEventListener('click', function(e){
 
     if (!valido) return;
 
-    console.log('Formulário válido!');
+    document.getElementById('modal-abrir').showModal();
+
 });
 
 function mostrarErro(id, mensagem){

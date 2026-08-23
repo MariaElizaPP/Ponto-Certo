@@ -18,22 +18,19 @@
 
       <ul class="nav-list">
         <li><a href="/src/views/index.html"> Página Inicial </a></li>
-        <li><a href="#"> Meus Pedidos</a></li>
+        <li><a href="/src/views/historico.html"> Meus Pedidos</a></li>
       </ul>
 
       <ul class= "nav_icones">
-        <li><a href="carrinho.html"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
-        <li><a href="#"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
+        <li><a href="../carrinho.html"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
+        <li><a href="../configuracoes.html"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
        
       </ul>
       
     </nav>
   </header>
 
-  <div class="voltar-icone">
-    <a href="#" class="btn-voltar"><img class="img-voltar" src="/public/images/voltar.svg" alt="voltar"></a>
-  </div>
-  
+
   <div class="main">
     <h3 class="titulo">Alterar endereço</h3>
     <div class="info-cartao">
@@ -104,12 +101,21 @@
     
     
     <div class="botoes">
-        <button class="voltar" type="reset">Voltar</button>
-        <button class="cadastrar" type="submit">Cadastrar</button>
+        <button class="voltar botao-voltar" type="button">Voltar</button>
+        <button class="cadastrar" type="submit" >Cadastrar</button>
+        <dialog id="modal-abrir" class="modal-abrir">
+            <img class="icone-sucesso" src="../../../public/images/sucesso-modal.svg" alt="sucesso-modal">
+            <h3>Sucesso</h3>
+            <span>Compra realizada com sucesso!</span>
+            <button class="btn-modal-fechar btn-tema-sucesso botao-voltar" data-modal="modal-abrir">Voltar</button>
+            
+        </dialog>
     </div>
   </div>
 
   <script src="/public/js/cadastrar_endereco.js"></script>
   <script src="/public/js/cep.js"></script>
+  <script src="../../../public/js/botao_voltar.js"></script>
+  <script src="/public/js/modal.js"></script>
 </body>
 </html>

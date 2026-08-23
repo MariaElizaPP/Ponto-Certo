@@ -17,35 +17,51 @@ document.querySelector('.cadastrar').addEventListener('click', function(e){
     let valido = true;
 
     if (!tipoResidencia){
-        mostrarErro('tipo-residencia', 'O tipo de residência é obrigatório')
+        mostrarErro('tipo-residencia', 'O tipo de residência é obrigatório');
+        valido = false;
     }
     if (!cep){
-        mostrarErro('cep', 'O cep é obrigatório')
+        mostrarErro('cep', 'O cep é obrigatório');
+        valido = false;
     }
     if (!tipoLogradouro){
-        mostrarErro('tipo-logradouro', 'O tipo de logradouro é obrigatório')
+        mostrarErro('tipo-logradouro', 'O tipo de logradouro é obrigatório');
+        valido = false;
     }
     if (!cidade){
-        mostrarErro('cidade', 'A cidade é obrigatória')
+        mostrarErro('cidade', 'A cidade é obrigatória');
+        valido = false;
     }
     if (!pais){
-        mostrarErro('pais', 'O país é obrigatório')
+        mostrarErro('pais', 'O país é obrigatório');
+        valido = false;
     }
     if (!estado){
-        mostrarErro('estado', 'O estado é obrigatório')
+        mostrarErro('estado', 'O estado é obrigatório');
+        valido = false;
     }
     if (!bairro){
-        mostrarErro('bairro', 'O bairro é obrigatório')
+        mostrarErro('bairro', 'O bairro é obrigatório');
+        valido = false;
     }
     if (!logradouro){
-        mostrarErro('logradouro', 'O logradouro é obrigatório')
+        mostrarErro('logradouro', 'O logradouro é obrigatório');
+        valido = false;
     }
     if (!nomeEndereco){
-        mostrarErro('nome-endereco', 'O nome do endereco é obrigatório')
+        mostrarErro('nome-endereco', 'O nome do endereco é obrigatório');
+        valido = false;
     }
     if (!numero){
-        mostrarErro('numero', 'O número é obrigatório')
+        mostrarErro('numero', 'O número é obrigatório');
+        valido = false;
     }
+
+    if(!valido){
+        return;
+    }
+
+    document.getElementById('modal-abrir').showModal();
     
 });
 
