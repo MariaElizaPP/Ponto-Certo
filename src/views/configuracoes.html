@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ponto Certo</title>
-  <link rel="stylesheet" href= "../../../public/css/navbar/navbar.css">
-  <link rel="stylesheet" href= "../../../public/css/configuracoes.css">
+  <link rel="stylesheet" href= "/public/css/navbar/navbar.css">
+  <link rel="stylesheet" href= "/public/css/configuracoes.css">
     </head>
 
  <body>
@@ -19,25 +19,28 @@
 
         <ul class="nav-list">
             <li><a href="/src/views/index.html"> Página Inicial </a></li>
-            <li><a href="#"> Meus Pedidos</a></li>
+            <li><a href="historico.html"> Meus Pedidos</a></li>
         </ul>
 
         <ul class= "nav_icones">
             <li><a href="carrinho.html"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
-            <li><a href="#"><img src="/public/images/favoritos.svg" alt="favoritos"></a></li>
-            <li><a href="#"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
+            <li><a href="configuracoes.html"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
         
         </ul>
         
         </nav>
     </header>
 
+    <div class="cabecalho-pagina">
+        <a class="botao-voltar" id="botao-voltar" ><img class="img-voltar" src="/public/images/voltar.svg" alt="voltar"></a>
+    </div>
+
     <main class="configuracao">
         <div class="pagina-conteudo">
 
             <div class="cabecalho-configuracoes">
-                <h1 class="titulo-pagina">CONFIGURAÇÕES </h1>
-                <a href="#" class="botao-alterar-senha">Alterar Senha</a>
+                <h1 class="titulo-pagina">CONFIGURAÇÕES</h1>
+                <a href="alterar_senha.html" class="botao-alterar-senha">Alterar Senha</a>
             </div>
 
             <div class="conteudo-configuracoes">
@@ -105,30 +108,41 @@
 
                    <div class="endereco-card">
                         <span class="titulo-configuracoes">Endereço de Cobrança</span>
+                        <a href="pagamento/cadastro_endereco.html">Adicionar endereço de cobrança</a>
 
                         <div class="conteudo-endereco">
                             <div class="linha-topo-endereco">
                                 <p class="linha-cep">CEP</p>
-                                <a href="#" class="link-alterar">Alterar endereço</a>
+                                <a href="pagamento/alterar_endereco.html" class="link-alterar">Alterar endereço</a>
                             </div>
                             <div class="informacao-endereco">
                             <p class="linha-nome">Rua João Augustinho 768, Ap. 35; Bl. A Jardim Lima, Bela Vista, SP, 08888-888, Brasil</p>
                             </div>
                             <div class="acoes-endereco">
-                             <button type="button" class="botao-excluir">
-                            <img src="../../../public/images/lixeira.svg" alt="Excluir" />
-                        </button>
+                                <button type="button" class="botao-excluir" data-modal="modal-abrir-1">
+                                    <img src="../../../public/images/lixeira.svg" alt="Excluir" />
+                                </button>
+                                <dialog id="modal-abrir-1" class="modal-abrir">
+                                    <img class="icone-alerta" src="../../../public/images/modal-alerta.svg" alt="alerta-modal">
+                                    <h3>Remover endereço?</h3>
+                                    <span>Você realmente deseja remover o endereço?</span>
+                                    <div class="botoes-modais">
+                                        <button class="btn-modal-cancelar" data-modal="modal-abrir-1">Cancelar</button>
+                                        <button class="btn-modal-fechar btn-tema-alerta" data-modal="modal-abrir-1">Remover</button>
+                                    </div>
+                                </dialog>
                             </div>
                         </div>
                     </div>
 
                     <div class="endereco-card">
                         <span class="titulo-configuracoes">Endereço de Entrega</span>
+                        <a href="pagamento/cadastro_endereco.html">Adicionar endereço de entrega</a>
 
                         <div class="conteudo-endereco">
                             <div class="linha-topo-endereco">
                                 <p class="linha-cep">CEP</p>
-                                <a href="#" class="link-alterar">Alterar endereço</a>
+                                <a href="pagamento/alterar_endereco.html" class="link-alterar">Alterar endereço</a>
                             </div>
                             <div class="informacao-endereco">
                             <p class="linha-nome">Rua João Augustinho 768, Ap. 35; Bl. A Jardim Lima, Bela Vista, SP, 08888-888, Brasil</p>
@@ -145,6 +159,7 @@
 
                 <div class="coluna-cartoes">
                   <span class="titulo-configuracoes">Cartões</span>
+                  <a href="pagamento/cadastrar_cartao.html">Adicionar cartão</a>
                   
                   <div class="lista-cartoes">
                     <div class="cartoes-card">
@@ -180,5 +195,7 @@
             </div>
         </div>
     </main>
+    <script src="../../../public/js/botao_voltar.js"></script>
+    <script src="/public/js/modal.js"></script>
  </body>
 </html>

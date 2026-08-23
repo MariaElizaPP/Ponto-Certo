@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ponto Certo</title>
+
+    <link rel="stylesheet" href="../../../public/css/admin/navbar_master.css">
+    <link rel="stylesheet" href="../../../public/css/admin/conteudo_master.css">
+    <link rel="stylesheet" href="../../../public/css/admin/detalhes_pedido.css">
+</head>
+
+<body>
+
+    <div class="cabecalho-pagina">
+        <a class="botao-voltar" id="botao-voltar">
+            <img class="img-voltar" src="/public/images/voltar.svg" alt="Voltar">
+        </a>
+    </div>
+
+    <h3 class="titulo">Detalhes do Pedido</h3>
+
+    <div class="layout-master">
+
+        <div class="coluna-tabela">
+
+            <div class="status-entrega">
+                <label for="status-entrega" class="entrega-status">Status de entrega</label>
+                <div class="controle-select-status">
+                    <select class="select-status" id="status-entrega">
+                        <option value="em-transito">Em trânsito</option>
+                        <option value="entregue">Entregue</option>
+                    </select>
+                    <button type="button" class="botao-salvar-status" id="botao-salvar-status">Salvar</button>
+                </div>
+            </div>
+
+            <span class="subtitulo">Itens do pedido</span>
+
+            <div class="tabela-container">
+
+                <table class="tabela-carrinho">
+
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Preço</th>
+                            <th>Quantidade</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr class="produto-linha">
+
+                            <td class="celula-produto">
+                                <img src="../../../public/images/produto_carrinho.svg" alt="Kit 9 Agulhas Crochê">
+
+                                <span class="nome-produto-carrinho">
+                                    Kit 9 Agulhas Crochê
+                                </span>
+                            </td>
+
+                            <td class="preco-unitario">
+                                R$46,00
+                            </td>
+
+                            <td class="quantidade">
+                                1
+                            </td>
+
+                            <td class="total-produto">
+                                R$46,00
+                            </td>
+
+                        </tr>
+
+                        <tr class="produto-linha">
+
+                            <td class="celula-produto">
+                                <img src="../../../public/images/produto_carrinho.svg" alt="Kit 9 Agulhas Crochê">
+
+                                <span class="nome-produto-carrinho">
+                                    Kit 9 Agulhas Crochê
+                                </span>
+                            </td>
+
+                            <td class="preco-unitario">
+                                R$46,00
+                            </td>
+
+                            <td class="quantidade">
+                                1
+                            </td>
+
+                            <td class="total-produto">
+                                R$46,00
+                            </td>
+
+                        </tr>
+
+                        <tr class="produto-linha">
+
+                            <td class="celula-produto">
+                                <img src="../../../public/images/produto_carrinho.svg" alt="Kit 9 Agulhas Crochê">
+
+                                <span class="nome-produto-carrinho">
+                                    Kit 9 Agulhas Crochê
+                                </span>
+                            </td>
+
+                            <td class="preco-unitario">
+                                R$46,00
+                            </td>
+
+                            <td class="quantidade">
+                                1
+                            </td>
+
+                            <td class="total-produto">
+                                R$46,00
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <span class="subtitulo">Endereço de entrega</span>
+
+            <div class="conteudo-endereco">
+
+                <div class="informacao-endereco">
+
+                    <p class="linha-nome">
+                        Rua João Augustinho 768, Ap. 35;
+                        Bl. A Jardim Lima, Bela Vista, SP,
+                        08888-888, Brasil
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="coluna-pagamento">
+
+            <div class="resumo-card">
+
+                <div class="cabecalho-resumo">
+                    <span class="cabecalho-titulo">
+                        Resumo do Pagamento
+                    </span>
+                </div>
+
+                <div class="linha-resumo">
+                    <span>Subtotal</span>
+                    <span class="subtotal-pagamento">
+                        R$25,00
+                    </span>
+                </div>
+
+                <div class="linha-resumo">
+                    <span>Frete</span>
+                    <span class="frete-pagamento">
+                        R$10,00
+                    </span>
+                </div>
+
+                <div class="linha-resumo linha-cupom">
+                    <span>Cupons</span>
+                </div>
+
+                <div class="secao-cupom">
+
+                    <div class="lista-cupons-aplicados">
+
+                        <span class="cupom-aplicado" id="cupom-nome">
+                            TROCA10
+                        </span>
+
+                        <span class="cupom-valor" id="cupom-valor">
+                            R$20,00
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="linha-resumo linha-total">
+
+                    <span>Total</span>
+
+                    <span class="valor-total">
+                        R$35,00
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="lista-cartoes">
+
+                <div class="cartoes-card">
+
+                    <div class="informacao-cartao">
+
+                        <div class="topo-cartao">
+
+                            <p class="linha-cartao">
+                                [Bandeira do cartão]
+                            </p>
+
+                        </div>
+
+                        <p class="linha-nome">
+                            [Nome impresso no cartão]
+                        </p>
+
+                        <p class="linha-nome">
+                            5134 **** **** ****
+                        </p>
+
+                        <div class="valor-pago-cartao">
+
+                            <span class="valor-titulo">
+                                Valor:
+                            </span>
+
+                            <span class="valor-total">
+                                R$15,00
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <script src="/public/js/botao_voltar.js"></script>
+
+</body>
+
+</html>

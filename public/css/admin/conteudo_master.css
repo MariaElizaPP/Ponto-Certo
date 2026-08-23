@@ -1,0 +1,332 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital@0;1&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root{
+    --primary-color: #6D5960;
+    --verde-100: #A3DC9A;
+    --rosa-100: #FFBADD;
+    --rosa-60: #FFD6EB;
+    --amarelo-100: #FFF489;
+    --neutro-100: #212121;
+    --neutro-80: #404040;
+    --neutro-60: #7E7E7E;
+    --neutro-subcategoria: #414141;
+    --alerta-vermelho: #D52525;
+    --alerta-verde: #6C9F38;
+    --alerta-verde-hover: #5A862C;
+    --alerta-amarelo: #E4CB31;
+    --alerta-amarelo-hover: #B8A42A;
+    
+}
+
+.layout-master{
+    display: flex;
+    min-height: 100vh;
+}
+
+.barra-acoes {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.conteudo-master{
+    flex: 1;
+    padding: 32px 40px;
+}
+
+.cabecalho-conteudo{
+    margin-bottom: 32px;
+}
+
+.titulo-conteudo{
+    color: #6D5960;
+    font-size: 30px;
+    font-weight: 700;
+    font-family: "Raleway";
+    margin: 0 0 20px 0;
+}
+
+.busca-master{
+   position: relative;
+    flex: 1;
+    max-width: 450px;
+    
+}
+
+.campo-busca-master{
+    width: 100%;
+    padding: 10px 44px 10px 16px;
+    border: 1px solid #CACACA;
+    border-radius: 100px;
+    font-size: 13px;
+    font-family: "Montserrat";
+    color: #3D3D3D ;
+    box-sizing: border-box;
+
+}
+
+.campo-busca-master::placeholder{
+    color: #CACACA ;
+}
+
+.botao-busca-master{
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background-color:#6D5960 ;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.botao-busca-master img{
+    width: 15px;
+}
+
+.botao-acao-master{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    padding: 10px 28px;
+    background-color: #FFC8E4;
+    border: none;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 600px;
+    font-family: "Montserrat";
+    text-decoration: none;
+    white-space: nowrap;
+    color: #6D5960;
+}
+
+.botao-aprovar{
+
+     display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    padding: 10px 28px;
+    background-color: #6C9F38;
+    border: none;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 600px;
+    font-family: "Montserrat";
+    text-decoration: none;
+    white-space: nowrap;
+    color: #fff;
+}
+
+.botao-reprovar{
+
+     display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    padding: 10px 28px;
+    background-color: #D52525;
+    border: none;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 600px;
+    font-family: "Montserrat";
+    text-decoration: none;
+    white-space: nowrap;
+    color: #fff;
+}
+
+.tabela-master{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabela-master thead th{
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #5C5C5C;
+    font-family: "Montserrat";
+    border-bottom: 2px solid #6D5960;
+}
+
+.tabela-master  tbody td{
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #000000;
+    font-family: "Montserrat";
+    
+}
+
+.acoes-tabela{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    
+}
+
+.botao-excluir{
+    background: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.botao-excluir img{
+    width: 20px;
+    height: 20px;
+}
+
+.botao-editar{
+    background: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.botao-editar img{
+    width: 20px;
+    height: 20px;
+}
+
+.botao-detalhes{
+    background: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.status-produto {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 18px;
+}
+
+.status-produto input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider-status {
+    position: absolute;
+    inset: 0;
+    background-color: #6D5960;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.slider-status::before {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    left: 2px;
+    top: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.status-produto input:checked + .slider-status::before {
+    transform: translateX(16px);
+}
+
+
+/*modal de alerta*/
+/*isso aq serve para qualquer tema de modal- config padrao dos modais*/
+dialog{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  width: 400px;
+  height: 211px;
+  max-width: 90%;
+  padding: 24px;
+  background-color: #fff;
+  font-family: "Montserrat";
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--neutro-60);
+  border: none;
+  border-radius: 12px;
+  
+  flex-direction: column;
+  text-align: center;
+  gap: 16px;
+  overflow: hidden;
+  
+
+}
+
+dialog[open]{
+  display: flex;
+}
+
+dialog h3{
+  font-family: "Montserrat", regular;
+  font-size: 18px;
+  color: var(--neutro-100);
+}
+
+dialog::backdrop{
+  background-color: rgba(115, 24, 24, 0);
+}
+
+.botoes-modais{
+  align-items: center;
+  gap: 16px;
+  display: flex;
+}
+
+.btn-tema-alerta{
+  text-align: center;
+  background-color: var(--alerta-amarelo);
+  color: #fff;
+  width: 174px;
+  height: 42px;
+  border-radius: 8px;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+  font-family: "Montserrat", regular;
+}
+
+.btn-tema-alerta:hover{
+  background-color: var(--alerta-amarelo-hover);
+}
+
+.btn-modal-cancelar{
+  text-align: center;
+  border: 1px solid var(--alerta-amarelo);
+  background-color: #fff;
+  color: var(--alerta-amarelo);
+  width: 174px;
+  height: 42px;
+  border-radius: 8px;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: "Montserrat", regular;
+}
+
+.btn-modal-cancelar:hover{
+  background-color: rgba(255, 253, 231, 1);
+}
+

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ponto Certo</title>
     <link rel="stylesheet" href= "../../../public/css/navbar/navbar.css">
-    <link rel="stylesheet" href="../../../public/css/alterar_senha.css">
+    <link rel="stylesheet" href="/public/css/alterar_senha.css">
 </head>
 <body>
     <header>
@@ -30,10 +30,6 @@
     </nav>
   </header>
 
-  <div class="voltar-icone">
-    <a href="#" class="btn-voltar"><img class="img-voltar" src="/public/images/voltar.svg" alt="voltar"></a>
-  </div>
-  
   <div class="main">
     <h3 class="titulo">Alterar senha</h3>
     <div class="info-cartao">
@@ -50,9 +46,6 @@
                     <span class="erro-msg" id="erro-confirmar-senha"></span>
                 </div>
 
-                
-
-             
             </div>
         </form>
         
@@ -60,12 +53,19 @@
     
     
     <div class="botoes">
-        <button class="voltar" type="reset">Voltar</button>
+        <button class="voltar botao-voltar" type="button">Voltar</button>
         <button class="cadastrar" type="submit">Cadastrar</button>
+        <dialog id="modal-abrir" class="modal-abrir">
+            <img class="icone-sucesso" src="../../../public/images/sucesso-modal.svg" alt="sucesso-modal">
+            <h3>Sucesso</h3>
+            <span>Compra realizada com sucesso!</span>
+            <button class="btn-modal-fechar btn-tema-sucesso botao-voltar" data-modal="modal-abrir">Voltar</button>
+            
+        </dialog>
     </div>
   </div>
 
-  <script src="../../../public/js/alterar_senha.js"></script>
-  
+  <script src="../../public/js/alterar_senha.js"></script>
+  <script src="../../public/js/botao_voltar.js"></script>
 </body>
 </html>

@@ -7,7 +7,12 @@
     --amarelo-100: #FFF489;
     --neutro-100: #212121;
     --neutro-80: #404040;
+    --neutro-60: #7E7E7E;
     --neutro-subcategoria: #414141;
+    --alerta-vermelho: #D52525;
+    --alerta-verde: #6C9F38;
+    --alerta-verde-hover: #5A862C;
+    --alerta-amarelo: #E4CB31;
     
 }
 
@@ -54,6 +59,7 @@
 .breadcrumbs_coluna:not(:last-child) .breadcrumbs_item:hover{
     text-decoration: underline;
 }
+
 
 /*imagem*/
 
@@ -144,7 +150,7 @@
     color: var(--neutro-80)
 }
 
-.adicionar-carrinho{
+.btn-modal-abrir{
     height: 49px;
     padding: 0 24px;
     border-radius: 104px;
@@ -161,7 +167,7 @@
     
 }
 
-.adicionar-carrinho:hover{
+.btn-modal-abrir:hover{
     background-color: #5d4c52;
 }
 
@@ -218,4 +224,88 @@
     justify-content: center;
     background-color: #fff;
     border: none;
+}
+
+/*modal*/
+
+.icone-sucesso{
+  display: block;
+  margin-top: 28px;
+  width: 16px;
+  height: 11px;
+  display: block;
+  align-items: center;
+  
+}
+
+.modal-abrir{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  width: 400px;
+  min-height: 211px;
+  max-width: 90%;
+  padding: 24px;
+  background-color: #fff;
+  font-family: "Montserrat";
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--neutro-60);
+  border: none;
+  border-radius: 12px;
+  flex-direction: column;
+  text-align: center;
+  gap: 16px;
+  overflow: hidden;
+  
+  
+
+}
+
+.modal-abrir[open] {
+  display: flex;
+}
+
+.modal-abrir h3{
+  font-family: "Montserrat", regular;
+  font-size: 18px;
+  color: var(--neutro-100);
+}
+
+.btn-modal-fechar{
+  text-align: center;
+  text-decoration: none;
+  border: var(--alerta-verde);
+  background-color: var(--alerta-verde);
+  color: #fff;
+  width: 360px;
+  height: 42px;
+  border-radius: 8px;
+  justify-content: center;
+  font-weight: 600px;
+  cursor: pointer;
+}
+
+.btn-modal-fechar:hover{
+  background-color: var(--alerta-verde-hover);
+}
+
+.btn-modal-fechar{
+  display: flex;
+  align-items: center;
+  background-color: var(--alerta-verde);
+  color: #fff;
+  justify-content: center;
+  
+}
+
+.modal-abrir dialog::backdrop{
+  background-color: rgba(115, 24, 24, 0);
+}
+
+.link-btn-comprar{
+    text-decoration: none;
 }

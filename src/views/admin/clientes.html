@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ponto Certo - Produtos</title>
+  <link rel="stylesheet" href="../../../public/css/admin/navbar_master.css">
+  <link rel="stylesheet" href="../../../public/css/admin/conteudo_master.css">
+</head>
+
+<body>
+  <div class="layout-master">
+
+    <aside class="sidebar-master">
+      <div class="topo-navbar">
+        <img src="../../../public/images/logo_ponto.svg" alt="logo" class="logo-sidebar">
+        <img src="../../../public\images\linha_navbar.svg" alt="" class="linha-divisoria">
+      </div>
+      <nav class="menu">
+        <ul>
+          <li><a href="dashboard.html" class="link-sidebar">Dashboard</a></li>
+          <li><a href="produtos.html" class="link-sidebar ativo">Produtos</a></li>
+          <li><a href="clientes.html" class="link-sidebar">Clientes</a></li>
+          <li><a href="pedidos.html" class="link-sidebar">Pedidos</a></li>
+          <li><a href="cupons.html" class="link-sidebar">Cupom</a></li>
+          <li><a href="trocas.html" class="link-sidebar">Trocas</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+  
+    <main class="conteudo-master">
+
+     
+      <div class="cabecalho-conteudo">
+        <h1 class="titulo-conteudo">CLIENTES</h1>
+
+        <div class="barra-acoes">
+          <div class="busca-master">
+            <input type="search" placeholder="Pesquise pelo Produto" class="campo-busca-master">
+            <button type="button" class="botao-busca-master">
+              <img src="/public/images/pesquisar-master.svg" alt="Buscar">
+            </button>
+          </div>
+
+          <a href="cadastro_cliente.html" class="botao-acao-master">Cadastrar</a>
+        </div>
+      </div>
+
+      <table class="tabela-master">
+        <thead>
+          <tr>
+            <th>CPF</th>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Telefone</th>
+            <th>Data de nascimento</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>123.456.789-00</td>
+            <td>Maria Silva</td>
+            <td>maria@email.com </td>
+            <td>(11) 99999-9999 </td>
+            <td>20/04/1984</td>
+            <td class="acoes-tabela">
+              <label class="status-produto">
+                <input type="checkbox" checked>
+                <span class="slider-status"></span>
+              </label>
+              <button type="button" class="botao-editar">
+                <img src="/public/images/editar-roxo.svg" alt="Editar">
+              </button>
+              <button type="button" class="botao-excluir">
+                <img src="/public/images/lixo-roxo.svg" alt="Excluir">
+              </button>
+            </td>
+          </tr>
+
+           <tr>
+            <td>123.456.789-00</td>
+            <td>Maria Silva</td>
+            <td>maria@email.com </td>
+            <td>(11) 99999-9999 </td>
+            <td>20/04/1984</td>
+            <td class="acoes-tabela">
+              <label class="status-produto">
+                <input type="checkbox" checked>
+                <span class="slider-status"></span>
+              </label>
+              <button type="button" class="botao-editar">
+                <img src="/public/images/editar-roxo.svg" alt="Editar">
+              </button>
+              <button type="button" class="botao-excluir">
+                <img src="/public/images/lixo-roxo.svg" alt="Excluir">
+              </button>
+            </td>
+          </tr>
+
+           <tr>
+            <td>123.456.789-00</td>
+            <td>Maria Silva</td>
+            <td>maria@email.com </td>
+            <td>(11) 99999-9999 </td>
+            <td>20/04/1984</td>
+            <td class="acoes-tabela">
+              <label class="status-produto">
+                <input type="checkbox" checked>
+                <span class="slider-status"></span>
+              </label>
+              <button type="button" class="botao-editar">
+                <img src="/public/images/editar-roxo.svg" alt="Editar">
+              </button>
+              <button type="button" class="botao-excluir">
+                <img src="/public/images/lixo-roxo.svg" alt="Excluir">
+              </button>
+            </td>
+          </tr> 
+          </tr>
+        </tbody>
+      </table>
+
+    </main>
+
+  </div>
+</body>
+</html>

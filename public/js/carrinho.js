@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnDiminuir = produto.querySelector(".botao-diminuir");
     const quantidadeEl = produto.querySelector(".quantidade-valor");
     const totalProdutoEl = produto.querySelector(".total-produto");
-    const btnRemover = produto.querySelector(".botao-remover");
+    const btnRemover = produto.querySelector(".btn-modal-fechar");
 
     const precoUnitario = parseFloat(produto.dataset.preco);
 

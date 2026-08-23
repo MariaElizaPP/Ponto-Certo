@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ponto Certo - Produtos</title>
+  <link rel="stylesheet" href="../../../public/css/admin/navbar_master.css">
+  <link rel="stylesheet" href="../../../public/css/admin/conteudo_master.css">
+</head>
+
+<body>
+  <div class="layout-master">
+
+    <aside class="sidebar-master">
+      <div class="topo-navbar">
+        <img src="../../../public/images/logo_ponto.svg" alt="logo" class="logo-sidebar">
+        <img src="../../../public/images\linha_navbar.svg" alt="" class="linha-divisoria">
+      </div>
+      <nav class="menu">
+        <ul>
+          <li><a href="dashboard.html" class="link-sidebar">Dashboard</a></li>
+          <li><a href="produtos.html" class="link-sidebar ativo">Produtos</a></li>
+          <li><a href="clientes.html" class="link-sidebar">Clientes</a></li>
+          <li><a href="pedidos.html" class="link-sidebar">Pedidos</a></li>
+          <li><a href="cupons.html" class="link-sidebar">Cupom</a></li>
+          <li><a href="trocas.html" class="link-sidebar">Trocas</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+
+    <main class="conteudo-master">
+
+
+      <div class="cabecalho-conteudo">
+        <h1 class="titulo-conteudo">TROCAS</h1>
+
+        <div class="barra-acoes">
+          <div class="busca-master">
+            <input type="search" placeholder="Pesquise pelo Produto" class="campo-busca-master">
+            <button type="button" class="botao-busca-master">
+              <img src="/public/images/pesquisar-master.svg" alt="Buscar">
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <table class="tabela-master">
+        <thead>
+          <tr>
+            <th>Nome do Cliente</th>
+            <th>ID do Pedido</th>
+            <th>Produto</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Maria da Silva</td>
+            <td> 99876543</td>
+            <td>Barbante Natural</td>
+            <td>Troca Aceita</td>
+
+          </tr>
+
+
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <td>Maria da Silva</td>
+            <td> 99876543</td>
+            <td>Barbante Natural</td>
+            <td>Troca Aceita</td>
+
+          </tr>
+
+
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <td>Maria da Silva</td>
+            <td> 99876543</td>
+            <td>Barbante Natural</td>
+            <td>Troca Negada</td>
+
+          </tr>
+
+
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <td>Maria da Silva</td>
+            <td> 99876543</td>
+            <td>Barbante Natural</td>
+            <td>Troca solicitada</td>
+            <td class="acoes-tabela">
+              <button type="button" class="botao-aprovar" data-modal="modal-abrir-aprovar-1">Aprovar Troca</button>
+              <dialog id="modal-abrir-aprovar-1" class="modal-abrir">
+                <img class="icone-alerta" src="../../../public/images/modal-alerta.svg" alt="alerta-modal">
+                <h3>Aprovar troca?</h3>
+                <span>Você realmente deseja aprovar a troca solicitada pelo cliente?</span>
+                <div class="botoes-modais">
+                  <button class="btn-modal-cancelar" data-modal="modal-abrir-aprovar-1">Cancelar</button>
+                  <button class="btn-modal-fechar btn-tema-alerta" data-modal="modal-abrir-aprovar-1">Aprovar</button>
+                </div>
+              </dialog>
+              <button type="button" class="botao-reprovar" data-modal="modal-abrir-reprovar-1">Reprovar Troca</button>
+              <dialog id="modal-abrir-reprovar-1" class="modal-abrir">
+                <img class="icone-alerta" src="../../../public/images/modal-alerta.svg" alt="alerta-modal">
+                <h3>Reprovar troca?</h3>
+                <span>Você realmente deseja reprovar a troca solicitada pelo cliente?</span>
+                <div class="botoes-modais">
+                  <button class="btn-modal-cancelar" data-modal="modal-abrir-reprovar-1">Cancelar</button>
+                  <button class="btn-modal-fechar btn-tema-alerta" data-modal="modal-abrir-reprovar-1">Reprovar</button>
+                </div>
+              </dialog>
+            </td>
+          </tr>
+
+
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <td>Maria da Silva</td>
+            <td> 99876543</td>
+            <td>Barbante Natural</td>
+            <td>Troca solicitada</td>
+            <td class="acoes-tabela">
+              <button type="button" class="botao-aprovar" data-modal="modal-abrir-aprovar-2">Aprovar Troca</button>
+              <dialog id="modal-abrir-aprovar-2" class="modal-abrir">
+                <img class="icone-alerta" src="../../../public/images/modal-alerta.svg" alt="alerta-modal">
+                <h3>Aprovar troca?</h3>
+                <span>Você realmente deseja aprovar a troca solicitada pelo cliente?</span>
+                <div class="botoes-modais">
+                  <button class="btn-modal-cancelar" data-modal="modal-abrir-aprovar-2">Cancelar</button>
+                  <button class="btn-modal-fechar btn-tema-alerta" data-modal="modal-abrir-aprovar-2">Aprovar</button>
+                </div>
+              </dialog>
+              <button type="button" class="botao-reprovar" data-modal="modal-abrir-reprovar-2">Reprovar Troca</button>
+              <dialog id="modal-abrir-reprovar-2" class="modal-abrir">
+                <img class="icone-alerta" src="../../../public/images/modal-alerta.svg" alt="alerta-modal">
+                <h3>Reprovar troca?</h3>
+                <span>Você realmente deseja reprovar a troca solicitada pelo cliente?</span>
+                <div class="botoes-modais">
+                  <button class="btn-modal-cancelar" data-modal="modal-abrir-reprovar-2">Cancelar</button>
+                  <button class="btn-modal-fechar btn-tema-alerta" data-modal="modal-abrir-reprovar-2">Reprovar</button>
+                </div>
+              </dialog>
+            </td>
+          </tr>
+
+
+          </tr>
+        </tbody>
+      </table>
+
+    </main>
+
+  </div>
+  <script src="/public/js/modal.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital@0;1&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root{
+    --primary-color: #6D5960;
+    --verde-100: #A3DC9A;
+    --rosa-100: #FFBADD;
+    --rosa-60: #FFD6EB;
+    --amarelo-100: #FFF489;
+    --neutro-100: #212121;
+    --neutro-80: #404040;
+    --neutro-60: #7E7E7E;
+    --neutro-subcategoria: #414141;
+    --alerta-vermelho: #D52525;
+    --alerta-verde: #6C9F38;
+    --alerta-verde-hover: #5A862C;
+    --alerta-amarelo: #E4CB31;
+    --alerta-amarelo-hover: #B8A42A;
+    
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat";
+}
+
+.main{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    min-height: 100vh;
+}
+
+
+.content-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 0 60px;
+    gap: 23px;
+}
+
+.campos{
+    width: 100%;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.campo{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    
+}
+
+.input{
+    background-color: #F8F8F8;
+    border: 1px solid #DFDFDF;
+    max-width: 560px;
+    width: 100%;
+    height: 48px;
+    padding: 10px;
+    border-radius: 54px;
+}
+
+.input::placeholder{
+    color: #cacaca;
+}
+
+.titulo{
+    padding: 0 60px;
+    font-family: "Raleway", sans-serif;
+    font-weight: 800;
+    color: var(--primary-color);
+    font-size: 36px;
+}
+
+.area-logo{
+    background-color: var(--primary-color);
+    
+}
+
+.logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-box{
+    width: 100%;
+    max-width: 112px;
+    height: auto;
+    
+}
+
+.btn-entrar{
+    max-width: 560px;
+    width: 100%;
+    height: 42px;
+    background-color: #fff;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+}
+
+.btn-entrar:hover{
+    background-color: var(--rosa-60);
+}
+
+.erro-acesso{
+    font-family: "Montserrat";
+    color: var(--alerta-vermelho);
+    font-size: 12px;
+}

@@ -1,8 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital@0;1&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+
 .pagina-conteudo {
   max-width: 1400px; 
   margin: 0 auto;
   padding: 0 40px;
 }
+
+.botao-voltar{
+    display: block;
+    margin-top: 20px;
+    margin-left: 100px;
+    width: 24px;
+    height: 24px;
+}
+
 .cabecalho-configuracoes{
   display: flex;
   justify-content: space-between;
@@ -275,4 +288,85 @@
   font-size: 14px;
   font-weight: 500;
   text-decoration: none;
+  font-family: "Montserrat";
+}
+
+/*isso aq serve para qualquer tema de modal- config padrao dos modais*/
+.modal-abrir{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  width: 400px;
+  height: 211px;
+  max-width: 90%;
+  padding: 24px;
+  background-color: #fff;
+  font-family: "Montserrat";
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--neutro-60);
+  border: none;
+  border-radius: 12px;
+  
+  flex-direction: column;
+  text-align: center;
+  gap: 16px;
+  overflow: hidden;
+  
+
+}
+
+/*pra o modal n ficar abrindo sozinho por conta do display flex e do showModal() no js*/
+.modal-abrir[open]{
+  display: flex;
+}
+
+/*modal de alerta*/
+
+.botoes-modais{
+  align-items: center;
+  gap: 16px;
+  display: flex;
+}
+
+.btn-tema-alerta{
+  text-align: center;
+  background-color: var(--alerta-amarelo);
+  color: #fff;
+  width: 174px;
+  height: 42px;
+  border-radius: 8px;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+  font-family: "Montserrat", regular;
+}
+
+.btn-tema-alerta:hover{
+  background-color: var(--alerta-amarelo-hover);
+}
+
+.btn-modal-cancelar{
+  text-align: center;
+  border: 1px solid var(--alerta-amarelo);
+  background-color: #fff;
+  color: var(--alerta-amarelo);
+  width: 174px;
+  height: 42px;
+  border-radius: 8px;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: "Montserrat", regular;
+  
+}
+
+a{
+  font-size: 12px;
+  font-family: "Montserrat";
+  color: var(--neutro-60);
 }

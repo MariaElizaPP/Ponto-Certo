@@ -25,9 +25,8 @@
         </ul>
 
         <ul class= "nav_icones">
-            <li><a href="carrinho.html"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
-            <li><a href="#"><img src="/public/images/favoritos.svg" alt="favoritos"></a></li>
-            <li><a href="#"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
+            <li><a href="../carrinho.html"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
+            <li><a href="../configuracoes.html"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
         
         </ul>
         
@@ -37,8 +36,7 @@
   <main class="pagamento">
 
     <div class="cabecalho-pagina">
-        <a href="#" class="botao-voltar"><img class="img-voltar" src="/public/images/voltar.svg" alt="voltar"></a>
-        <h1 class="titulo-pagina">Pagamentos</h1>
+        <a class="botao-voltar" id="botao-voltar" ><img class="img-voltar" src="/public/images/voltar.svg" alt="voltar"></a>
     </div>
 
     <div class="conteudo-checkout">
@@ -49,12 +47,12 @@
 
           <div class="cabecalho-pagamento">
            <span class="cabecalho-titulo">Escolha endereço de entrega</span>
-            <a href="#" class="link-adicionar-endereco">Adicionar outro endereço</a>
+            <a href="cadastro_endereco.html" class="link-adicionar-endereco">Adicionar outro endereço</a>
           </div>
 
           <div class="linha-enderecos">
             <label class="item-endereco">
-                <input type="radio" name="endereco-selecionado" class="radio-pagamento">
+                <input type="radio" name="endereco-selecionado" class="checkbox-endereco">
                 
                 <div class="informacao-endereco">
                     <p class="linha-nome">CEP</p>
@@ -62,14 +60,13 @@
                 </div>
 
                 <div class="acoes-endereco">
-                    <a href="#" class="link-alterar">Alterar endereço</a>
-                    <button type="button" class="botao-excluir">
-                        <img src="../../../public/images/lixeira.svg" alt="" />
-                    </button>
+                    <a href="alterar_endereco.html" class="link-alterar">Alterar endereço</a>
+                    
+                    
                 </div>
             </label>
             <label class="item-endereco">
-                <input type="radio" name="endereco-selecionado" class="radio-pagamento">
+                <input type="radio" name="endereco-selecionado" class="checkbox-endereco">
                 
                 <div class="informacao-endereco">
                     <p class="linha-nome">CEP</p>
@@ -77,10 +74,8 @@
                 </div>
 
                 <div class="acoes-endereco">
-                    <a href="#" class="link-alterar">Alterar endereço</a>
-                    <button type="button" class="botao-excluir">
-                        <img src="../../../public/images/lixeira.svg" alt="" />
-                    </button>
+                    <a href="alterar_endereco.html" class="link-alterar">Alterar endereço</a>
+                   
                 </div>
             </label>
           </div>
@@ -95,49 +90,49 @@
                
                 <div class="subcabecalho-cartao">
                 <span class="titulo-pequeno">Cartão de crédito</span>
-                <a href="#" class="link-adicionar-pagamento">Adicionar outro cartão</a>
+                <a href="cadastrar_cartao.html" class="link-adicionar-pagamento">Adicionar outro cartão</a>
                 </div>
 
                 
             <div class="linha-multiplos-cartoes">
                 <label class="opcao-checkbox">
-                    <input type="checkbox" name="multiplos-cartoes" class="checkbox-pagamento" />
+                    <input type="checkbox" name="multiplos-cartoes" id="multiplos-cartoes" class="checkbox-pagamento" />
                     <span>Utilizar mais de um cartão?</span>
                 </label>
-                <button type="button" class="botao-excluir">
-                    <img src="../../../public/images/lixeira.svg" alt="Excluir" />
-                </button>
             </div>
 
-                
             <div class="container-cartao">
                 <label class="item-cartao">
-                    <input type="radio" name="cartao-selecionado" class="radio-pagamento" />
+                    <input type="checkbox" name="cartao-selecionado" class="checkbox-cartao" />
                     
                     <div class="informacao-cartao">
                     <p class="linha-nome"><strong>[Bandeira do cartão]</strong> | [Nome impresso no cartão]</p>
                     <p class="linha-nome">5195 **** **** ****</p>  
                     </div>
 
-                    <button type="button" class="botao-excluir">
-                        <img src="../../../public/images/lixeira.svg" alt="Excluir" />
-                    </button>
                 </label>
+
+                <div class="input-cartao">
+                    <h4 class="input-titulo escondido">Valor a pagar no cartão</h4>
+                    <input type="number" class="valor-cartao escondido" placeholder="Ex. 29.99" min="10" step="0.01">
                 </div>
+            </div>
 
                  <div class="container-cartao">
-                <label class="item-cartao">
-                    <input type="radio" name="cartao-selecionado" class="radio-pagamento" />
-                    
-                    <div class="informacao-cartao">
-                    <p class="linha-nome"><strong>[Bandeira do cartão]</strong> | [Nome impresso no cartão]</p>
-                    <p class="linha-nome">5195 **** **** ****</p>  
-                    </div>
+                    <label class="item-cartao">
+                        <input type="checkbox" name="cartao-selecionado" class="checkbox-cartao" />
+                        
+                        <div class="informacao-cartao">
+                        <p class="linha-nome"><strong>[Bandeira do cartão]</strong> | [Nome impresso no cartão]</p>
+                        <p class="linha-nome">5195 **** **** ****</p>  
+                        </div>
 
-                    <button type="button" class="botao-excluir">
-                        <img src="../../../public/images/lixeira.svg" alt="Excluir" />
-                    </button>
-                </label>
+                    </label>
+                    <div class="input-cartao">
+                        <h4 class="input-titulo escondido">Valor a pagar no cartão</h4>
+                        <input type="number" class="valor-cartao escondido" placeholder="Ex. 29.99" min="10" step="0.01">
+                    </div>
+                   
                 </div>
                 
             </div>
@@ -154,13 +149,13 @@
         
         <div class="linha-resumo">
             <span>Subtotal</span>
-            <span class="subtotal-pagamento">R$400</span>
+            <span class="subtotal-pagamento">R$25</span>
         </div>
 
 
         <div class="linha-resumo">
             <span>Frete</span>
-            <span class="frete-pagamento">R$100</span>
+            <span class="frete-pagamento">R$10</span>
         </div>
 
         
@@ -168,31 +163,46 @@
             <span>Cupons</span>
             <button type="button" id="btn-abrir-cupom" class="link-adicionar-cupom"> Adicionar cupom
             </button>
+            
         </div>
 
-
-        <div id="container-campo-cupom" class="container-cupom escondido">
-            <input type="text" placeholder="Insira o código do cupom" class="campo-cupom" />
-            <div class="botoes-cupom">
-            <button type="button" id="botao-cancelar-cupom" class="botao-cancelar-cupom">
-                Cancelar
-            </button>
-            <button type="button" id="botao-aplicar">Aplicar Cupom</button>
+        <div class="secao-cupom">
+            <div id="container-campo-cupom" class="container-cupom escondido">
+                <input type="text" placeholder="Insira o código do cupom" class="campo-cupom" />
+                <span id="mensagem-cupom" class="mensagem-cupom"></span>
+                <div class="botoes-cupom">
+                    <button type="button" id="botao-cancelar-cupom" class="botao-cancelar-cupom">
+                        Cancelar
+                    </button>
+                    <button type="button" id="botao-aplicar" class="botao-padrao">Aplicar Cupom</button>
+                </div>
+                
             </div>
+            <div id="lista-cupons-aplicados" class="lista-cupons-aplicados"></div>
         </div>
 
         <div class="linha-resumo linha-total">
             <span>Total</span>
-            <span class="valor-total">R$500</span>
+            <span class="valor-total">R$35</span>
         </div>
 
-        <button type="button" class="botao-finalizar">Finalizar Compra</button>
-      </div>
+        <span id="mensagem-erro-cartoes" class="mensagem-erro-cartoes"></span>
+        <button type="button" class="btn-modal-abrir" data-modal="modal-abrir">Finalizar Compra</button>
+        <dialog id="modal-abrir" class="modal-abrir">
+            <img class="icone-sucesso" src="../../../public/images/sucesso-modal.svg" alt="sucesso-modal">
+            <h3>Sucesso</h3>
+            <span>Compra realizada com sucesso!</span>
+            <a href="../index.html"><button class="btn-modal-fechar btn-tema-sucesso" data-modal="modal-abrir">Voltar</button></a>
+        </dialog>
+        
+    </div>
 
     </div>
 
   </main>
     <script src="../../../public/js/cupom.js"></script>
+    <script src="../../../public/js/botao_voltar.js"></script>
+    <script src="../../../public/js/selecionar_cartao.js"></script>
+    <script src="../../../public/js/modal.js"></script>
  </body>
 </html>
-

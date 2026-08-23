@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ponto Certo</title>
+    <link rel="stylesheet" href= "/public/css/admin/login.css">
+</head>
+<body>
+    <div class="main">
+        
+        <div class="content-box">
+
+            <div class="logo">
+                <img src="/public/images/logo-login.svg" class="img-box">
+            </div>
+            <h3 class="titulo">LOGIN</h3>
+
+            <form class="campos" id="form-login">
+
+                <div class="campo">
+                    <label class="titulo-campos" for="email">E-mail</label>
+                    <input class="input" type="email" placeholder="Insira o seu e-mail" id="email">
+                </div>
+            
+                <div class="campo">
+                    <label class="titulo-campos" for="senha">Senha</label>
+                    <input class="input" type="password" placeholder="Insira a sua senha" id="senha">
+                </div>
+
+                <button  type="submit" class="btn-entrar" id="btn-entrar">Entrar</button>
+                <span class="erro-acesso" id="erro-acesso"></span>
+                
+            </form>
+            
+        </div>
+        <div class="area-logo"></div>
+        
+    </div>
+    <script src="/public/js/login_admin.js"></script>
+</body>
+</html>
