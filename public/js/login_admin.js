@@ -8,7 +8,7 @@ formularioLogin.addEventListener("submit", function(evento){
     const senha = document.getElementById('senha').value;
 
     if(email === "admin@gmail.com" && senha === "1234"){
-        window.location.href = "/src/views/admin/#";
+        window.location.href = "/src/views/admin/dashboard.html";
         
     }else{
         mostrarErro('erro-acesso', "Credenciais inválidas");

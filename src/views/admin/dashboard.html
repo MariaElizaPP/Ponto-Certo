@@ -82,10 +82,28 @@
                             <option class="ano">2024</option>
                         </select>
 
-                        <button type="submit" class="btn-filtar">Filtrar</button>
-                    </div>    
+                        <button type="button" class="btn-filtar">Filtrar</button>
+                         <button type="button" class="btn-filtar">Exportar para CSV</button>
+                    </div>   
+                    <div class="categorias">
+                        <input type="checkbox" id="todas-opcoes">
+                        <label for="todas-opcoes">Selecionar Tudo</label>
+                        <br>
+                        <input type="checkbox" id="crocheTrico">
+                        <label for="crocheTrico">Crochê e Tricô</label>
+                        <br>
+                        <input type="checkbox" id="lasBarbantes">
+                        <label for="lasBarbantes">Lãs e Barbantes</label>
+                        <br>
+                        <input type="checkbox" id="kits">
+                        <label for="kits">Kits</label>
+                        <br>
+                        
+                    </div>
+                   
 
                 </div>
+                
                 <div class="chart">
                     <canvas id="myChart"></canvas>
                 </div>
@@ -97,6 +115,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/public/js/dashboard.js"></script>
+    <script src="/public/js/checkbox.js"></script>
 </body>
 
 </html>

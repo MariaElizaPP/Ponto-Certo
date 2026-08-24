@@ -2,6 +2,7 @@
 
 body{
     margin: 0;
+    font-family: "Montserrat";
 }
 
 .area-filtros{
@@ -49,6 +50,10 @@ select{
     font-weight: 600;
 }
 
+.chart{
+    margin-top: 0;
+}
+
 .btn-filtar{
     display: inline-flex;
     align-items: center;
@@ -67,3 +72,27 @@ select{
     cursor: pointer;
 }
 
+/*select de categroias*/
+
+.categorias{
+    height: auto;
+    margin-top: 10px;
+    box-sizing: border-box;
+    padding: auto;
+    border: 1px solid #FFF489;
+    background-color: rgba(255, 253, 231, 1);
+}
+
+input[type="checkbox"]:not(:first-child){
+    margin-left: 20px;
+}
+
+input[type="checkbox"]{
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+label{
+    font-weight: 500;
+    color: var(--neutro-80);
+}

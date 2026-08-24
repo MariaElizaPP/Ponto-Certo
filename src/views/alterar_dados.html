@@ -1,45 +1,41 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ponto Certo - Cadastrar Cliente</title>
-  <link rel="stylesheet" href="../../../public/css/admin/navbar_master.css">
-  <link rel="stylesheet" href="../../../public/css/admin/conteudo_master.css">
-  <link rel="stylesheet" href="../../../public/css/admin/cadastro_master.css">
-  </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ponto Certo</title>
+    <link rel="stylesheet" href= "../../../public/css/navbar/navbar.css">
+    <link rel="stylesheet" href="/public/css/alterar_senha.css">
+</head>
+<body>
+    <header>
+    <nav class= "navbar">
 
- <body>
-  <div class="layout-master">
+      <a class="logo" href="index.html">
+          <img src="/public/images/logo_ponto.svg" alt="Logo Ponto Certo">
+        </a>
 
-    <aside class="sidebar-master">
-      <div class="topo-navbar">
-        <img src="../../../public/images/logo_ponto.svg" alt="logo" class="logo-sidebar">
-        <img src="../../../public/images/linha_navbar.svg" alt="" class="linha-divisoria">
-      </div>
-      <nav class="menu">
-        <ul>
-          <li><a href="dashboard.html" class="link-sidebar">Dashboard</a></li>
-          <li><a href="produtos.html" class="link-sidebar">Produtos</a></li>
-          <li><a href="clientes.html" class="link-sidebar">Clientes</a></li>
-          <li><a href="pedidos.html" class="link-sidebar">Pedidos</a></li>
-          <li><a href="cupons.html" class="link-sidebar">Cupom</a></li>
-          <li><a href="trocas.html" class="link-sidebar">Trocas</a></li>
-        </ul>
-      </nav>
-    </aside>
 
-    <main class="conteudo-master">
+      <ul class="nav-list">
+        <li><a href="/src/views/index.html"> Página Inicial </a></li>
+        <li><a href="historico.html"> Meus Pedidos</a></li>
+      </ul>
 
-      <div class="cabecalho">
-        <h3 class="titulo">CADASTRAR CLIENTES</h3>
-      </div>
+      <ul class= "nav_icones">
+        <li><a href="carrinho.html"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
+        <li><a href="configuracoes.html"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
+       
+      </ul>
+      
+    </nav>
+  </header>
 
-      <form id="formulario-cadastro-cliente">
+  <div class="main">
+    <h3 class="titulo">Alterar Dados</h3>
+        <form id="formulario-cadastro-cliente">
 
         <div class="info-cartao">
-          <span class="titulo-dados">Dados Pessoais</span>
-
+            
           <div class="campos">
             <div class="campo">
               <label for="nome" class="nome-campos">Nome Completo</label>
@@ -110,13 +106,11 @@
         </div>
 
       </form>
-
-    </main>
-
+        
+    </div>
   </div>
 
-  <script src="/public/js/modal.js"></script>
-  <script src="/public/js/botao_voltar.js"></script>
-  <script src="/public/js/cadastro_cliente.js"></script>
+  <script src="../../public/js/alterar_senha.js"></script>
+  <script src="../../public/js/botao_voltar.js"></script>
 </body>
 </html>
