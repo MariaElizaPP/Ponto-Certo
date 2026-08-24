@@ -100,16 +100,15 @@
     border: none;
     border-radius: 5px;
     font-size: 13px;
-    font-weight: 600px;
+    font-weight: 600;
     font-family: "Montserrat";
     text-decoration: none;
-    white-space: nowrap;
     color: #6D5960;
 }
 
 .botao-aprovar{
 
-     display: inline-flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 150px;
@@ -121,13 +120,12 @@
     font-weight: 600px;
     font-family: "Montserrat";
     text-decoration: none;
-    white-space: nowrap;
     color: #fff;
 }
 
 .botao-reprovar{
 
-     display: inline-flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 150px;
@@ -139,7 +137,6 @@
     font-weight: 600px;
     font-family: "Montserrat";
     text-decoration: none;
-    white-space: nowrap;
     color: #fff;
 }
 
@@ -222,7 +219,10 @@
 
 .slider-status {
     position: absolute;
-    inset: 0;
+    top: 0; 
+    right: 0;
+     bottom: 0;
+      left: 0;
     background-color: #6D5960;
     border-radius: 20px;
     transition: 0.3s;
@@ -330,3 +330,108 @@ dialog::backdrop{
   background-color: rgba(255, 253, 231, 1);
 }
 
+
+.btn-filtro{
+    border: none;
+    padding: 8px 24px;
+    border-radius: 15px;
+    background-color: #FFF1F8;
+}
+
+.btn-filtro img{
+    width: 20px;
+    height: 20px;
+}
+
+
+
+.filtro {
+    width: 250px;
+    height: 100vh;
+    background-color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    right: 0;
+    box-shadow: -3px 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 1000;
+}
+
+
+.filtro.ativo {
+    display: block;
+}
+
+.filtro-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 24px;
+    margin-top: 24px;
+}
+
+.titulo-filtro{
+    color: #6D5960;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: "Raleway";
+}
+
+.fechar-filtro{
+    background-color: transparent;
+    border:none;
+}
+
+.filtro-grupo label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.filtro_titulo{
+    font-size: 14px;
+    font-weight: 600;
+    color: #5C5C5C;
+    font-family: "Montserrat";
+    margin-bottom: 15px;
+}
+
+.checkbox-opcoes{
+    font-size: 13px;
+    font-family: "Montserrat";
+    margin-bottom: 14px;
+}
+
+.filtro-acoes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+.btn-aplicar{
+    background-color: #FFD6EB;
+    border: none;
+    border-radius: 4px;
+    width: 200px;
+    height: 30px;
+    align-self: center;
+    color:#6D5960 ;
+    font-family: "Montserrat";
+    margin-top: 40px;
+}
+
+.btn-limpar{
+    background-color: #fff;
+    border: 1px solid #6D5960 ;
+    border-radius: 4px;
+    width: 200px;
+    height: 30px;
+    align-self: center;
+    color:#6D5960 ;
+    font-family: "Montserrat";
+}

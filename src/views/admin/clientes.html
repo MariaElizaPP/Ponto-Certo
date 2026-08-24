@@ -44,6 +44,43 @@
           </div>
 
           <a href="cadastro_cliente.html" class="botao-acao-master">Cadastrar</a>
+          <button class="btn-filtro" id="abrirFiltro" >
+            <img src="../../../public/images/filtro.svg" alt="">
+          </button>
+           <div class="filtro" id="painelFiltro">
+          <div class="filtro-header">
+              <span class="titulo-filtro">Filtro</span>
+
+              <button class="fechar-filtro" id="fecharFiltro">
+                  <img src="../../../public/images/remover-carrinho.svg" alt="">
+              </button>
+          </div>
+
+          <div class="filtro-grupo">
+              <h4 class="filtro_titulo">Gênero</h4>
+              <label class="checkbox-opcoes">
+                  <input type="checkbox" name="genero" value="feminino">
+                  Feminino
+              </label>
+               <label class="checkbox-opcoes">
+                  <input type="checkbox" name="genero" value="Masculino">
+                  Masculino
+              </label>
+               <label class="checkbox-opcoes">
+                  <input type="checkbox" name="genero" value="Prefiro_nao_informar">
+                  Prefiro não informar
+              </label>
+          </div>
+          <div class="filtro-acoes">
+              <button class="btn-aplicar" id="aplicarFiltro">
+                  Aplicar filtro
+              </button>
+
+              <button class="btn-limpar" id="limparFiltro">
+                  Limpar filtro
+              </button>
+          </div>
+      </div>
         </div>
       </div>
 
@@ -125,5 +162,6 @@
     </main>
 
   </div>
+  <script src="../../../public/js/filtros.js"></script>
 </body>
 </html>

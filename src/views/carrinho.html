@@ -53,7 +53,7 @@
             <td class="celula-produto">
               <button class="botao-remover" data-modal="modal-abrir-1"><img src="../../public/images/remover-carrinho.svg" alt="remover botao"></button>
               <dialog id="modal-abrir-1" class="modal-abrir">
-                  <img class="icone-alerta" src="../../public/images/modal-alerta.svg" alt="erro-modal">
+                  <img class="icone-erro" src="../../public/images/modal-alerta.svg" alt="erro-modal">
                   <h3>Remover Produto?</h3>
                   <span>Você realmente deseja remover o item do seu carrinho?</span>
                   <div class="botoes-modais">
@@ -85,13 +85,14 @@
             <td class="celula-produto">
               <button class="botao-remover" data-modal="modal-abrir-2"><img src="../../public/images/remover-carrinho.svg" alt="remover botao"></button>
               <dialog id="modal-abrir-2" class="modal-abrir">
-                <img class="icone-erro" src="../../../public/images/modal-erro.svg" alt="erro-modal">
+                  <img class="icone-erro" src="../../public/images/modal-alerta.svg" alt="erro-modal">
                   <h3>Remover Produto?</h3>
                   <span>Você realmente deseja remover o item do seu carrinho?</span>
                   <div class="botoes-modais">
                     <button class="btn-modal-cancelar" data-modal="modal-abrir-2">Cancelar</button>
-                    <button class="btn-modal-fechar" data-modal="modal-abrir-2">Remover</button>
+                    <button class="btn-modal-fechar btn-tema-alerta" data-modal="modal-abrir-2">Remover</button>
                   </div>
+                  
               </dialog>
               <img src="../../public/images/produto_carrinho.svg" alt="Kit 9 Agulhas Crochê">
               <span class="nome-produto-carrinho">Kit 9 Agulhas Crochê</span>
@@ -115,13 +116,14 @@
             <td class="celula-produto">
               <button class="botao-remover" data-modal="modal-abrir-3"><img src="../../public/images/remover-carrinho.svg" alt="remover botao"></button>
               <dialog id="modal-abrir-3" class="modal-abrir">
-                <img class="icone-erro" src="../../../public/images/modal-erro.svg" alt="erro-modal">
+                  <img class="icone-erro" src="../../public/images/modal-alerta.svg" alt="erro-modal">
                   <h3>Remover Produto?</h3>
                   <span>Você realmente deseja remover o item do seu carrinho?</span>
                   <div class="botoes-modais">
                     <button class="btn-modal-cancelar" data-modal="modal-abrir-3">Cancelar</button>
-                    <button class="btn-modal-fechar" data-modal="modal-abrir-3">Remover</button>
+                    <button class="btn-modal-fechar btn-tema-alerta" data-modal="modal-abrir-3">Remover</button>
                   </div>
+                  
               </dialog>
               <img src="../../public/images/produto_carrinho.svg" alt="Kit 9 Agulhas Crochê">
               <span class="nome-produto-carrinho">Kit 9 Agulhas Crochê</span>
@@ -174,7 +176,7 @@
         <span class="titulo-frete">Consultar Frete</span>
         <div class="campos-frete">
           <input type="text" placeholder="Insira o CEP" class="input-cep" />
-          <button class="botao-consultar-frete">Consultar o Frete</button>
+          <button type="button" class="botao-consultar-frete">Consultar o Frete</button>
         </div>
       </div>
         
