@@ -37,7 +37,7 @@
 
         <div class="barra-acoes">
           <div class="busca-master">
-            <input type="search" placeholder="Pesquise pelo Produto" class="campo-busca-master">
+            <input type="search" placeholder="Pesquise pelo CPF, Nome, telefone ou E-mail" class="campo-busca-master">
             <button type="button" class="botao-busca-master">
               <img src="/public/images/pesquisar-master.svg" alt="Buscar">
             </button>
@@ -70,6 +70,11 @@
                   <input type="checkbox" name="genero" value="Prefiro_nao_informar">
                   Prefiro não informar
               </label>
+          </div>
+
+          <div class="filtro-grupo">
+            <h4 class="filtro_titulo">Data de nascimento</h4>
+            <input type="date" name="data_nascimento" id="data_nascimento" placeholder="dd/mm/aaaa" class="nascimento">
           </div>
           <div class="filtro-acoes">
               <button class="btn-aplicar" id="aplicarFiltro">
