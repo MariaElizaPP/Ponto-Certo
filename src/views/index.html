@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ponto Certo</title>
-  <link rel="stylesheet" href= "../../public/css/navbar/navbar.css">
-  <link rel="stylesheet" href= "../../public/css/tela_inicial.css">
-  
+  <link rel="stylesheet" href="../../public/css/navbar/navbar.css">
+  <link rel="stylesheet" href="../../public/css/tela_inicial.css">
+  <link rel="stylesheet" href="../../public/css/chatbot.css">
+
 </head>
 
 <body>
   <header>
-    <nav class= "navbar">
+    <nav class="navbar">
 
       <a class="logo" href="index.html">
-          <img src="/public/images/logo_ponto.svg" alt="Logo Ponto Certo">
-        </a>
+        <img src="/public/images/logo_ponto.svg" alt="Logo Ponto Certo">
+      </a>
 
 
       <ul class="nav-list">
         <li><a href="/src/views/index.html"> Página Inicial </a></li>
-        <li><a href="#"> Meus Pedidos</a></li>
+        <li><a href="historico.html"> Meus Pedidos</a></li>
       </ul>
 
-      <ul class= "nav_icones">
+      <ul class="nav_icones">
         <li><a href="carrinho.html"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
-        <li><a href="#"><img src="/public/images/favoritos.svg" alt="favoritos"></a></li>
-        <li><a href="#"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
-       
+        <li><a href="configuracoes.html"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
+
       </ul>
-      
+
     </nav>
   </header>
 
@@ -41,68 +42,68 @@
       <div class="card-filtro">
 
         <h3 class="titulo-filtro">Categorias</h3>
-      <div class = "accordion">
-         
-        <div class="item-accordion" >
+        <div class="accordion">
+
+          <div class="item-accordion">
+            <button class="cabecalho-accordion">
+              <span>
+                Crochê e Tricô
+              </span>
+
+              <img class="seta" src="/public/images/seta-filtros.svg" alt="seta filtro">
+
+            </button>
+
+            <ul class="subcategoria-lista">
+              <li><a href="#" nome-subcategoria="acessorios-croche-trico">Acessórios Crochê e Tricô</a></li>
+              <li><a href="#" nome-subcategoria="agulhas-croche">Agulha de Crochê</a></li>
+              <li><a href="#" nome-subcategoria="agulhas-trico">Agulhas de Tricô</a></li>
+              <li><a href="#" nome-subcategoria="acessorios-bolsa">Acessórios para Bolsas</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="item-accordion">
           <button class="cabecalho-accordion">
             <span>
-              Crochê e Tricô 
+              Lãs e Barbantes
             </span>
-            
+
             <img class="seta" src="/public/images/seta-filtros.svg" alt="seta filtro">
 
           </button>
 
           <ul class="subcategoria-lista">
-            <li><a href="#" nome-subcategoria="acessorios-croche-trico">Acessórios Crochê e Tricô</a></li>
-            <li><a href="#" nome-subcategoria="agulhas-croche">Agulha de Crochê</a></li>
-            <li><a href="#" nome-subcategoria="agulhas-trico">Agulhas de Tricô</a></li>
-            <li><a href="#" nome-subcategoria="acessorios-bolsa">Acessórios para Bolsas</a></li>
+            <li><a href="#" nome-subcategoria="fios-las">Fios e Lãs</a></li>
+            <li><a href="#" nome-subcategoria="fios-amigurumi">Fios para Amigurumi</a></li>
+            <li><a href="#" nome-subcategoria="fios-nautico">Fios Nautico</a></li>
+            <li><a href="#" nome-subcategoria="fios-malha">Fios de malha</a></li>
           </ul>
+
+        </div>
+
+        <div class="item-accordion">
+          <button class="cabecalho-accordion">
+            <span>
+              Kits
+            </span>
+
+            <img class="seta" src="/public/images/seta-filtros.svg" alt="seta filtro">
+
+          </button>
+
+          <ul class="subcategoria-lista">
+            <li><a href="#" nome-subcategoria="kit-amigurumi">Kits de Amigurumi</a></li>
+            <li><a href="#" nome-subcategoria="kit-croche">Kits de Crochê</a></li>
+            <li><a href="#" nome-subcategoria="kit-trico">Kits de Tricô</a></li>
+          </ul>
+
         </div>
       </div>
 
-      <div class="item-accordion" >
-        <button class="cabecalho-accordion">
-          <span>
-            Lãs e Barbantes 
-          </span>
-          
-          <img class="seta" src="/public/images/seta-filtros.svg" alt="seta filtro">
 
-        </button>
 
-         <ul class="subcategoria-lista">
-          <li><a href="#" nome-subcategoria="fios-las">Fios e Lãs</a></li>
-          <li><a href="#" nome-subcategoria="fios-amigurumi">Fios para Amigurumi</a></li>
-          <li><a href="#" nome-subcategoria="fios-nautico">Fios Nautico</a></li>
-          <li><a href="#" nome-subcategoria="fios-malha">Fios de malha</a></li>
-        </ul> 
 
-      </div>
-        
-      <div class="item-accordion" >
-        <button class="cabecalho-accordion">
-          <span>
-            Kits
-          </span>
-          
-          <img class="seta" src="/public/images/seta-filtros.svg" alt="seta filtro">
-
-        </button>
-
-         <ul class="subcategoria-lista">
-          <li><a href="#" nome-subcategoria="kit-amigurumi">Kits de Amigurumi</a></li>
-          <li><a href="#" nome-subcategoria="kit-croche">Kits de Crochê</a></li>
-          <li><a href="#" nome-subcategoria="kit-trico">Kits de Tricô</a></li>
-        </ul>
-
-      </div>
-      </div>
-
-     
-      
-      
       <div class="card-filtro">
         <div class="grupo-filtro">
 
@@ -110,9 +111,9 @@
 
           <div class="opcoes">
 
-          <label class="checkbox">
-            <input type="checkbox" name="marca" value="Circulo" checked>
-            <span class="checkbox-texto"> Circulo </span>
+            <label class="checkbox">
+              <input type="checkbox" name="marca" value="Circulo" checked>
+              <span class="checkbox-texto"> Circulo </span>
             </label>
 
             <label class="checkbox">
@@ -130,45 +131,45 @@
               <span class="checkbox-texto"> Pingouin </span>
             </label>
 
+          </div>
         </div>
-       </div>
-     </div>
-    
-
-     <div class=" card-filtro">
-      <div class="grupo-filtro">
-      <h3 class="titulo-filtro"> Preço</h3>
-
-      <div class="opcoes">
-
-         <label class="checkbox">
-          <input type="checkbox" name="preco" value="0-20" checked>
-          <span class="checkbox-texto"> Até R$ 20,00</span>
-        </label>
-
-        <label class="checkbox">
-          <input type="checkbox" name="preco" value="20-50" checked>
-          <span class="checkbox-texto">R$ 20,00 a R$ 50,00</span>
-        </label>
-
-        <label class="checkbox">
-          <input type="checkbox" name="preco" value="50-100" checked>
-          <span class="checkbox-texto">R$ 50,00 a R$ 100,00</span>
-        </label>
-
-        <label class="checkbox">
-          <input type="checkbox" name="preco" value="100+" checked>
-          <span class="checkbox-texto">Acima de R$ 100,00</span>
-        </label>
-        
-      </div>
       </div>
 
-     </div>
-      
-  </div>
 
-  <section class="vitrine">
+      <div class=" card-filtro">
+        <div class="grupo-filtro">
+          <h3 class="titulo-filtro"> Preço</h3>
+
+          <div class="opcoes">
+
+            <label class="checkbox">
+              <input type="checkbox" name="preco" value="0-20" checked>
+              <span class="checkbox-texto"> Até R$ 20,00</span>
+            </label>
+
+            <label class="checkbox">
+              <input type="checkbox" name="preco" value="20-50" checked>
+              <span class="checkbox-texto">R$ 20,00 a R$ 50,00</span>
+            </label>
+
+            <label class="checkbox">
+              <input type="checkbox" name="preco" value="50-100" checked>
+              <span class="checkbox-texto">R$ 50,00 a R$ 100,00</span>
+            </label>
+
+            <label class="checkbox">
+              <input type="checkbox" name="preco" value="100+" checked>
+              <span class="checkbox-texto">Acima de R$ 100,00</span>
+            </label>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <section class="vitrine">
       <h2 class="titulo">VITRINE</h2>
       <div class="grid-produtos">
 
@@ -177,7 +178,7 @@
           <h3 class="nome-produto">Fio Hobby Círculo 160m</h3>
           <div class="rodape-produto">
             <span class="preco-produto">R$5,90</span>
-            <a href="/src/views/detalhes.html"><img src="/public/images/detalhes.svg" alt="detalhes"></a> 
+            <a href="/src/views/detalhes.html"><img src="/public/images/detalhes.svg" alt="detalhes"></a>
           </div>
         </div>
 
@@ -186,7 +187,8 @@
           <h3 class="nome-produto">Fio Hobby Círculo 160m</h3>
           <div class="rodape-produto">
             <span class="preco-produto">R$5,90</span>
-            <a href="/src/views/detalhes.html"><img class="detalhes" src="/public/images/detalhes.svg" alt="detalhes" ></a> 
+            <a href="/src/views/detalhes.html"><img class="detalhes" src="/public/images/detalhes.svg"
+                alt="detalhes"></a>
           </div>
         </div>
 
@@ -195,7 +197,8 @@
           <h3 class="nome-produto">Fio Hobby Círculo 160m</h3>
           <div class="rodape-produto">
             <span class="preco-produto">R$5,90</span>
-            <a href="/src/views/detalhes.html"><img class="detalhes" src="/public/images/detalhes.svg" alt="detalhes"></a> 
+            <a href="/src/views/detalhes.html"><img class="detalhes" src="/public/images/detalhes.svg"
+                alt="detalhes"></a>
           </div>
         </div>
 
@@ -205,7 +208,8 @@
           <h3 class="nome-produto">Fio Hobby Círculo 160m</h3>
           <div class="rodape-produto">
             <span class="preco-produto">R$5,90</span>
-            <a href="/src/views/detalhes.html"><img class="detalhes" src="/public/images/detalhes.svg" alt="detalhes"></a> 
+            <a href="/src/views/detalhes.html"><img class="detalhes" src="/public/images/detalhes.svg"
+                alt="detalhes"></a>
           </div>
         </div>
 
@@ -214,17 +218,48 @@
           <h3 class="nome-produto">Fio Hobby Círculo 160m</h3>
           <div class="rodape-produto">
             <span class="preco-produto">R$5,90</span>
-            <a href="/src/views/detalhes.html"><img class="detalhes" src="/public/images/detalhes.svg" alt="detalhes"></a> 
+            <a href="/src/views/detalhes.html"><img class="detalhes" src="/public/images/detalhes.svg"
+                alt="detalhes"></a>
           </div>
         </div>
 
       </div>
-     </section>
+    </section>
 
-     <button class="botao-chatbot"><img src="/public/images/pontinho-chatbot.svg" alt="pontinho"></button>
+    <button type="button" class="botao-chatbot" id="abrir-chatbot">
+      <img src="/public/images/pontinho-chatbot.svg" alt="Abrir chat">
+    </button>
+
+    <div class="chatbot" id="chatbot">
+      <header class="cabecalho-chatbot">
+        <button type="button" class="botao-fechar-chatbot" id="fechar-chatbot">
+          <img class="icone-fechar" src="/public/images/voltar.svg" alt="Fechar chat">
+        </button>
+
+        <img src="../../public/images/pontinho-chatbot.svg" alt="Pontinho" class="avatar-chatbot">
+      </header>
+
+      <ul class="lista-mensagens" id="lista-mensagens">
+        <li class="mensagem mensagem-bot">
+          <p>Oi! Seja muito bem-vindo(a) à Ponto Certo! Eu sou o Pontinho, seu assistente virtual. Estou aqui para
+            ajudar você a encontrar exatamente o que procura, apresentar nossas novidades e responder suas dúvidas de
+            forma rápida e prática. Seja para conferir produtos, consultar preços, estoque, formas de pagamento ou
+            entrega, pode contar comigo. Em que posso ajudar você hoje?</p>
+        </li>
+
+
+      </ul>
+
+      <div class="rodape-chatbot">
+        <textarea placeholder="Digite uma mensagem..." class="campo-mensagem" id="campo-mensagem"></textarea>
+        <img id="botao-enviar" src="../../public/images/enviar-msg.svg" alt="Enviar">
+      </div>
+    </div>
 
 
   </main>
   <script src="/public/js/accordion.js"></script>
+  <script src="../../public/js/chatbot.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital@0;1&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root{
+    --primary-color: #6D5960;
+    --verde-100: #A3DC9A;
+    --rosa-100: #FFBADD;
+    --rosa-60: #FFD6EB;
+    --amarelo-100: #FFF489;
+    --neutro-100: #212121;
+    --neutro-80: #404040;
+    --neutro-60: #7E7E7E;
+    --neutro-subcategoria: #414141;
+    --alerta-vermelho: #D52525;
+    --alerta-verde: #6C9F38;
+    --alerta-verde-hover: #5A862C;
+    --alerta-amarelo: #E4CB31;
+    --alerta-amarelo-hover: #B8A42A;
+    
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+.main{
+    margin-left: 100px;
+    max-width: 1200px;
+}
+
+.titulo{
+    font-family: "Raleway";
+    font-size: 30px;
+    font-style: bold;
+    width: 320px;
+    height: 35px;
+    color: var(--neutro-80);
+    gap: 12px;
+    margin-top: 20px;
+    
+}
+
+.info-cartao{
+    margin-top: 30px;
+}
+
+.titulo-dbancarios{
+    font-family: "Montserrat";
+    font-size: 18px;
+    font-weight: 600;
+    gap: 20px;
+    max-width: 156px;
+    height: 31px;
+    color: var(--neutro-80);
+    
+}
+
+.campos{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 40px;
+    row-gap: 24px;
+}
+
+.campo{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    grid-column: span 2;
+}
+
+.campo-pequeno{
+    grid-column: span 1;
+}
+
+
+.campos .nome-campos{
+    font-family: "Montserrat", regular;
+    font-size: 16px;
+    
+}
+
+.placeholder{
+    border-radius: 54px;
+    background-color: #F8F8F8;
+    border: 1px solid #DFDFDF;
+    width: 100%;
+    height: 48px;
+    margin: auto;
+    padding: 0 20px;
+    outline: none;
+}
+
+.placeholder.erro{
+    border-color: var(--alerta-vermelho);
+}
+
+.erro-msg{
+    color: var(--alerta-vermelho);
+    font-family: "Montserrat";
+    font-size: 12px;
+    min-height: 16px; 
+    margin-top: -4px;
+}
+
+.placeholder::placeholder{
+    font-family: "Montserrat", regular;
+    font-size: 16px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    color: #5C5C5C;
+}
+
+
+.voltar{
+    background-color: #fff;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    
+    
+}
+
+.voltar:hover{
+    background-color: var(--rosa-60);
+}
+
+.placeholder:hover{
+    border-color: var(--primary-color);
+}
+
+ 
+.botoes{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 200px;
+    margin-bottom: 30px;
+}
+
+.botoes button{
+    font-family: "Montserrat";
+    font-size: 16px;
+    width: 350px;
+    height: 42px;
+    border-radius: 8px;
+    
+}
+
+.cadastrar{
+    background-color: var(--rosa-60);
+    color: var(--primary-color);
+    border: none;
+}
+
+.cadastrar:hover{
+    background-color: var(--rosa-100);
+}
+
+
+/*modal finalizar - tema sucesso*/
+.modal-abrir{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  width: 400px;
+  height: 211px;
+  max-width: 90%;
+  padding: 24px;
+  background-color: #fff;
+  font-family: "Montserrat";
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--neutro-60);
+  border: none;
+  border-radius: 12px;
+  
+  flex-direction: column;
+  text-align: center;
+  gap: 16px;
+  overflow: hidden;
+  
+
+}
+
+.modal-abrir[open]{
+  display: flex;
+}
+
+.modal-abrir h3{
+  font-family: "Montserrat", regular;
+  font-size: 18px;
+  color: var(--neutro-100);
+}
+
+.btn-modal-fechar{
+  text-align: center;
+  text-decoration: none;
+  border: var(--alerta-verde);
+  background-color: var(--alerta-verde);
+  color: #fff;
+  width: 360px;
+  height: 42px;
+  border-radius: 8px;
+  justify-content: center;
+  font-weight: 600px;
+  cursor: pointer;
+  
+}
+
+.btn-tema-sucesso:hover{
+  background-color: var(--alerta-verde-hover);
+}
+
+
+
+.btn-tema-sucesso{
+  display: flex;
+  align-items: center;
+  background-color: var(--alerta-verde);
+  color: #fff;
+  justify-content: center;
+  
+}
+
+.modal-abrir dialog::backdrop{
+  background-color: rgba(115, 24, 24, 0);
+}
+
+
+.botoes-modais{
+  align-items: center;
+  gap: 16px;
+  display: flex;
+}
+
+/*eh o <a> que está no botão dentro do modal de sucesso para voltar*/
+a{
+  text-decoration: none;
+}

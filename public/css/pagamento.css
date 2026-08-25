@@ -1,0 +1,560 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital@0;1&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root{
+    --primary-color: #6D5960;
+    --verde-100: #A3DC9A;
+    --rosa-100: #FFBADD;
+    --amarelo-100: #FFF489;
+    --neutro-100: #212121;
+    --neutro-80: #404040;
+    --neutro-60: #7E7E7E;
+    --neutro-subcategoria: #414141;
+    --alerta-vermelho: #D52525;
+    --alerta-verde: #6C9F38;
+    --alerta-verde-hover: #5A862C;
+    --alerta-amarelo: #E4CB31;
+    --alerta-amarelo-hover: #B8A42A;
+    
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+.cabecalho-pagina {
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+  gap: 12px;             
+  margin-bottom: 24px; 
+   
+}
+
+.botao-voltar img {
+  width: 24px;            
+  height: 24px;
+  display: block;
+  margin-top: 20px;
+  margin-left: 100px;
+}
+
+
+.titulo-pagina {
+  color: #3D3D3D;          
+  font-size: 28px;
+  font-weight: 700;        
+  margin: 0; 
+  padding: 0 200px;  
+  font-family: "Raleway";          
+}
+
+/*endereço*/
+
+.endereco-card {
+  border: 1px solid #dedfe1;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 12px;
+  margin-bottom: 24px;
+  width: 100%; 
+  max-width: 450px;
+}
+
+.cabecalho-pagamento {
+  background-color: var(--primary-color);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cabecalho-titulo{
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+.link-adicionar-endereco{
+  color: #FFF8B8;
+  font-size: 13px;
+  font-family: "Montserrat";
+}
+
+.item-endereco{
+ display: flex;
+  align-items: flex-start; 
+  padding: 16px 20px;
+  gap: 12px;
+  border-bottom: 1px solid #dedfe1;
+  cursor: pointer;
+}
+
+.radio-pagamento {
+  align-self: center; 
+  margin: 0;
+  cursor: pointer;
+}
+
+.informacao-endereco {
+  flex: 1; 
+}
+
+.linha-nome {
+  margin: 0 0 6px 0;
+  font-size: 14px;
+  color: #212121;
+  font-family: "Montserrat";
+}
+
+.acoes-endereco {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.link-alterar {
+  color: var(--primary-color);
+  font-size: 13px;
+  font-family: "Montserrat";
+}
+
+.botao-excluir {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.botao-excluir img {
+  width: 18px;
+  height: 18px;
+}
+
+/*Forma de Pagamento*/
+.pagamento-card {
+  border: 1px solid #dedfe1;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 12px;
+  margin-bottom: 24px;
+  width: 100%; 
+  max-width: 450px;
+}
+
+
+.conteudo-pagamento {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.subcabecalho-cartao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.titulo-pequeno {
+  font-size: 14px;
+  color: #212121;
+  font-weight: 500;
+  font-family: "Montserrat";
+}
+
+.link-adicionar-pagamento{
+    color:var(--primary-color);
+    font-size: 13px;
+    font-family: "Montserrat";
+}
+
+.linha-multiplos-cartoes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #DEDFE1; 
+  font-family: "Montserrat";
+  font-size: 14px;
+}
+
+.opcao-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #505050;
+}
+
+.item-cartao {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: rgba(255, 253, 231, 1) ;
+  border-radius: 8px;
+  padding: 12px 16px;
+  
+}
+
+.informacao-cartao {
+  flex: 1;
+}
+
+.linha-nome {
+  margin: 0 0 4px 0;
+  font-size: 13px;
+  color: #333333;
+}
+
+/*input do valor do cartao*/
+
+.input-cartao{
+  display: flex;
+  gap: 12px;
+  border-radius: 8px;
+  padding: 12px 16px;
+  width: 280px;
+  
+}
+
+.input-titulo{
+  font-size: 12px;
+  font-family: "Montserrat";
+  color: #505050;
+
+}
+
+.valor-cartao{
+  padding: 10px 12px;
+  border: 1px solid #DFDFDF;
+  border-radius: 100px;
+  background-color:#F8F8F8 ;
+  font-size: 14px;
+  font-family: "Montserrat";
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  font-size: 13px;
+  color:#CACACA ;
+}
+
+/*resumo*/
+
+
+.resumo-card {
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 12px;
+  margin-bottom: 24px;
+  width:400px;
+  flex-shrink: 0;
+}
+
+.cabecalho-resumo {
+  background-color: #AEAEAE;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.linha-resumo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  font-size: 13px;
+  font-weight: 400;
+  color: #3D3D3D;
+  font-family: "Montserrat";
+  border-bottom: 2px dashed #d0d0d0;
+}
+
+.linha-total {
+  border-bottom: none;
+}
+
+.subtotal-pagamento{
+  color: #949494;
+}
+
+.frete-pagamento{
+   color: #949494;
+}
+
+.valor-total {
+  color: #949494;
+  font-weight: 700;
+}
+
+.linha-cupom {
+  border-bottom: none;  
+}
+
+.link-adicionar-cupom {
+  background: transparent;
+  border: none;
+  color: var(--primary-color);
+  font-size: 13px;
+  font-family: "Montserrat";
+  text-decoration: underline;
+}
+
+.secao-cupom{
+  border-bottom: 2px dashed #d0d0d0;
+  padding-bottom: 10px;
+}
+
+.container-cupom {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding:8px 20px 12px 20px;
+  
+}
+
+.lista-cupons-aplicados{
+  padding: 0 20px 8px 20px;
+  font-size: 14px;
+  font-family: "Montserrat", regular;
+  color: var(--neutro-80);
+}
+
+.cupom.aplicado{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 0;
+}
+.lista-cupons-aplicados button{
+  font-family: "Montserrat", regular;
+  color: var(--primary-color);
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  padding: 3px 40px;
+  font-size: 13px;
+
+}
+
+.escondido{
+  display: none;
+}
+
+.campo-cupom {
+  padding: 10px 12px;
+  border: 1px solid #DFDFDF;
+  border-radius: 100px;
+  background-color:#F8F8F8 ;
+  font-size: 14px;
+  font-family: "Montserrat";
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 13px;
+  color:#CACACA ;
+}
+
+
+.botoes-cupom {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px;
+}
+.botao-cancelar-cupom {
+  background: transparent;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  padding: 8px 42px;
+  font-size: 13px;
+  color: var(--primary-color);
+  
+}
+
+#botao-aplicar {
+  background-color:#fce0ed;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 40px;
+  font-size: 13px;
+  color: var(--primary-color);
+}
+
+.btn-modal-abrir{
+  display: block;
+  margin-left: auto;
+  margin-top: 24px;
+  padding: 12px 42px;
+  background-color: #fce0ed;
+  color: var(--primary-color);
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+.conteudo-checkout {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  max-width: 950px; 
+  margin: 0 auto;
+}
+
+.coluna-esquerda {
+  flex: 1;
+  min-width: 0; 
+}
+
+.icone-sucesso{
+  display: block;
+  margin-top: 28px;
+  width: 16px;
+  height: 11px;
+  display: block;
+  align-items: center;
+  
+}
+
+/*modal finalizar - tema sucesso*/
+
+/*isso aq serve para qualquer tema de modal- config padrao dos modais*/
+.modal-abrir{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  width: 400px;
+  height: 211px;
+  max-width: 90%;
+  padding: 24px;
+  background-color: #fff;
+  font-family: "Montserrat";
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--neutro-60);
+  border: none;
+  border-radius: 12px;
+  
+  flex-direction: column;
+  text-align: center;
+  gap: 16px;
+  overflow: hidden;
+  
+
+}
+
+/*pra o modal n ficar abrindo sozinho por conta do display flex e do showModal() no js*/
+.modal-abrir[open]{
+  display: flex;
+}
+
+.modal-abrir h3{
+  font-family: "Montserrat", regular;
+  font-size: 18px;
+  color: var(--neutro-100);
+}
+
+.btn-modal-fechar{
+  text-align: center;
+  text-decoration: none;
+  border: var(--alerta-verde);
+  background-color: var(--alerta-verde);
+  color: #fff;
+  width: 360px;
+  height: 42px;
+  border-radius: 8px;
+  justify-content: center;
+  font-weight: 600px;
+  cursor: pointer;
+  
+}
+
+.btn-tema-sucesso:hover{
+  background-color: var(--alerta-verde-hover);
+}
+
+
+
+.btn-tema-sucesso{
+  display: flex;
+  align-items: center;
+  background-color: var(--alerta-verde);
+  color: #fff;
+  justify-content: center;
+  
+}
+
+.modal-abrir dialog::backdrop{
+  background-color: rgba(115, 24, 24, 0);
+}
+
+
+.botoes-modais{
+  align-items: center;
+  gap: 16px;
+  display: flex;
+}
+
+/*eh o <a> que está no botão dentro do modal de sucesso para voltar*/
+a{
+  text-decoration: none;
+}
+
+/*modal de alerta*/
+.btn-tema-alerta{
+  text-align: center;
+  background-color: var(--alerta-amarelo);
+  color: #fff;
+  width: 174px;
+  height: 42px;
+  border-radius: 8px;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+  font-family: "Montserrat", regular;
+}
+
+.btn-tema-alerta:hover{
+  background-color: var(--alerta-amarelo-hover);
+}
+
+.btn-modal-cancelar{
+  text-align: center;
+  border: 1px solid var(--alerta-amarelo);
+  background-color: #fff;
+  color: var(--alerta-amarelo);
+  width: 174px;
+  height: 42px;
+  border-radius: 8px;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: "Montserrat", regular;
+}
+
+/*msg*/
+
+.mensagem-cupom {
+  font-family: "Montserrat";
+  font-size: 12px;
+  color: var(--alerta-vermelho);
+  padding: 10px 12px;
+}
+
+.mensagem-erro-cartoes{
+  display: block;
+  font-family: "Montserrat";
+  font-size: 12px;
+  color: var(--alerta-vermelho);
+  padding: 0px 20px;
+}
+

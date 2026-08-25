@@ -19,13 +19,12 @@
 
         <ul class="nav-list">
             <li><a href="/src/views/index.html"> Página Inicial </a></li>
-            <li><a href="#"> Meus Pedidos</a></li>
+            <li><a href="historico.html"> Meus Pedidos</a></li>
         </ul>
 
         <ul class= "nav_icones">
-            <li><a href="#"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
-            <li><a href="#"><img src="/public/images/favoritos.svg" alt="favoritos"></a></li>
-            <li><a href="#"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
+            <li><a href="carrinho.html"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
+            <li><a href="configuracoes.html"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
         
         </ul>
         
@@ -33,6 +32,7 @@
 
     
   </header>
+
    <div class="breadcrumbs">
         <div class="breadcrumbs_coluna">
             <a href="#" class="breadcrumbs_item">Lãs de Barbantes</a>
@@ -98,10 +98,16 @@
                     
                     
                </div> 
-               <button class="adicionar-carrinho">Adicionar ao Carrinho</button>
+               <button class="btn-modal-abrir" data-modal="modal-abrir">Adicionar ao Carrinho</button>
+               <dialog id="modal-abrir" class="modal-abrir">
+                    <img class="icone-sucesso" src="../../../public/images/sucesso-modal.svg" alt="sucesso-modal">
+                    <h3>Produto adicionado ao seu carrinho</h3>
+                    <span>Ação realizada com sucesso!</span>
+                    <button class="btn-modal-fechar" data-modal="modal-abrir">Continuar comprando</button>
+               </dialog>
                 
             </div>
-            <button class="comprar">Comprar Agora</button>
+            <a href="carrinho.html" class="link-btn-comprar"><button class="comprar">Comprar Agora</button></a>
             
             
         </div>
@@ -109,5 +115,7 @@
 
     <script src="/public/js/cor_selecionada.js"></script>
     <script src="/public/js/quantidade.js"></script>
+    <script src="/public/js/modal.js"></script>
+    
 </body>
 </html>

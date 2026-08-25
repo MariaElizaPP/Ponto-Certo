@@ -3,8 +3,17 @@
     --primary-color: #6D5960;
     --verde-100: #A3DC9A;
     --rosa-100: #FFBADD;
+    --rosa-60: #FFD6EB;
     --amarelo-100: #FFF489;
     --neutro-100: #212121;
+    --neutro-80: #404040;
+    --neutro-60: #7E7E7E;
+    --neutro-subcategoria: #414141;
+    --alerta-vermelho: #D52525;
+    --alerta-verde: #6C9F38;
+    --alerta-verde-hover: #5A862C;
+    --alerta-amarelo: #E4CB31;
+    --alerta-amarelo-hover: #B8A42A;
     
 }
 

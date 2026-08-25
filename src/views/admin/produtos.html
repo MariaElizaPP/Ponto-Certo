@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ponto Certo - Produtos</title>
+  <link rel="stylesheet" href="../../../public/css/admin/navbar_master.css">
+  <link rel="stylesheet" href="../../../public/css/admin/conteudo_master.css">
+  <link rel="stylesheet" href="../../../public/css/admin/produto.css">
+</head>
+
+<body>
+  <div class="layout-master">
+
+    <aside class="sidebar-master">
+      <div class="topo-navbar">
+        <img src="../../../public/images/logo_ponto.svg" alt="logo" class="logo-sidebar">
+        <img src="../../../public/images\linha_navbar.svg" alt="" class="linha-divisoria">
+      </div>
+      <nav class="menu">
+        <ul>
+          <li><a href="dashboard.html" class="link-sidebar">Dashboard</a></li>
+          <li><a href="produtos.html" class="link-sidebar ativo">Produtos</a></li>
+          <li><a href="clientes.html" class="link-sidebar">Clientes</a></li>
+          <li><a href="pedidos.html" class="link-sidebar">Pedidos</a></li>
+          <li><a href="cupons.html" class="link-sidebar">Cupom</a></li>
+          <li><a href="trocas.html" class="link-sidebar">Trocas</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+  
+    <main class="conteudo-master">
+
+     
+      <div class="cabecalho-conteudo">
+        <h1 class="titulo-conteudo">PRODUTOS</h1>
+
+        <div class="barra-acoes">
+          <div class="busca-master">
+            <input type="search" placeholder="Pesquise pelo Produto" class="campo-busca-master">
+            <button type="button" class="botao-busca-master">
+              <img src="/public/images/pesquisar-master.svg" alt="Buscar">
+            </button>
+          </div>
+          <a href="#" class="botao-acao-master">Cadastrar</a>
+          <a href="#" class="botao-acao-master">Entrada</a>
+          <button class="btn-filtro" id="abrirFiltro" >
+          <img src="../../../public/images/filtro.svg" alt="">
+      </button>
+  
+      <div class="filtro" id="painelFiltro">
+          <div class="filtro-header">
+              <span class="titulo-filtro">Filtro</span>
+
+              <button class="fechar-filtro" id="fecharFiltro">
+                  <img src="../../../public/images/remover-carrinho.svg" alt="">
+              </button>
+          </div>
+          <button class="btn-filtro" id="abrirFiltro" >
+            <img src="../../../public/images/filtro.svg" alt="">
+          </button>
+          <div class="filtro" id="painelFiltro">
+          <div class="filtro-header">
+              <span class="titulo-filtro">Filtro</span>
+
+              <button class="fechar-filtro" id="fecharFiltro">
+                  <img src="../../../public/images/remover-carrinho.svg" alt="">
+              </button>
+          </div>
+
+          <div class="filtro-grupo">
+              <h4 class="filtro_titulo">Categoria</h4>
+              <label class="checkbox-opcoes">
+                  <input type="checkbox" name="categoria" value="bordados">
+                  Bordados
+              </label>
+               <label class="checkbox-opcoes">
+                  <input type="checkbox" name="categoria" value="las_barbantes">
+                  Lãs e Barbantes
+              </label>
+               <label class="checkbox-opcoes">
+                  <input type="checkbox" name="categoria" value="croche_tricô ">
+                  Crochê e Tricô 
+              </label>
+               <label class="checkbox-opcoes">
+                  <input type="checkbox" name="categoria" value="pintura">
+                  Pintura 
+              </label>
+               <label class="checkbox-opcoes">
+                  <input type="checkbox" name="categoria" value="kits">
+                  Kits 
+              </label>
+              <label class="checkbox-opcoes">
+                  <input type="checkbox" name="categoria" value="tecidos">
+                  Tecidos 
+              </label>
+          </div>
+
+           <div class="filtro-grupo">
+              <h4 class="filtro_titulo">Marca</h4>
+              <label class="checkbox-opcoes">
+                  <input type="checkbox" name="marca" value="bordados">
+                  Bordados
+              </label>
+               <label class="checkbox-opcoes">
+                  <input type="checkbox" name="categoria" value="circulo">
+                  Círculo
+              </label>
+               <label class="checkbox-opcoes">
+                  <input type="checkbox" name="marca" value="fisher">
+                  Fisher
+              </label>
+               <label class="checkbox-opcoes">
+                  <input type="checkbox" name="marca" value="euroroma">
+                  Euroroma 
+              </label>
+               <label class="checkbox-opcoes">
+                  <input type="checkbox" name="marca" value="pingouin">
+                  Pingouin 
+              </label>
+            
+          </div>
+
+          <div class="filtro-acoes">
+              <button class="btn-aplicar" id="aplicarFiltro">
+                  Aplicar filtro
+              </button>
+
+              <button class="btn-limpar" id="limparFiltro">
+                  Limpar filtro
+              </button>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <table class="tabela-master">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Nome</th>
+            <th>Categoria</th>
+            <th>Marca</th>
+            <th>Quantidade</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1234567891011</td>
+            <td>Barbante Natural 8/12</td>
+            <td>Linhas</td>
+            <td>Marcelo Nunes</td>
+            <td>20</td>
+            <td class="acoes-tabela">
+              <label class="status-produto">
+                <input type="checkbox" checked>
+                <span class="slider-status"></span>
+              </label>
+              <button type="button" class="botao-editar">
+                <img src="/public/images/editar-roxo.svg" alt="Editar">
+              </button>
+              <button type="button" class="botao-excluir">
+                <img src="/public/images/lixo-roxo.svg" alt="Excluir">
+              </button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>1234567891011</td>
+            <td>Barbante Natural 8/12</td>
+            <td>Linhas</td>
+            <td>Marcelo Nunes</td>
+            <td>20</td>
+            <td class="acoes-tabela">
+              <label class="status-produto">
+                <input type="checkbox" checked>
+                <span class="slider-status"></span>
+              </label>
+              <button type="button" class="botao-editar">
+                <img src="/public/images/editar-roxo.svg" alt="Editar">
+              </button>
+              <button type="button" class="botao-excluir">
+                <img src="/public/images/lixo-roxo.svg" alt="Excluir">
+              </button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>1234567891011</td>
+            <td>Barbante Natural 8/12</td>
+            <td>Linhas</td>
+            <td>Marcelo Nunes</td>
+            <td>20</td>
+            <td class="acoes-tabela">
+              <label class="status-produto">
+                <input type="checkbox" checked>
+                <span class="slider-status"></span>
+              </label>
+              <button type="button" class="botao-editar">
+                <img src="/public/images/editar-roxo.svg" alt="Editar">
+              </button>
+              <button type="button" class="botao-excluir">
+                <img src="/public/images/lixo-roxo.svg" alt="Excluir">
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </main>
+
+  </div>
+  <script src="../../../public/js/filtros.js"></script>
+</body>
+</html>

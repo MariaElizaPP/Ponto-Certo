@@ -378,7 +378,10 @@ dialog::backdrop{
     font-size: 20px;
     font-weight: 700;
     font-family: "Raleway";
+<<<<<<< HEAD
     
+=======
+>>>>>>> 9de00e28bf8597be1eb91d20a30edf40fa54795d
 }
 
 .fechar-filtro{
@@ -399,7 +402,10 @@ dialog::backdrop{
     color: #5C5C5C;
     font-family: "Montserrat";
     margin-bottom: 15px;
+<<<<<<< HEAD
     margin-top: 15px;
+=======
+>>>>>>> 9de00e28bf8597be1eb91d20a30edf40fa54795d
 }
 
 .checkbox-opcoes{
@@ -436,6 +442,7 @@ dialog::backdrop{
     align-self: center;
     color:#6D5960 ;
     font-family: "Montserrat";
+<<<<<<< HEAD
 }
 
 .nascimento{
@@ -450,4 +457,6 @@ dialog::backdrop{
     color: #7E7E7E;
     font-family: "Montserrat";
 
+=======
+>>>>>>> 9de00e28bf8597be1eb91d20a30edf40fa54795d
 }

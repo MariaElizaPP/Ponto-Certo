@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ponto Certo</title>
+  <link rel="stylesheet" href="../../public/css/chatbot.css">
+</head>
+
+<body>
+    <div class="chatbot">
+        <header class="cabecalho-chatbot">
+            <button type="button" class="botao-fechar-chatbot" id="fechar-chatbot">
+                <img class="icone-fechar" src="/public/images/voltar.svg" alt="">
+            </button>
+
+            <img src="../../public/images/pontinho-chatbot.svg" alt="Pontinho" class="avatar-chatbot">
+        </header>
+
+        <ul class="lista-mensagens" id="lista-mensagens">
+          <li class="mensagem mensagem-bot">
+            <p>Oi! Seja muito bem-vindo(a) à Ponto Certo! Eu sou o Pontinho, seu assistente virtual. Estou aqui para ajudar você a encontrar exatamente o que procura, apresentar nossas novidades e responder suas dúvidas de forma rápida e prática. Seja para conferir produtos, consultar preços, estoque, formas de pagamento ou entrega, pode contar comigo. Em que posso ajudar você hoje?</p>
+          </li>
+
+          <li class="mensagem mensagem-usuario">
+            <p>Olá, gostaria de receber recomendações de lãs para crochetar um cachecol.</p>
+          </li>
+        </ul>
+
+        <div class="rodape-chatbot">
+            <textarea placeholder="Digite uma mensagem..." class="campo-mensagem" id="campo-mensagem"></textarea>
+            <img id="botao-enviar" src="../../public/images/enviar-msg.svg" alt="Enviar">
+        </div>
+    </div>
+</body>
+</html>

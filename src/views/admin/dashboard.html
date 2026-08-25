@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../../../public/css/admin/navbar_master.css">
+    <link rel="stylesheet" href="../../../public/css/admin/conteudo_master.css">
+    <link rel="stylesheet" href="../../../public/css/admin/dashboard.css">
+
+</head>
+
+<body>
+    <div class="layout-master">
+
+        <aside class="sidebar-master">
+            <div class="topo-navbar">
+                <img src="../../../public/images/logo_ponto.svg" alt="logo" class="logo-sidebar">
+                <img src="../../../public/images/linha_navbar.svg" alt="" class="linha-divisoria">
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="dashboard.html" class="link-sidebar">Dashboard</a></li>
+                    <li><a href="produtos.html" class="link-sidebar ativo">Produtos</a></li>
+                    <li><a href="clientes.html" class="link-sidebar">Clientes</a></li>
+                    <li><a href="pedidos.html" class="link-sidebar">Pedidos</a></li>
+                    <li><a href="cupons.html" class="link-sidebar">Cupom</a></li>
+                    <li><a href="trocas.html" class="link-sidebar">Trocas</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+
+        <main class="conteudo-master">
+            <div class="cabecalho-conteudo">
+                <h1 class="titulo-conteudo">DASHBOARD</h1>
+
+                <div class="area-filtros">
+                    <h2 class="titulo-grafico">Análise de Vendas</h3>
+
+                    <div class="selects-filtros">
+                        <h3 class="titulo-filtro">De</h3>
+                        <select class="mes">
+                            <option class="placeholder" disabled selected hidden>Mês</option>
+                            <option class="mes">Jan</option>
+                            <option class="mes">Fev</option>
+                            <option class="mes">Mar</option>
+                            <option class="mes">Abr</option>
+                            <option class="mes">Maio</option>
+                            <option class="mes">Jun</option>
+                            <option class="mes">Jul</option>
+                            <option class="mes">Ago</option>
+                            <option class="mes">Set</option>
+                            <option class="mes">Out</option>
+                            <option class="mes">Nov</option>
+                            <option class="mes">Dez</option>
+                        </select>
+
+                        <h3 class="titulo-filtro">Até</h3>
+                        <select class="mes">
+                            <option class="placeholder" disabled selected hidden>Mês</option>
+                            <option class="mes">Jan</option>
+                            <option class="mes">Fev</option>
+                            <option class="mes">Mar</option>
+                            <option class="mes">Abr</option>
+                            <option class="mes">Maio</option>
+                            <option class="mes">Jun</option>
+                            <option class="mes">Jul</option>
+                            <option class="mes">Ago</option>
+                            <option class="mes">Set</option>
+                            <option class="mes">Out</option>
+                            <option class="mes">Nov</option>
+                            <option class="mes">Dez</option>
+                        </select>
+
+                        <h3 class="titulo-filtro">Ano</h3>
+                        <select class="ano">
+                            <option disabled selected hidden>Ano</option>
+                            <option class="ano">2026</option>
+                            <option class="ano">2025</option>
+                            <option class="ano">2024</option>
+                        </select>
+
+                        <button type="button" class="btn-filtar">Filtrar</button>
+                         <button type="button" class="btn-filtar">Exportar para CSV</button>
+                    </div>   
+                    <div class="categorias">
+                        <input type="checkbox" id="todas-opcoes">
+                        <label for="todas-opcoes">Selecionar Tudo</label>
+                        <br>
+                        <input type="checkbox" id="crocheTrico">
+                        <label for="crocheTrico">Crochê e Tricô</label>
+                        <br>
+                        <input type="checkbox" id="lasBarbantes">
+                        <label for="lasBarbantes">Lãs e Barbantes</label>
+                        <br>
+                        <input type="checkbox" id="kits">
+                        <label for="kits">Kits</label>
+                        <br>
+                        
+                    </div>
+                   
+
+                </div>
+                
+                <div class="chart">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+    </div>
+
+    
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/public/js/dashboard.js"></script>
+    <script src="/public/js/checkbox.js"></script>
+</body>
+
+</html>

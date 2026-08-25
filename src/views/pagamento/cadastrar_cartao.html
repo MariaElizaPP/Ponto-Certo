@@ -4,8 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ponto Certo</title>
+    <link rel="stylesheet" href= "../../../public/css/navbar/navbar.css">
+    <link rel="stylesheet" href="../../../public/css/cadastrar_cartao.css">
 </head>
 <body>
+    <header>
+    <nav class= "navbar">
+
+      <a class="logo" href="index.html">
+          <img src="/public/images/logo_ponto.svg" alt="Logo Ponto Certo">
+        </a>
+
+
+      <ul class="nav-list">
+        <li><a href="/src/views/index.html"> Página Inicial </a></li>
+        <li><a href="#"> Meus Pedidos</a></li>
+      </ul>
+
+      <ul class= "nav_icones">
+        <li><a href="carrinho.html"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
+        <li><a href="#"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
+       
+      </ul>
+      
+    </nav>
+  </header>
+
+  <div class="main">
+    <h3 class="titulo">Cadastrar Cartão</h3>
+    <div class="info-cartao">
+        <span class="titulo-dbancarios">Dados Bancários</span>
+        <form>
+            <div class="campos">
+                <div class="campo">
+                    <label class="nome-campos">Número do cartão</label>
+                    <input class="placeholder" id="numero-cartao" inputmode="numeric" pattern="[0-9]{13,19}" maxlength="19" placeholder="Insira o número" required></input>
+                    <span class="erro-msg" id="erro-numero-cartao"></span>
+                </div>
+
+                <div class="campo">
+                    <label class="nome-campos" >Bandeira do cartão</label>
+                    <select class="placeholder" id="bandeira" required>
+                        <option value="" disabled selected hidden>Escolha a bandeira</option>
+                        <option value="visa">Visa</option>
+                        <option value="elo">Elo</option>
+                        <option value="mastercard">Mastercard</option>
+                    </select>
+                    <span class="erro-msg" id="erro-bandeira"></span>
+                </div>
+
+                <div class="campo">
+                    <label class="nome-campos">Nome impresso no cartão</label>
+                    <input class="placeholder" placeholder="Insira o nome" id="nome-cartao" pattern="[A-Za-zÀ-ÿ\s]+" required></input>
+                    <span class="erro-msg" id="erro-nome-cartao"></span>
+                </div>
+
+                <div class="campo">
+                    <label class="nome-campos">Código de Segurança</label>
+                    <input class="placeholder" placeholder="Insira o CVV" id="cvv" inputmode="numeric" pattern="[0-9]{3,4}" maxlength="4" required></input>
+                    <span class="erro-msg" id="erro-cvv"></span>
+                </div>
+
+        
+            </div>
+        </form>
+        
+    </div>
     
+    
+    <div class="botoes">
+        <button class="voltar botao-voltar" type="button">Voltar</button>
+        <button class="cadastrar" type="button">Cadastrar</button>
+        <dialog id="modal-abrir" class="modal-abrir">
+            <img class="icone-sucesso" src="../../../public/images/sucesso-modal.svg" alt="sucesso-modal">
+            <h3>Sucesso</h3>
+            <span>Compra realizada com sucesso!</span>
+            <button class="btn-tema-sucesso botao-voltar" data-modal="modal-abrir">Voltar</button>
+            
+        </dialog>
+    </div>
+  </div>
+
+  <script src="../../../public/js/cadastrar_cartao.js"></script>
+  <script src="../../../public/js/botao_voltar.js"></script>
+  <script src="../../../public/js/modal.js"></script>
+  
 </body>
 </html>

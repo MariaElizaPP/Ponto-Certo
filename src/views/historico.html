@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ponto Certo</title>
+  <link rel="stylesheet" href= "../../public/css/navbar/navbar.css">
+  <link rel="stylesheet" href= "../../public/css/historico.css">
+  
+</head>
+
+<body>
+  <header>
+    <nav class= "navbar">
+
+      <a class="logo" href="index.html">
+          <img src="/public/images/logo_ponto.svg" alt="Logo Ponto Certo">
+        </a>
+
+
+      <ul class="nav-list">
+        <li><a href="/src/views/index.html"> Página Inicial </a></li>
+        <li><a href="#"> Meus Pedidos</a></li>
+      </ul>
+
+      <ul class= "nav_icones">
+        <li><a href="carrinho.html"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
+        <li><a href="configuracoes.html"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
+       
+      </ul>
+      
+    </nav>
+  </header>
+
+  <main>
+    
+    <div class="pagina-conteudo">
+        <h1 class="titulo-pagina">HISTÓRICO DE PEDIDOS </h1>
+
+        <div class="busca-historico">
+            <input type="search" placeholder="Pesquise pelo Produto" class="campo-busca">
+            <button type="button" class="botao-busca"><img src="../../public/images/historico-pesquisar.svg" alt="Buscar"></button>
+        </div>
+
+        <div class="historico-card">
+            <div class="cabecalho-historico"> 
+              <span class="icone-entrega"><img src="../../public/images/historico-encomenda.svg" alt=""></span>
+              <span class="titulo-historico">Compra de 08/08/2026 às 12:48</span>
+              <span class="tag-aguardando">Aguardando Aprovação</span>
+            </div>
+
+            <div class="conteudo-historico">
+              <div class="item-historico">
+                <span class="img-historico"><img src="../../public/images/produto_carrinho.svg" alt=""></span>
+                <span class="linha-nome">Lã Batik 100g 9306 - Caqui</span>
+                <span class="linha-valor">R$30.90</span>
+                <div class="quantidade-historico"><span>1</span></div>
+                <span class="linha-valor">R$30.90</span>
+              </div>
+
+              <div class="item-historico">
+                <span class="img-historico"><img src="../../public/images/produto_carrinho.svg" alt=""></span>
+                <span class="linha-nome">Lã Batik 100g 9307 - Bege</span>
+                <span class="linha-valor">R$30.90</span>
+                <div class="quantidade-historico"><span>1</span></div>
+                <span class="linha-valor">R$30.90</span>
+              </div>
+            </div>
+
+            <div class="rodape-troca-solicitada">
+              <span class="linha-rodape">Troca solicitada</span>
+              <span class="label-rodape">Total do Pedido:</span>
+              <span class="linha-valor">R$61.80</span>
+            </div>
+          </div>
+
+
+          <div class="historico-card">
+            <div class="cabecalho-historico"> 
+              <span class="icone-entrega"><img src="../../public/images/historico-encomenda.svg" alt=""></span>
+              <span class="titulo-historico">Compra de 08/08/2026 às 12:48</span>
+              <span class="tag-finalizado">Finalizado</span>
+            </div>
+
+            <div class="conteudo-historico">
+              <div class="item-historico">
+                <span class="img-historico"><img src="../../public/images/produto_carrinho.svg" alt=""></span>
+                <span class="linha-nome">Lã Batik 100g 9306 - Caqui</span>
+                <span class="linha-valor">R$30.90</span>
+                <div class="quantidade-historico"><span>1</span></div>
+                <span class="linha-valor">R$30.90</span>
+              </div>
+
+              <div class="item-historico">
+                <span class="img-historico"><img src="../../public/images/produto_carrinho.svg" alt=""></span>
+                <span class="linha-nome">Lã Batik 100g 9307 - Bege</span>
+                <span class="linha-valor">R$30.90</span>
+                <div class="quantidade-historico"><span>1</span></div>
+                <span class="linha-valor">R$30.90</span>
+              </div>
+            </div>
+
+            <div class="rodape-finalizado">
+              <button type="button" class="botao-trocar" data-modal="modal-solicitar-troca">Trocar</button>
+              <dialog id="modal-solicitar-troca" class="modal-solicitar-troca">
+                <img class="icone-alerta" src="../../../public/images/modal-alerta.svg" alt="alerta-modal">
+                <h3>Solicitar troca deste item?</h3>
+                <span>Você deseja solicitar a troca deste produto? Essa ação enviará a solicitação para análise.</span>
+                <div class="botoes-modais">
+                  <button class="btn-modal-cancelar" data-modal="modal-solicitar-troca" type="button">Cancelar</button>
+                  <button class="btn-modal-fechar btn-tema-alerta" data-modal="modal-solicitar-troca" type="button">Solicitar troca</button>
+                </div>
+              </dialog>
+              <span class="label-rodape">Total do Pedido:</span>
+              <span class="linha-valor">R$61.80</span>
+            </div>
+          </div>
+
+
+          <div class="historico-card">
+            <div class="cabecalho-historico"> 
+              <span class="icone-entrega"><img src="../../public/images/historico-encomenda.svg" alt=""></span>
+              <span class="titulo-historico">Compra de 08/08/2026 às 12:48</span>
+              <span class="tag-transito">Em trânsito</span>
+            </div>
+
+            <div class="conteudo-historico">
+              <div class="item-historico">
+                <span class="img-historico"><img src="../../public/images/produto_carrinho.svg" alt=""></span>
+                <span class="linha-nome">Lã Batik 100g 9306 - Caqui</span>
+                <span class="linha-valor">R$30.90</span>
+                <div class="quantidade-historico"><span>1</span></div>
+                <span class="linha-valor">R$30.90</span>
+              </div>
+
+              <div class="item-historico">
+                <span class="img-historico"><img src="../../public/images/produto_carrinho.svg" alt=""></span>
+                <span class="linha-nome">Lã Batik 100g 9307 - Bege</span>
+                <span class="linha-valor">R$30.90</span>
+                <div class="quantidade-historico"><span>1</span></div>
+                <span class="linha-valor">R$30.90</span>
+              </div>
+            </div>
+
+            <div class="rodape-em-transito">
+              <button type="button" class="botao-cancelar" data-modal="modal-cancelar-pedido">Cancelar Compra</button>
+              <dialog id="modal-cancelar-pedido" class="modal-confirmar-entrega">
+                <img class="icone-alerta" src="../../../public/images/modal-alerta.svg" alt="alerta-modal">
+                <h3>Cancelar o seu pedido?</h3>
+                <span>Você deseja cancelar o recebimento de seu pedido?</span>
+                <div class="botoes-modais">
+                  <button class="btn-modal-cancelar" data-modal="modal-cancelar-pedido" type="button">Cancelar</button>
+                  <button class="btn-modal-fechar btn-tema-alerta" data-modal="modal-cancelar-pedido" type="button">Confirmar</button>
+                </div>
+              </dialog>
+              <span class="label-rodape">Total do Pedido:</span>
+              <span class="linha-valor">R$61.80</span>
+            </div>
+          </div>
+
+           <div class="historico-card">
+            <div class="cabecalho-historico"> 
+              <span class="icone-entrega"><img src="../../public/images/historico-encomenda.svg" alt=""></span>
+              <span class="titulo-historico">Compra de 08/08/2026 às 12:48</span>
+              <span class="tag-finalizado">Troca aprovada</span>
+            </div>
+
+            <div class="conteudo-historico">
+              <div class="item-historico">
+                <span class="img-historico"><img src="../../public/images/produto_carrinho.svg" alt=""></span>
+                <span class="linha-nome">Lã Batik 100g 9306 - Caqui</span>
+                <span class="linha-valor">R$30.90</span>
+                <div class="quantidade-historico"><span>1</span></div>
+                <span class="linha-valor">R$30.90</span>
+              </div>
+
+              <div class="item-historico">
+                <span class="img-historico"><img src="../../public/images/produto_carrinho.svg" alt=""></span>
+                <span class="linha-nome">Lã Batik 100g 9307 - Bege</span>
+                <span class="linha-valor">R$30.90</span>
+                <div class="quantidade-historico"><span>1</span></div>
+                <span class="linha-valor">R$30.90</span>
+              </div>
+            </div>
+
+           <div class="rodape-troca-aprovada">
+              <div class="info-cupom-troca">
+                <p class="linha-cupom-troca">Cupom de troca: <strong>TROCA10</strong></p>
+                <p class="linha-cupom-troca">Valor do cupom: <strong>R$ 10,00</strong></p>
+              </div>
+              <span class="label-rodape">Total do Pedido:</span>
+              <span class="linha-valor">R$61.80</span>
+            </div>
+          </div>
+
+
+           <div class="historico-card">
+            <div class="cabecalho-historico"> 
+              <span class="icone-entrega"><img src="../../public/images/historico-encomenda.svg" alt=""></span>
+              <span class="titulo-historico">Compra de 08/08/2026 às 12:48</span>
+              <span class="tag-negado">Troca negada</span>
+            </div>
+
+            <div class="conteudo-historico">
+              <div class="item-historico">
+                <span class="img-historico"><img src="../../public/images/produto_carrinho.svg" alt=""></span>
+                <span class="linha-nome">Lã Batik 100g 9306 - Caqui</span>
+                <span class="linha-valor">R$30.90</span>
+                <div class="quantidade-historico"><span>1</span></div>
+                <span class="linha-valor">R$30.90</span>
+              </div>
+
+              <div class="item-historico">
+                <span class="img-historico"><img src="../../public/images/produto_carrinho.svg" alt=""></span>
+                <span class="linha-nome">Lã Batik 100g 9307 - Bege</span>
+                <span class="linha-valor">R$30.90</span>
+                <div class="quantidade-historico"><span>1</span></div>
+                <span class="linha-valor">R$30.90</span>
+              </div>
+            </div>
+
+            <div class="rodape-negado">
+              <span class="linha-rodape">Troca solicitada</span>
+              <span class="label-rodape">Total do Pedido:</span>
+              <span class="linha-valor">R$61.80</span>
+            </div>
+          </div>
+
+          <div class="historico-card">
+            <div class="cabecalho-historico"> 
+              <span class="icone-entrega"><img src="../../public/images/historico-encomenda.svg" alt=""></span>
+              <span class="titulo-historico">Compra de 08/08/2026 às 12:48</span>
+              <span class="tag-entregue">Entregue</span>
+            </div>
+
+            <div class="conteudo-historico">
+              <div class="item-historico">
+                <span class="img-historico"><img src="../../public/images/produto_carrinho.svg" alt=""></span>
+                <span class="linha-nome">Lã Batik 100g 9306 - Caqui</span>
+                <span class="linha-valor">R$30.90</span>
+                <div class="quantidade-historico"><span>1</span></div>
+                <span class="linha-valor">R$30.90</span>
+              </div>
+
+              <div class="item-historico">
+                <span class="img-historico"><img src="../../public/images/produto_carrinho.svg" alt=""></span>
+                <span class="linha-nome">Lã Batik 100g 9307 - Bege</span>
+                <span class="linha-valor">R$30.90</span>
+                <div class="quantidade-historico"><span>1</span></div>
+                <span class="linha-valor">R$30.90</span>
+              </div>
+            </div>
+
+            <div class="rodape-entregue">
+              <button type="button" class="botao-confirmar" data-modal="modal-confirmar-entrega">Confirmar</button>
+              <dialog id="modal-confirmar-entrega" class="modal-confirmar-entrega">
+                <img class="icone-alerta" src="../../../public/images/modal-alerta.svg" alt="alerta-modal">
+                <h3>Confirmar a entrega do pedido?</h3>
+                <span>Você deseja confirmar o recebimento de seu pedido?</span>
+                <div class="botoes-modais">
+                  <button class="btn-modal-cancelar" data-modal="modal-confirmar-entrega" type="button">Cancelar</button>
+                  <button class="btn-modal-fechar btn-tema-alerta" data-modal="modal-confirmar-entrega" type="button">Confirmar</button>
+                </div>
+              </dialog>
+              <span class="label-rodape">Total do Pedido:</span>
+              <span class="linha-valor">R$61.80</span>
+            </div>
+          </div>
+
+
+    </div>
+
+
+
+  </main>
+  <script src="/public/js/modal.js"></script>
+</body>
+</html>

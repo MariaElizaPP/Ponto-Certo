@@ -18,17 +18,20 @@
         
       <ul class="nav-list">
         <li><a href="index.html"> Página Inicial </a></li>
-        <li><a href="#"> Meus Pedidos</a></li>
+        <li><a href="historico.html"> Meus Pedidos</a></li>
       </ul>
 
       <ul class= "nav_icones">
-        <li><a href="#"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
-        <li><a href="#"><img src="/public/images/favoritos.svg" alt="favoritos"></a></li>
-        <li><a href="#"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
+        <li><a href="carrinho.html"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
+        <li><a href="configuracoes.html"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
        
       </ul>
     </nav>
   </header>
+
+  <div class="cabecalho-pagina">
+        <a class="botao-voltar" id="botao-voltar" ><img class="img-voltar" src="/public/images/voltar.svg" alt="voltar"></a>
+  </div>
 
   <main class="carrinho">
 
@@ -48,7 +51,17 @@
           <tr class="produto-linha" data-preco="46.00">
 
             <td class="celula-produto">
-              <button class="botao-remover"><img src="../../public/images/remover-carrinho.svg" alt="remover botao"></button>
+              <button class="botao-remover" data-modal="modal-abrir-1"><img src="../../public/images/remover-carrinho.svg" alt="remover botao"></button>
+              <dialog id="modal-abrir-1" class="modal-abrir">
+                  <img class="icone-erro" src="../../public/images/modal-alerta.svg" alt="erro-modal">
+                  <h3>Remover Produto?</h3>
+                  <span>Você realmente deseja remover o item do seu carrinho?</span>
+                  <div class="botoes-modais">
+                    <button class="btn-modal-cancelar" data-modal="modal-abrir-1">Cancelar</button>
+                    <button class="btn-modal-fechar btn-tema-alerta" data-modal="modal-abrir-1">Remover</button>
+                  </div>
+                  
+              </dialog>
               <img src="../../public/images/produto_carrinho.svg" alt="Kit 9 Agulhas Crochê">
               <span class="nome-produto-carrinho">Kit 9 Agulhas Crochê</span>
             </td>
@@ -70,7 +83,17 @@
           <tr class="produto-linha" data-preco="46.00">
 
             <td class="celula-produto">
-              <button class="botao-remover"><img src="../../public/images/remover-carrinho.svg" alt="remover botao"></button>
+              <button class="botao-remover" data-modal="modal-abrir-2"><img src="../../public/images/remover-carrinho.svg" alt="remover botao"></button>
+              <dialog id="modal-abrir-2" class="modal-abrir">
+                  <img class="icone-erro" src="../../public/images/modal-alerta.svg" alt="erro-modal">
+                  <h3>Remover Produto?</h3>
+                  <span>Você realmente deseja remover o item do seu carrinho?</span>
+                  <div class="botoes-modais">
+                    <button class="btn-modal-cancelar" data-modal="modal-abrir-2">Cancelar</button>
+                    <button class="btn-modal-fechar btn-tema-alerta" data-modal="modal-abrir-2">Remover</button>
+                  </div>
+                  
+              </dialog>
               <img src="../../public/images/produto_carrinho.svg" alt="Kit 9 Agulhas Crochê">
               <span class="nome-produto-carrinho">Kit 9 Agulhas Crochê</span>
             </td>
@@ -91,7 +114,17 @@
           <tr class="produto-linha" data-preco="46.00">
 
             <td class="celula-produto">
-              <button class="botao-remover"><img src="../../public/images/remover-carrinho.svg" alt="remover botao"></button>
+              <button class="botao-remover" data-modal="modal-abrir-3"><img src="../../public/images/remover-carrinho.svg" alt="remover botao"></button>
+              <dialog id="modal-abrir-3" class="modal-abrir">
+                  <img class="icone-erro" src="../../public/images/modal-alerta.svg" alt="erro-modal">
+                  <h3>Remover Produto?</h3>
+                  <span>Você realmente deseja remover o item do seu carrinho?</span>
+                  <div class="botoes-modais">
+                    <button class="btn-modal-cancelar" data-modal="modal-abrir-3">Cancelar</button>
+                    <button class="btn-modal-fechar btn-tema-alerta" data-modal="modal-abrir-3">Remover</button>
+                  </div>
+                  
+              </dialog>
               <img src="../../public/images/produto_carrinho.svg" alt="Kit 9 Agulhas Crochê">
               <span class="nome-produto-carrinho">Kit 9 Agulhas Crochê</span>
             </td>
@@ -113,44 +146,48 @@
         </table>
    </div>
   </div>
- 
-  <div class="coluna-resumo">
-    <div class="resumo-compra">
+  <form action="pagamento/tela_pagamento.html">
+      <div class="coluna-resumo">
+      <div class="resumo-compra">
 
-      <div class="cabecalho-resumo">
-       <span class="titulo-resumo">Resumo da Compra</span>
+        <div class="cabecalho-resumo">
+        <span class="titulo-resumo">Resumo da Compra</span>
+        </div>
+
+        <div class="linha-resumo">
+          <span>SUBTOTAL</span>
+          <span class="valor-subtotal">R$0,00</span>
+        </div>
+
+        <div class="linha-resumo">
+          <span>FRETE</span>
+          <span class="valor-frete">---</span>
+        </div>
+
+        <div class="linha-resumo">
+          <span>TOTAL</span>
+          <span class="valor-total">R$0,00</span>
+        </div>
+
+        <button class="botao-continuar">Continuar</button>
       </div>
 
-      <div class="linha-resumo">
-        <span>SUBTOTAL</span>
-        <span class="valor-subtotal">R$0,00</span>
+      <div class="frete-card">
+        <span class="titulo-frete">Consultar Frete</span>
+        <div class="campos-frete">
+          <input type="text" placeholder="Insira o CEP" class="input-cep" />
+          <button type="button" class="botao-consultar-frete">Consultar o Frete</button>
+        </div>
       </div>
+        
 
-      <div class="linha-resumo">
-        <span>FRETE</span>
-        <span class="valor-frete">---</span>
-      </div>
-
-      <div class="linha-resumo">
-        <span>TOTAL</span>
-        <span class="valor-total">R$0,00</span>
-      </div>
-
-      <button class="botao-continuar">Continuar</button>
     </div>
-
-    <div class="frete-card">
-      <span class="titulo-frete">Consultar Frete</span>
-      <div class="campos-frete">
-        <input type="text" placeholder="Insira o CEP" class="input-cep" />
-        <button class="botao-consultar-frete">Consultar o Frete</button>
-      </div>
-    </div>
-      
-
-  </div>
+  </form>
+  
 </main>
  <script src="../../public/js/carrinho.js"></script>
+ <script src="../../public/js/botao_voltar.js"></script>
+ <script src="../../public/js/modal.js"></script>
 </body>
 </html>
 

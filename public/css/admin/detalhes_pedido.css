@@ -1,0 +1,372 @@
+:root {
+    --primary-color: #6D5960;
+    --verde-100: #A3DC9A;
+    --rosa-100: #FFBADD;
+    --amarelo-100: #FFF489;
+    --neutro-100: #212121;
+    --neutro-80: #404040;
+    --neutro-60: #7E7E7E;
+    --neutro-subcategoria: #414141;
+    --alerta-vermelho: #D52525;
+    --alerta-vermelho-hover: #B22020;
+    --alerta-verde: #6C9F38;
+    --alerta-verde-hover: #5A862C;
+    --alerta-amarelo: #E4CB31;
+    --alerta-amarelo-hover: #B8A42A;
+    --amarelo-10: rgba(255, 253, 231, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat";
+
+}
+
+.layout-master{
+    display: flex;
+    gap: 300px;
+    align-items: flex-start;
+}
+
+/*itens*/
+
+.carrinho {
+    display: flex;
+    gap: 32px;
+    padding: 40px;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.botao-voltar {
+    display: block;
+    margin-top: 20px;
+    margin-left: 100px;
+    width: 24px;
+    height: 24px;
+}
+
+.coluna-tabela {
+    margin-top: 20px;
+    margin-left: 100px;
+    width: 540px;
+}
+
+.tabela-container {
+    border: 1px solid #dedfe1;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 540px;
+
+}
+
+.titulo {
+    margin-top: 20px;
+    margin-left: 100px;
+    color: var(--neutro-100);
+    font-size: 30px;
+}
+
+.tabela-carrinho {
+    border-collapse: collapse;
+}
+
+.tabela-carrinho th {
+    background-color: var(--primary-color);
+    color: #fff;
+    text-align: left;
+    padding: 16px 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+
+.produto-linha {
+    border-bottom: 1px solid #dedfe1;
+}
+
+.produto-linha td {
+    padding: 16px 20px;
+    vertical-align: middle;
+}
+
+.celula-produto {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.celula-produto img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.nome-produto-carrinho {
+    font-family: "Montserrat";
+    font-size: 15px;
+    color: var(--neutro-80);
+}
+
+.preco-unitario,
+.total-produto,
+.quantidade {
+    font-family: "Montserrat";
+    font-size: 14px;
+    color: #949494;
+}
+
+
+/*endereco*/
+
+
+.conteudo-endereco {
+    background-color: #FFF1F8;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-top: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.informacao-endereco {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.linha-nome {
+    max-width: 350px;
+    font-family: "Montserrat";
+    color: #212121;
+    font-size: 13px;
+    margin: 0;
+}
+
+.subtitulo {
+    display: block;
+    color: var(--primary-color);
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+/*cartoes*/
+
+.lista-cartoes {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    gap: 12px;
+}
+
+.cartoes-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #FFF1F8;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-top: 12px;
+    width: auto;
+}
+
+.informacao-cartao {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.topo-cartao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.linha-cartao {
+    max-width: 350px;
+    font-family: "Montserrat";
+    color: #6D5960;
+    font-size: 13px;
+    margin: 0;
+}
+
+.valor-pago-cartao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 400;
+    gap: 15px;
+    width: 200px;
+    color: var(--neutro-80);
+}
+
+.valor-titulo {
+    font-weight: 700;
+
+}
+
+/*resumo*/
+
+
+.resumo-card {
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 12px;
+    margin-bottom: 24px;
+    width: 400px;
+
+}
+
+.cabecalho-resumo {
+    background-color: #AEAEAE;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.linha-resumo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    font-size: 13px;
+    font-weight: 400;
+    color: #3D3D3D;
+    font-family: "Montserrat";
+    border-bottom: 2px dashed #d0d0d0;
+}
+
+.linha-total {
+    border-bottom: none;
+}
+
+.subtotal-pagamento {
+    color: #949494;
+}
+
+.frete-pagamento {
+    color: #949494;
+}
+
+.valor-total {
+    color: #949494;
+    font-weight: 700;
+}
+
+.linha-cupom {
+    border-bottom: none;
+}
+
+.link-adicionar-cupom {
+    background: transparent;
+    border: none;
+    color: var(--primary-color);
+    font-size: 13px;
+    font-family: "Montserrat";
+    text-decoration: underline;
+}
+
+.secao-cupom {
+    border-bottom: 2px dashed #d0d0d0;
+    padding-bottom: 10px;
+}
+
+.container-cupom {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px 20px 12px 20px;
+
+}
+
+.lista-cupons-aplicados {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 0 20px 8px 20px;
+    font-size: 13px;
+    font-family: "Montserrat", regular;
+    color: var(--neutro-80);
+}
+
+.cupom-valor{
+    color: #949494;
+}
+
+.cabecalho-titulo{
+    color: #fff;
+    font-weight: 700;
+}
+
+.coluna-pagamento{
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/*selecao status*/
+
+.status-entrega {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.controle-select-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.entrega-status{
+    font-size: 13px;
+    font-family: "Raleway";
+    color: #6D5960;
+    font-weight: 700px;
+}
+
+.select-status {
+  padding: 7px;
+  border: 1px solid #DFDFDF;
+  border-radius: 100px;
+  background-color: #F8F8F8;
+  font-size: 13px;
+  font-family: "Montserrat";
+  color:#5C5C5C;
+  outline: none;
+  appearance: none;
+  background-image: url('../../../public/images/setinha.svg');
+  background-repeat: no-repeat;
+  background-position: right 20px center;
+  background-size: 14px;
+  padding-right: 44px;
+}
+
+.botao-salvar-status{
+    padding: 7px;
+    background-color: #FFC8E4;
+    color: #6D5960;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 700px;
+    font-family: "Montserrat";
+}

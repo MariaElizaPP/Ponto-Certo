@@ -1,0 +1,393 @@
+.pagina-conteudo {
+  max-width: 1400px; 
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.titulo-pagina {
+  color: #3D3D3D;          
+  font-size: 28px;
+  font-weight: 700;        
+  margin: 0;  
+  font-family: "Raleway";  
+  margin-top: 24px;        
+}
+
+.busca-historico{
+    margin-top: 24px;
+    position: relative; 
+    margin-top: 24px;
+    width: 600px;
+}
+
+.campo-busca{
+   padding: 12px 50px 12px 16px;
+   border: 1px solid #CACACA;
+   border-radius: 12px;
+   color:#CACACA ;
+   font-size: 12px;
+   width: 610px;
+   font-family: "Montserrat";
+   box-sizing: border-box;
+}
+
+.campo-busca::placeholder {
+  color: #CACACA;
+}
+
+.historico-card {
+  border: 1px solid #dedfe1;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  width: 700px; 
+}
+
+.cabecalho-historico {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #dedfe1; 
+}
+
+.item-historico {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0f0f0; 
+}
+
+.item-historico:last-child {
+  border-bottom: none; 
+}
+
+
+
+
+.botao-busca {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.botao-busca img {
+  width: 20px; 
+  height: 20px;
+}
+
+
+.icone-entrega img {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.titulo-historico {
+  font-size: 18px;
+  font-weight:bolder;
+  color: #6D5960;
+  font-family: "Raleway";
+  flex: 1; 
+}
+
+
+.conteudo-historico {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.img-historico img {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  object-fit: cover;
+  display: block;
+}
+
+.linha-nome {
+  font-size: 14px;
+  color: #3D3D3D;
+  font-family: "Montserrat";
+}
+
+.linha-valor {
+  font-size: 14px;
+  color: #949494;
+  font-family: "Montserrat";
+  min-width: 70px; 
+  text-align: right;
+}
+
+.quantidade-historico {
+  border: 1px solid #D7D7D7;
+  border-radius: 100px;
+  padding: 6px 40px;
+  font-size: 14px;
+  font-family: "Montserrat";
+  color: #414141;
+}
+
+.linha-rodape {
+  font-size: 13px;
+  color: #6D5960;
+  font-family: "Montserrat";
+  flex: 1;
+}
+
+.label-rodape {
+  font-size: 14px;
+  font-weight: 600;
+  color: #3D3D3D;
+  font-family: "Montserrat";
+}
+
+.botao-trocar{
+  display: inline-block;
+  padding: 8px 24px;
+  background-color: transparent;
+  color:#6D5960;
+  border: 1px solid #6D5960;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: "Montserrat";
+  text-decoration: none;
+  
+}
+
+.botao-cancelar{
+  display: inline-block;
+  padding: 8px 24px;
+  background-color: transparent;
+  color:#6D5960;
+  border: 1px solid #6D5960;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: "Montserrat";
+  text-decoration: none;
+}
+
+.botao-confirmar{
+  display: inline-block;
+  padding: 8px 24px;
+  background-color: transparent;
+  color:#6D5960;
+  border: 1px solid #6D5960;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: "Montserrat";
+  text-decoration: none;
+}
+
+button:hover{
+  background-color: var(--rosa-60);
+}
+
+
+.label-rodape {
+  margin-left: auto;
+}
+
+
+/*tags*/
+
+.tag-aguardando {
+  font-size: 14px;
+  font-weight: bolder;
+  font-family: "Montserrat";
+  color: #7E7E7E; 
+}
+
+.tag-finalizado{
+  font-size: 14px;
+  font-weight: bolder;
+  font-family: "Montserrat";
+  color: #6C9F38;
+}
+
+.tag-transito{
+  font-size: 14px;
+  font-weight: bolder;
+  font-family: "Montserrat";
+  color: #E4CB31;
+}
+
+.tag-negado{
+  font-size: 14px;
+  font-weight: bolder;
+  font-family: "Montserrat";
+  color: #D52525;
+}
+
+.tag-entregue{
+  font-size: 14px;
+  font-weight: bolder;
+  font-family: "Montserrat";
+  color: #6C9F38;
+}
+
+/*roda-pés*/
+.rodape-troca-solicitada {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  border-top: 1px solid #f0f0f0;
+  
+}
+
+.rodape-finalizado{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  border-top: 1px solid #f0f0f0;
+  
+}
+
+.rodape-em-transito{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  border-top: 1px solid #f0f0f0;
+
+}
+
+.rodape-troca-aprovada {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.info-cupom-troca {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1; 
+}
+
+.linha-cupom-troca {
+  font-size: 13px;
+  color: #6D5960;
+  font-family: "Montserrat";
+  margin: 0;
+}
+
+
+.rodape-negado{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  border-top: 1px solid #f0f0f0;
+
+}
+
+.rodape-entregue{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+
+/*modal de alerta*/
+/*isso aq serve para qualquer tema de modal- config padrao dos modais*/
+dialog{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  width: 400px;
+  height: 211px;
+  max-width: 90%;
+  padding: 24px;
+  background-color: #fff;
+  font-family: "Montserrat";
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--neutro-60);
+  border: none;
+  border-radius: 12px;
+  
+  flex-direction: column;
+  text-align: center;
+  gap: 16px;
+  overflow: hidden;
+  
+
+}
+
+dialog[open]{
+  display: flex;
+}
+
+dialog h3{
+  font-family: "Montserrat", regular;
+  font-size: 18px;
+  color: var(--neutro-100);
+}
+
+dialog dialog::backdrop{
+  background-color: rgba(115, 24, 24, 0);
+}
+
+.botoes-modais{
+  align-items: center;
+  gap: 16px;
+  display: flex;
+}
+
+.btn-tema-alerta{
+  text-align: center;
+  background-color: var(--alerta-amarelo);
+  color: #fff;
+  width: 174px;
+  height: 42px;
+  border-radius: 8px;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+  font-family: "Montserrat", regular;
+}
+
+.btn-tema-alerta:hover{
+  background-color: var(--alerta-amarelo-hover);
+}
+
+.btn-modal-cancelar{
+  text-align: center;
+  border: 1px solid var(--alerta-amarelo);
+  background-color: #fff;
+  color: var(--alerta-amarelo);
+  width: 174px;
+  height: 42px;
+  border-radius: 8px;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: "Montserrat", regular;
+}
+
+.btn-modal-cancelar:hover{
+  background-color: rgba(255, 253, 231, 1);
+}
+

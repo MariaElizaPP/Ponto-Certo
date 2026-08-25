@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ponto Certo</title>
+    <link rel="stylesheet" href= "../../../public/css/navbar/navbar.css">
+    <link rel="stylesheet" href="../../../public/css/cadastrar_endereco.css">
+</head>
+<body>
+    <header>
+    <nav class= "navbar">
+
+      <a class="logo" href="index.html">
+          <img src="/public/images/logo_ponto.svg" alt="Logo Ponto Certo">
+        </a>
+
+
+      <ul class="nav-list">
+        <li><a href="/src/views/index.html"> Página Inicial </a></li>
+        <li><a href="#"> Meus Pedidos</a></li>
+      </ul>
+
+      <ul class= "nav_icones">
+        <li><a href="carrinho.html"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
+        <li><a href="#"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
+       
+      </ul>
+      
+    </nav>
+  </header>
+
+  
+  <div class="main">
+    <h3 class="titulo">Cadastro de Endereço</h3>
+    <div class="info-cartao">
+        <span class="titulo-dbancarios">Endereço</span>
+        <form>
+            <div class="campos">
+                <div class="campo">
+                    <label class="nome-campos">Tipo de residência</label>
+                    <input class="placeholder" id="tipo-residencia" inputmode="text" placeholder="Ex. Apartamento"  required></input>
+                    <span class="erro-msg" id="erro-tipo-residencia"></span>
+                </div>
+                <div class="campo">
+                    <label class="nome-campos">CEP</label>
+                    <input class="placeholder" placeholder="00000-000" id="cep" pattern="[0-9]" maxlength="8" inputmode="numeric"  required></input>
+                    <span class="erro-msg" id="erro-cep"></span>
+                </div>
+
+                <div class="campo">
+                    <label class="nome-campos">Tipo de Logradouro</label>
+                    <input class="placeholder" placeholder="Insira o tipo de logradouro" id="tipo-logradouro" inputmode="text" pattern="[0-9]{3,4}" maxlength="4"  required></input>
+                    <span class="erro-msg" id="erro-tipo-logradouro"></span>
+                </div>
+                <div class="campo">
+                    <label class="nome-campos">Cidade</label>
+                    <input class="placeholder" placeholder="Insira a cidade" id="cidade" inputmode="text"  required></input>
+                    <span class="erro-msg" id="erro-cidade"></span>
+                </div>
+                <div class="campo-pequeno">
+                    <label class="nome-campos">País</label>
+                    <input class="placeholder" placeholder="Insira o país" id="pais" inputmode="text"  required></input>
+                    <span class="erro-msg" id="erro-pais"></span>
+                </div>
+                <div class="campo-pequeno">
+                    <label class="nome-campos">Estado</label>
+                    <input class="placeholder" placeholder="Insira o estado" id="estado" inputmode="text"  required></input>
+                    <span class="erro-msg" id="erro-estado"></span>
+                </div>
+                <div class="campo">
+                    <label class="nome-campos">Bairro</label>
+                    <input class="placeholder" placeholder="Insira o bairro" id="bairro" inputmode="text"required></input>
+                    <span class="erro-msg" id="erro-bairro"></span>
+                </div>
+                <div class="campo">
+                    <label class="nome-campos">Logradouro</label>
+                    <input class="placeholder" placeholder="Insira o logradouro" id="logradouro" inputmode="text"   required></input>
+                    <span class="erro-msg" id="erro-logradouro"></span>
+                </div>
+                <div class="campo">
+                    <label class="nome-campos">Nome do endereço</label>
+                    <input class="placeholder" placeholder="Insira uma frase curta para identificação do endereço" id="nome-endereco" inputmode="text" required></input>
+                    <span class="erro-msg" id="erro-nome-endereco"></span>
+                </div>
+                <div class="campo-pequeno">
+                    <label class="nome-campos">Número</label>
+                    <input class="placeholder" placeholder="Insira o número" id="numero" inputmode="text" required></input>
+                    <span class="erro-msg" id="erro-numero"></span>
+                </div>
+                <div class="campo-pequeno">
+                    <label class="nome-campos">Completo</label>
+                    <input class="placeholder" placeholder="Insira o complemento" id="complemento" inputmode="text"></input>
+                </div>
+
+        
+            </div>
+        </form>
+        
+    </div>
+    
+    
+    <div class="botoes">
+        <button class="voltar botao-voltar" id="botao-voltar" type="button">Voltar</button>
+        <button class="cadastrar" type="submit" >Cadastrar</button>
+        <dialog id="modal-abrir" class="modal-abrir">
+            <img class="icone-sucesso" src="../../../public/images/sucesso-modal.svg" alt="sucesso-modal">
+            <h3>Sucesso</h3>
+            <span>Compra realizada com sucesso!</span>
+            <button class="btn-modal-fechar btn-tema-sucesso botao-voltar" data-modal="modal-abrir">Voltar</button>
+            
+        </dialog>
+    </div>
+  </div>
+
+  <script src="/public/js/cadastrar_endereco.js"></script>
+  <script src="/public/js/cep.js"></script>
+  <script src="../../../public/js/botao_voltar.js"></script>
+  <script src="/public/js/modal.js"></script>
+</body>
+</html>
