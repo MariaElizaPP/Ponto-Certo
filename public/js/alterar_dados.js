@@ -27,7 +27,6 @@ document.querySelector('.cadastrar').addEventListener('click', function(e){
         valido = false;
     }
    
-   
     if(!valido){
         return;
     }
