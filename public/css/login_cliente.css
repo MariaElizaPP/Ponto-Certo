@@ -114,3 +114,15 @@
     color: var(--alerta-vermelho);
     font-size: 12px;
 }
+
+.cadastro_texto{
+    font-size: 13px;
+    font-family: "Montserrat";
+}
+
+.link_cadastro{
+    color: var(--primary-color);
+    font-weight: bolder;
+    font-size: 14px;
+   text-decoration: none;
+}
