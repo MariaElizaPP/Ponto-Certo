@@ -69,39 +69,14 @@
           </div>
         </div>
 
-        <div class="info-cartao">
-          <span class="titulo-dados">Dados de acesso</span>
-
-          <div class="campos">
-            <div class="campo campo-largo">
-              <label for="email" class="nome-campos">E-mail</label>
-              <input class="placeholder" type="email" id="email" placeholder="Insira seu E-mail" required>
-              <span class="erro-msg" id="erro-email"></span>
-            </div>
-
-            <div class="campo">
-              <label for="senha" class="nome-campos">Senha</label>
-              <input class="placeholder" type="password" id="senha" placeholder="Insira a senha" required>
-              <span class="erro-msg" id="erro-senha"></span>
-            </div>
-
-            <div class="campo">
-              <label for="confirmar-senha" class="nome-campos">Confirmar Senha</label>
-              <input class="placeholder" type="password" id="confirmar-senha" placeholder="Insira a senha" required>
-              <span class="erro-msg" id="erro-confirmar-senha"></span>
-            </div>
-          </div>
-        </div>
-
         <div class="botoes">
           <button class="voltar botao-voltar" type="button">Voltar</button>
-          <button class="cadastrar" type="button">Cadastrar</button>
+          <button class="cadastrar" type="button" data-modal="modal-abrir">Alterar</button>
           <dialog id="modal-abrir" class="modal-abrir">
               <img class="icone-sucesso" src="../../../public/images/sucesso-modal.svg" alt="sucesso-modal">
               <h3>Sucesso</h3>
-              <span>Cliente cadastrado com sucesso!</span>
-              <button class="btn-modal-fechar btn-tema-sucesso botao-voltar" data-modal="modal-abrir">Voltar</button>
-              
+              <span>Dados alterados com sucesso!</span>
+              <a class="btn-modal-fechar btn-tema-sucesso" href="configuracoes.html" data-modal="modal-abrir">Voltar</a>
           </dialog>
         </div>
 
@@ -110,7 +85,7 @@
     </div>
   </div>
 
-  <script src="../../public/js/alterar_senha.js"></script>
   <script src="../../public/js/botao_voltar.js"></script>
+  <script src="../../public/js/alterar_dados.js"></script>
 </body>
 </html>

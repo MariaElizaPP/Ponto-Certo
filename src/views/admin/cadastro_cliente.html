@@ -41,7 +41,7 @@
           <span class="titulo-dados">Dados Pessoais</span>
 
           <div class="campos">
-            <div class="campo">
+            <div class="campo campo-largo">
               <label for="nome" class="nome-campos">Nome Completo</label>
               <input class="placeholder" id="nome" placeholder="Insira o nome completo" required>
               <span class="erro-msg" id="erro-nome"></span>
@@ -51,6 +51,12 @@
               <label for="data-nascimento" class="nome-campos">Data de nascimento</label>
               <input class="placeholder" type="date" id="data-nascimento" required>
               <span class="erro-msg" id="erro-data-nascimento"></span>
+            </div>
+
+             <div class="campo">
+              <label for="cpf" class="nome-campos">CPF</label>
+              <input class="placeholder" id="cpf" placeholder="000.000.000-00" required>
+              <span class="erro-msg" id="erro-cpf"></span>
             </div>
 
             <div class="campo">
@@ -104,7 +110,8 @@
               <img class="icone-sucesso" src="../../../public/images/sucesso-modal.svg" alt="sucesso-modal">
               <h3>Sucesso</h3>
               <span>Cliente cadastrado com sucesso!</span>
-              <button class="btn-modal-fechar btn-tema-sucesso botao-voltar" data-modal="modal-abrir">Voltar</button>
+              <a class="btn-modal-fechar btn-tema-sucesso" href="clientes.html">Voltar</a>
+              
               
           </dialog>
         </div>

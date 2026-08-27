@@ -237,6 +237,13 @@ button:hover{
   color: #6C9F38;
 }
 
+.tag-processamento{
+  font-size: 14px;
+  font-weight: bolder;
+  font-family: "Montserrat";
+  color: var(--neutro-60)
+}
+
 /*roda-pés*/
 .rodape-troca-solicitada {
   display: flex;
