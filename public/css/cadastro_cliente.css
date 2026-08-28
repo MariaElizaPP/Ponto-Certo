@@ -21,6 +21,7 @@
 body {
   margin: 0;
   min-height: 100vh;
+  
 }
 
 
@@ -149,7 +150,7 @@ select.placeholder {
 }
 
 
-.info-cartao {
+.info {
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -228,6 +229,10 @@ select.placeholder {
   cursor: pointer;
 }
 
+.voltar:hover{
+  background-color: var(--rosa-60);
+}
+
 .cadastrar {
   border: none;
   background-color: #FFC8E4;
@@ -239,6 +244,12 @@ select.placeholder {
   cursor: pointer;
 }
 
+.cadastrar:hover{
+  background-color: var(--rosa-100);
+}
+
+
+
 .erro-msg {
   color: var(--alerta-vermelho);
   font-family: "Montserrat", sans-serif;
@@ -246,6 +257,59 @@ select.placeholder {
   min-height: 16px; 
   margin-top: -4px;
 }
+
+.botao-remover{
+  color: #fff;
+  font-size: 12px;
+  font-family: "Montserrat", sans-serif;
+  background-color: var(--alerta-vermelho);
+  border: none;
+  border-radius: 8px;
+  width: 160px;
+  height: 42px;
+  margin-top: 20px;
+
+}
+
+input[type="radio"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  border: 2px solid var(--neutro-60);
+  border-radius: 50%;
+  outline: none;
+  margin-right: 8px;
+  position: relative;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+input[type="radio"]:checked{
+  border-color: var(--primary-color);
+}
+input[type="radio"]:hover{
+  border-color: var(--neutro-80);
+}
+
+input[type="radio"]:checked::after{
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.radio-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
 
 /* Modal */
 .modal-abrir {

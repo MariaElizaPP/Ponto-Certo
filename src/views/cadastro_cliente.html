@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,11 +20,11 @@
   <main class="conteudo">
     <div class="pagina-form">
 
-      <h3 class="titulo">Cadastrar Cliente</h3>
+      <h3 class="titulo">Cadastro</h3>
 
       <form id="formulario-cadastro-cliente" class="formulario">
 
-        <div class="info-cartao">
+        <div class="info">
           <span class="titulo-dados">Dados Pessoais</span>
 
           <div class="campos">
@@ -39,7 +40,7 @@
               <span class="erro-msg" id="erro-data-nascimento"></span>
             </div>
 
-             <div class="campo">
+            <div class="campo">
               <label for="cpf" class="nome-campos">CPF</label>
               <input class="placeholder" id="cpf" placeholder="000.000.000-00" required>
               <span class="erro-msg" id="erro-cpf"></span>
@@ -59,13 +60,14 @@
 
             <div class="campo">
               <label for="telefone" class="nome-campos">Telefone</label>
-              <input class="placeholder" placeholder="(00) 00000-0000" id="telefone" inputmode="numeric" pattern="[0-9]{10,11}" maxlength="11" required>
+              <input class="placeholder" placeholder="(00) 00000-0000" id="telefone" inputmode="numeric"
+                pattern="[0-9]{10,11}" maxlength="11" required>
               <span class="erro-msg" id="erro-telefone"></span>
             </div>
           </div>
         </div>
 
-        <div class="info-cartao">
+        <div class="info">
           <span class="titulo-dados">Dados de acesso</span>
 
           <div class="campos">
@@ -89,10 +91,11 @@
           </div>
         </div>
 
-        <div class="info-cartao" id="secao-endereco">
+        <div class="info" id="secao-endereco">
           <div class="titulo-secao">
             <span class="titulo-dados">Endereço</span>
-            <button type="button" class="botao-mais" id="btn-add-endereco" aria-label="Adicionar outro endereço"><img src="../../public/images/adicionar.svg" alt=""></button>
+            <button type="button" class="botao-mais" id="btn-add-endereco" aria-label="Adicionar outro endereço"><img
+                src="../../public/images/adicionar.svg" alt=""></button>
           </div>
 
           <div class="blocos-endereco">
@@ -112,10 +115,11 @@
 
                 <div class="campo">
                   <label for="tipo_logradouro" class="nome-campos">Tipo de logradouro</label>
-                  <input class="placeholder" type="text" id="tipo_logradouro" placeholder="Insira o tipo logradouro" required>
+                  <input class="placeholder" type="text" id="tipo_logradouro" placeholder="Insira o tipo logradouro"
+                    required>
                 </div>
 
-                 <div class="campo">
+                <div class="campo">
                   <label for="cidade" class="nome-campos">Cidade</label>
                   <input class="placeholder" type="text" id="cidade" placeholder="Insira a cidade" required>
                 </div>
@@ -126,11 +130,11 @@
                   <span class="erro-msg" id="erro-pais"></span>
                 </div>
 
-                 <div class="campo-pequeno">
-                   <label class="nome-campos">Estado</label>
-                   <input class="placeholder" placeholder="Insira o estado" id="estado" inputmode="text" required>
-                   <span class="erro-msg" id="erro-estado"></span>
-                 </div>
+                <div class="campo-pequeno">
+                  <label class="nome-campos">Estado</label>
+                  <input class="placeholder" placeholder="Insira o estado" id="estado" inputmode="text" required>
+                  <span class="erro-msg" id="erro-estado"></span>
+                </div>
 
                 <div class="campo">
                   <label class="nome-campos">Bairro</label>
@@ -138,13 +142,15 @@
                   <span class="erro-msg" id="erro-bairro"></span>
                 </div>
                 <div class="campo">
-                 <label class="nome-campos">Logradouro</label>
-                 <input class="placeholder" placeholder="Insira o logradouro" id="logradouro" inputmode="text" required>
+                  <label class="nome-campos">Logradouro</label>
+                  <input class="placeholder" placeholder="Insira o logradouro" id="logradouro" inputmode="text"
+                    required>
                   <span class="erro-msg" id="erro-logradouro"></span>
                 </div>
                 <div class="campo">
                   <label class="nome-campos">Nome do endereço</label>
-                  <input class="placeholder" placeholder="Insira uma frase curta para identificação do endereço" id="nome-endereco" inputmode="text" required>
+                  <input class="placeholder" placeholder="Insira uma frase curta para identificação do endereço"
+                    id="nome-endereco" inputmode="text" required>
                   <span class="erro-msg" id="erro-nome-endereco"></span>
                 </div>
                 <div class="campo-pequeno">
@@ -153,8 +159,16 @@
                   <span class="erro-msg" id="erro-numero"></span>
                 </div>
                 <div class="campo-pequeno">
-                 <label class="nome-campos">complemento</label>
-                 <input class="placeholder" placeholder="Insira o complemento" id="complemento" inputmode="text" >
+                  <label class="nome-campos">Complemento</label>
+                  <input class="placeholder" placeholder="Insira o complemento" id="complemento" inputmode="text">
+                </div>
+                <div class="campo">
+                  <label class="nome-campos">Tipo de Endereço</label>
+                  <select class="placeholder" id="tipo-endereco">
+                    <option value="" disabled selected hidden>Escolha o tipo do endereço</option>
+                    <option value="cobranca">Cobrança</option>
+                    <option value="entrega">Entrega</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -162,42 +176,54 @@
 
         </div>
 
-        <div class="info-cartao" id="secao-cartao">
+
+
+        <div class="info" id="secao-cartao">
           <div class="titulo-secao">
             <span class="titulo-dados">Cartão de Crédito</span>
-            <button type="button" class="botao-mais" id="btn-add-cartao" aria-label="Adicionar outro cartão"><img src="../../public/images/adicionar.svg" alt=""></button>
+            <button type="button" class="botao-mais" id="btn-add-cartao" aria-label="Adicionar outro cartão"><img
+                src="../../public/images/adicionar.svg" alt=""></button>
           </div>
 
           <div class="blocos-cartao">
             <div class="bloco-cartao">
               <div class="campos">
                 <div class="campo">
-                   <label class="nome-campos">Número do cartão</label>
-                    <input class="placeholder" id="numero-cartao" inputmode="numeric" pattern="[0-9]{13,19}" maxlength="19" placeholder="Insira o número" required>
-                    <span class="erro-msg" id="erro-numero-cartao"></span>
-                 </div>
-                 <div class="campo">
-                   <label class="nome-campos">Bandeira do cartão</label>
-                   <select class="placeholder" id="bandeira" required>
-                      <option value="" disabled selected hidden>Escolha a bandeira</option>
-                      <option value="visa">Visa</option>
-                      <option value="elo">Elo</option>
-                      <option value="mastercard">Mastercard</option>
-                   </select>
-                   <span class="erro-msg" id="erro-bandeira"></span>
-                 </div>
+                  <label class="nome-campos">Número do cartão</label>
+                  <input class="placeholder" id="numero-cartao" inputmode="numeric" pattern="[0-9]{13,19}"
+                    maxlength="19" placeholder="Insira o número" required>
+                  <span class="erro-msg" id="erro-numero-cartao"></span>
+                </div>
+                <div class="campo">
+                  <label class="nome-campos">Bandeira do cartão</label>
+                  <select class="placeholder" id="bandeira" required>
+                    <option value="" disabled selected hidden>Escolha a bandeira</option>
+                    <option value="visa">Visa</option>
+                    <option value="elo">Elo</option>
+                    <option value="mastercard">Mastercard</option>
+                  </select>
+                  <span class="erro-msg" id="erro-bandeira"></span>
+                </div>
 
-                    <div class="campo">
-                     <label class="nome-campos">Nome impresso no cartão</label>
-                     <input class="placeholder" placeholder="Insira o nome" id="nome-cartao" pattern="[A-Za-zÀ-ÿ\s]+" required>
-                     <span class="erro-msg" id="erro-nome-cartao"></span>
-                    </div>
+                <div class="campo">
+                  <label class="nome-campos">Nome impresso no cartão</label>
+                  <input class="placeholder" placeholder="Insira o nome" id="nome-cartao" pattern="[A-Za-zÀ-ÿ\s]+"
+                    required>
+                  <span class="erro-msg" id="erro-nome-cartao"></span>
+                </div>
 
-                    <div class="campo">
-                     <label class="nome-campos">Código de Segurança</label>
-                     <input class="placeholder" placeholder="Insira o CVV" id="cvv" inputmode="numeric" pattern="[0-9]{3,4}" maxlength="4" required>
-                     <span class="erro-msg" id="erro-cvv"></span>
-                    </div>
+                <div class="campo">
+                  <label class="nome-campos">Código de Segurança</label>
+                  <input class="placeholder" placeholder="Insira o CVV" id="cvv" inputmode="numeric"
+                    pattern="[0-9]{3,4}" maxlength="4" required>
+                  <span class="erro-msg" id="erro-cvv"></span>
+                </div>
+
+                <div class="radio-container">
+                  <label class="nome-campos" for="preferencial">Definir como preferencial</label>
+                  <input type="radio" id="preferencial" class="radio">
+                </div>
+
               </div>
             </div>
           </div>
@@ -208,10 +234,11 @@
           <button class="voltar botao-voltar" type="button">Voltar</button>
           <button class="cadastrar" type="submit">Cadastrar</button>
           <dialog id="modal-abrir" class="modal-abrir">
-              <img class="icone-sucesso" src="../../public/images/sucesso-modal.svg" alt="sucesso-modal">
-              <h3>Sucesso</h3>
-              <span>Cliente cadastrado com sucesso!</span>
-              <a href="../../src/views/login.html" class="btn-modal-fechar btn-tema-sucesso botao-voltar" data-modal="modal-abrir">Voltar</a>
+            <img class="icone-sucesso" src="../../public/images/sucesso-modal.svg" alt="sucesso-modal">
+            <h3>Sucesso</h3>
+            <span>Cliente cadastrado com sucesso!</span>
+            <a href="../../src/views/login.html" class="btn-modal-fechar btn-tema-sucesso botao-voltar"
+              data-modal="modal-abrir">Voltar</a>
           </dialog>
         </div>
 
@@ -223,6 +250,9 @@
   <script src="../../public/js/modal.js"></script>
   <script src="../../public/js/botao_voltar.js"></script>
   <script src="../../public/js/cadastro_cliente.js"></script>
+  <script src="/public/js/adicionarMaisEnderecos.js"></script>
+  <script src="/public/js/adicionarMaisCartoes.js"></script>
 
 </body>
+
 </html>
