@@ -30,37 +30,37 @@
           <div class="campos">
             <div class="campo campo-largo">
               <label for="nome" class="nome-campos">Nome Completo</label>
-              <input class="placeholder" id="nome" placeholder="Insira o nome completo" required>
+              <input class="placeholder" id="nome" name="nome" placeholder="Insira o nome completo" required>
               <span class="erro-msg" id="erro-nome"></span>
             </div>
 
             <div class="campo">
               <label for="data-nascimento" class="nome-campos">Data de nascimento</label>
-              <input class="placeholder" type="date" id="data-nascimento" required>
+              <input class="placeholder" type="date" id="data-nascimento" name="dataNascimento">
               <span class="erro-msg" id="erro-data-nascimento"></span>
             </div>
 
             <div class="campo">
               <label for="cpf" class="nome-campos">CPF</label>
-              <input class="placeholder" id="cpf" placeholder="000.000.000-00" required>
+              <input class="placeholder" name="cpf" id="cpf" placeholder="000.000.000-00"  required>
               <span class="erro-msg" id="erro-cpf"></span>
             </div>
 
             <div class="campo">
               <label for="genero" class="nome-campos">Gênero</label>
-              <select class="placeholder" id="genero" required>
+              <select class="placeholder" name="genero" id="genero" required>
                 <option value="" disabled selected hidden>Escolha o seu gênero</option>
-                <option value="homem">Homem</option>
-                <option value="mulher">Mulher</option>
-                <option value="ninformar">Prefiro não informar</option>
-                <option value="outros">Outros</option>
+                <option value="H">Homem</option>
+                <option value="M">Mulher</option>
+                <option value="N">Prefiro não informar</option>
+                <option value="O">Outros</option>
               </select>
               <span class="erro-msg" id="erro-genero"></span>
             </div>
 
             <div class="campo">
               <label for="telefone" class="nome-campos">Telefone</label>
-              <input class="placeholder" placeholder="(00) 00000-0000" id="telefone" inputmode="numeric"
+              <input class="placeholder" placeholder="(00) 00000-0000"  name="telefone" id="telefone" inputmode="numeric"
                 pattern="[0-9]{10,11}" maxlength="11" required>
               <span class="erro-msg" id="erro-telefone"></span>
             </div>
@@ -73,20 +73,20 @@
           <div class="campos">
             <div class="campo campo-largo">
               <label for="email" class="nome-campos">E-mail</label>
-              <input class="placeholder" type="email" id="email" placeholder="Insira seu E-mail" required>
+              <input class="placeholder" type="email" name="email" id="email" placeholder="Insira seu E-mail" required>
               <span class="erro-msg" id="erro-email"></span>
             </div>
 
             <div class="campo">
               <label for="senha" class="nome-campos">Senha</label>
-              <input class="placeholder" type="password" id="senha" placeholder="Insira a senha" required>
+              <input class="placeholder" type="password" name="senha" id="senha" placeholder="Insira a senha" required>
               <span class="erro-msg" id="erro-senha"></span>
             </div>
 
             <div class="campo">
               <label for="confirmar-senha" class="nome-campos">Confirmar Senha</label>
-              <input class="placeholder" type="password" id="confirmar-senha" placeholder="Insira a senha" required>
-              <span class="erro-msg" id="erro-confirmar-senha"></span>
+              <input class="placeholder" type="password" name="confirmarSenha" id="confirmar-senha" placeholder="Insira a senha" required>
+              <span class="erro-msg"  id="erro-confirmar-senha"></span>
             </div>
           </div>
         </div>
@@ -103,71 +103,71 @@
               <div class="campos">
                 <div class="campo">
                   <label for="tipo_residencia" class="nome-campos">Tipo de residência</label>
-                  <input class="placeholder" type="text" id="tipo_residencia" placeholder="Ex. Apartamento" required>
+                  <input class="placeholder" type="text" name="tipoResidencia" id="tipo_residencia" placeholder="Ex. Apartamento" required>
                   <span class="erro-msg" id="erro-tipo_residencia"></span>
                 </div>
 
                 <div class="campo">
                   <label for="cep" class="nome-campos">CEP</label>
-                  <input class="placeholder" type="text" id="cep" placeholder="00000-000" required>
+                  <input class="placeholder" type="text" name="cep" id="cep" placeholder="00000-000" required>
                   <span class="erro-msg" id="erro-cep"></span>
                 </div>
 
                 <div class="campo">
                   <label for="tipo_logradouro" class="nome-campos">Tipo de logradouro</label>
-                  <input class="placeholder" type="text" id="tipo_logradouro" placeholder="Insira o tipo logradouro"
+                  <input class="placeholder" type="text" name="tipoLogradouro" id="tipo_logradouro" placeholder="Insira o tipo logradouro"
                     required>
                 </div>
 
                 <div class="campo">
                   <label for="cidade" class="nome-campos">Cidade</label>
-                  <input class="placeholder" type="text" id="cidade" placeholder="Insira a cidade" required>
+                  <input class="placeholder" type="text" name="cidade" id="cidade" placeholder="Insira a cidade" required>
                 </div>
 
                 <div class="campo-pequeno">
                   <label class="nome-campos">País</label>
-                  <input class="placeholder" placeholder="Insira o país" id="pais" inputmode="text" required>
+                  <input class="placeholder" placeholder="Insira o país" name="pais" id="pais" inputmode="text" required>
                   <span class="erro-msg" id="erro-pais"></span>
                 </div>
 
                 <div class="campo-pequeno">
                   <label class="nome-campos">Estado</label>
-                  <input class="placeholder" placeholder="Insira o estado" id="estado" inputmode="text" required>
+                  <input class="placeholder" placeholder="Insira o estado" name="estado" id="estado" inputmode="text" required>
                   <span class="erro-msg" id="erro-estado"></span>
                 </div>
 
                 <div class="campo">
                   <label class="nome-campos">Bairro</label>
-                  <input class="placeholder" placeholder="Insira o bairro" id="bairro" inputmode="text" required>
+                  <input class="placeholder" placeholder="Insira o bairro" name="bairro" id="bairro" inputmode="text" required>
                   <span class="erro-msg" id="erro-bairro"></span>
                 </div>
                 <div class="campo">
                   <label class="nome-campos">Logradouro</label>
-                  <input class="placeholder" placeholder="Insira o logradouro" id="logradouro" inputmode="text"
+                  <input class="placeholder" placeholder="Insira o logradouro" name="logradouro" id="logradouro" inputmode="text"
                     required>
                   <span class="erro-msg" id="erro-logradouro"></span>
                 </div>
                 <div class="campo">
                   <label class="nome-campos">Nome do endereço</label>
                   <input class="placeholder" placeholder="Insira uma frase curta para identificação do endereço"
-                    id="nome-endereco" inputmode="text" required>
+                    id="nome-endereco" name="nomeEndereco" inputmode="text" required>
                   <span class="erro-msg" id="erro-nome-endereco"></span>
                 </div>
                 <div class="campo-pequeno">
                   <label class="nome-campos">Número</label>
-                  <input class="placeholder" placeholder="Insira o número" id="numero" inputmode="text" required>
+                  <input class="placeholder" placeholder="Insira o número" name="numero" id="numero" inputmode="text" required>
                   <span class="erro-msg" id="erro-numero"></span>
                 </div>
                 <div class="campo-pequeno">
                   <label class="nome-campos">Complemento</label>
-                  <input class="placeholder" placeholder="Insira o complemento" id="complemento" inputmode="text">
+                  <input class="placeholder" placeholder="Insira o complemento" name="complemento" id="complemento" inputmode="text">
                 </div>
                 <div class="campo">
                   <label class="nome-campos">Tipo de Endereço</label>
-                  <select class="placeholder" id="tipo-endereco">
+                  <select class="placeholder" name="tipoEndereco" id="tipo-endereco">
                     <option value="" disabled selected hidden>Escolha o tipo do endereço</option>
-                    <option value="cobranca">Cobrança</option>
-                    <option value="entrega">Entrega</option>
+                    <option value="C">Cobrança</option>
+                    <option value="E">Entrega</option>
                   </select>
                 </div>
               </div>
@@ -190,38 +190,35 @@
               <div class="campos">
                 <div class="campo">
                   <label class="nome-campos">Número do cartão</label>
-                  <input class="placeholder" id="numero-cartao" inputmode="numeric" pattern="[0-9]{13,19}"
+                  <input class="placeholder" name="numeroCartao" id="numero-cartao" inputmode="numeric" pattern="[0-9]{13,19}"
                     maxlength="19" placeholder="Insira o número" required>
                   <span class="erro-msg" id="erro-numero-cartao"></span>
                 </div>
                 <div class="campo">
                   <label class="nome-campos">Bandeira do cartão</label>
-                  <select class="placeholder" id="bandeira" required>
+                  <select class="placeholder" name="bandeiraCartao" id="bandeira" required>
                     <option value="" disabled selected hidden>Escolha a bandeira</option>
-                    <option value="visa">Visa</option>
-                    <option value="elo">Elo</option>
-                    <option value="mastercard">Mastercard</option>
                   </select>
                   <span class="erro-msg" id="erro-bandeira"></span>
                 </div>
 
                 <div class="campo">
                   <label class="nome-campos">Nome impresso no cartão</label>
-                  <input class="placeholder" placeholder="Insira o nome" id="nome-cartao" pattern="[A-Za-zÀ-ÿ\s]+"
+                  <input class="placeholder" placeholder="Insira o nome" name="nomeCartao" id="nome-cartao" pattern="[A-Za-zÀ-ÿ\s]+"
                     required>
                   <span class="erro-msg" id="erro-nome-cartao"></span>
                 </div>
 
                 <div class="campo">
                   <label class="nome-campos">Código de Segurança</label>
-                  <input class="placeholder" placeholder="Insira o CVV" id="cvv" inputmode="numeric"
+                  <input class="placeholder" placeholder="Insira o CVV" name="cvv" id="cvv" inputmode="numeric"
                     pattern="[0-9]{3,4}" maxlength="4" required>
                   <span class="erro-msg" id="erro-cvv"></span>
                 </div>
 
                 <div class="radio-container">
                   <label class="nome-campos" for="preferencial">Definir como preferencial</label>
-                  <input type="radio" id="preferencial" class="radio">
+                  <input type="radio"  name="preferencial" id="preferencial" class="radio">
                 </div>
 
               </div>

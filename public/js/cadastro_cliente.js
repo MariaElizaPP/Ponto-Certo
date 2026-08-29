@@ -1,4 +1,9 @@
-document.querySelector('.cadastrar').addEventListener('click', function(e){
+document.addEventListener('DOMContentLoaded', () => {
+    carregarBandeiras();
+});
+
+
+document.querySelector('.cadastrar').addEventListener('click', async function(e){
     e.preventDefault();
 
     const nomeCompleto = document.getElementById('nome').value.trim();
@@ -64,8 +69,38 @@ document.querySelector('.cadastrar').addEventListener('click', function(e){
         return;
     }
 
-    document.getElementById('modal-abrir').showModal();
-    
+     const dados = {
+        nome: nomeCompleto,
+        genero,
+        dataNascimento,
+        cpf: cpf.replace(/\D/g, ''),
+        telefone: telefone.replace(/\D/g, ''),
+        email,
+        senha,
+        enderecos: coletarEnderecos(),
+        cartoes: coletarCartoes()
+    };
+
+    try {
+        const resposta = await fetch('http://localhost:3000/api/cadastrarCliente', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dados)
+        });
+
+        const resultado = await resposta.json();
+
+        if (!resposta.ok) {
+            exibirErroServidor(resultado.mensagem);
+            return;
+        }
+
+        document.getElementById('modal-abrir').showModal();
+
+    } catch (error) {
+        console.error(error);
+        exibirErroServidor('Erro ao conectar com o servidor');
+    }
 });
 
 function mostrarErro(id, mensagem){
@@ -77,3 +112,68 @@ function limparErros(){
     document.querySelectorAll('.placeholder').forEach(campo => campo.classList.remove('erro'));
     document.querySelectorAll('.erro-msg').forEach(span => span.textContent = '');
 }
+
+function exibirErroServidor(mensagem){
+    alert(mensagem); // pode trocar depois por um componente de erro mais visual
+}
+
+function coletarEnderecos(){
+    const blocos = document.querySelectorAll('.bloco-endereco');
+    const enderecos = [];
+
+    blocos.forEach((bloco) => {
+        enderecos.push({
+            tipoResidencia: bloco.querySelector('[name="tipoResidencia"]').value.trim(),
+            cep: bloco.querySelector('[name="cep"]').value.replace(/\D/g, ''),
+            tipoLogradouro: bloco.querySelector('[name="tipoLogradouro"]').value.trim(),
+            cidade: bloco.querySelector('[name="cidade"]').value.trim(),
+            pais: bloco.querySelector('[name="pais"]').value.trim(),
+            estado: bloco.querySelector('[name="estado"]').value.trim(),
+            bairro: bloco.querySelector('[name="bairro"]').value.trim(),
+            logradouro: bloco.querySelector('[name="logradouro"]').value.trim(),
+            nomeEndereco: bloco.querySelector('[name="nomeEndereco"]').value.trim(),
+            numero: bloco.querySelector('[name="numero"]').value.trim(),
+            complemento: bloco.querySelector('[name="complemento"]').value.trim() || null,
+            tipoEndereco: bloco.querySelector('[name="tipoEndereco"]').value
+        });
+    });
+
+    return enderecos;
+}
+
+function coletarCartoes(){
+    const blocos = document.querySelectorAll('.bloco-cartao');
+    const cartoes = [];
+
+    blocos.forEach((bloco) => {
+        cartoes.push({
+            numeroCartao: bloco.querySelector('[name="numeroCartao"]').value.replace(/\D/g, ''),
+            bandeiraCartao: bloco.querySelector('[name="bandeiraCartao"]').value,
+            nomeCartao: bloco.querySelector('[name="nomeCartao"]').value.trim(),
+            cvv: bloco.querySelector('[name="cvv"]').value.trim(),
+            preferencial: bloco.querySelector('input[type="radio"]').checked
+        });
+    });
+
+    return cartoes;
+}
+
+async function carregarBandeiras(){
+    try {
+        const res = await fetch('http://localhost:3000/api/bandeiras');
+        const bandeiras = await res.json();
+
+        const select = document.getElementById('bandeira');
+        select.querySelectorAll('option:not([hidden])').forEach((opcao) => opcao.remove());
+
+        bandeiras.forEach((bandeira) => {
+            const option = document.createElement('option');
+            option.value = bandeira.bdr_id; 
+            option.textContent = bandeira.bdr_nome;
+            select.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Erro ao carregar bandeiras:', error);
+    }
+}
+
