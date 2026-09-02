@@ -121,29 +121,29 @@
 
                 <div class="campo">
                   <label for="cidade" class="nome-campos">Cidade</label>
-                  <input class="placeholder" type="text" name="cidade" id="cidade" placeholder="Insira a cidade" required>
+                  <input id="cidade"  class="placeholder" type="text" name="cidade" id="cidade" placeholder="Insira a cidade" required>
                 </div>
 
                 <div class="campo-pequeno">
                   <label class="nome-campos">País</label>
-                  <input class="placeholder" placeholder="Insira o país" name="pais" id="pais" inputmode="text" required>
+                  <input id="pais" class="placeholder" placeholder="Insira o país" name="pais" id="pais" inputmode="text" required>
                   <span class="erro-msg" id="erro-pais"></span>
                 </div>
 
                 <div class="campo-pequeno">
                   <label class="nome-campos">Estado</label>
-                  <input class="placeholder" placeholder="Insira o estado" name="estado" id="estado" inputmode="text" required>
+                  <input id="estado" class="placeholder" placeholder="Insira o estado" name="estado" id="estado" inputmode="text" required>
                   <span class="erro-msg" id="erro-estado"></span>
                 </div>
 
                 <div class="campo">
                   <label class="nome-campos">Bairro</label>
-                  <input class="placeholder" placeholder="Insira o bairro" name="bairro" id="bairro" inputmode="text" required>
+                  <input id="bairro" class="placeholder" placeholder="Insira o bairro" name="bairro" id="bairro" inputmode="text" required>
                   <span class="erro-msg" id="erro-bairro"></span>
                 </div>
                 <div class="campo">
                   <label class="nome-campos">Logradouro</label>
-                  <input class="placeholder" placeholder="Insira o logradouro" name="logradouro" id="logradouro" inputmode="text"
+                  <input id="logradouro" class="placeholder" placeholder="Insira o logradouro" name="logradouro" id="logradouro" inputmode="text"
                     required>
                   <span class="erro-msg" id="erro-logradouro"></span>
                 </div>
@@ -244,10 +244,13 @@
     </div>
   </main>
 
+  <div id="toast" class="toast"></div>
+
   <script src="../../public/js/modal.js"></script>
   <script src="../../public/js/botao_voltar.js"></script>
-  <script src="../../public/js/cadastro_cliente.js"></script>
+  <script src="../../public/js/cep.js"></script>
   <script src="/public/js/adicionarMaisEnderecos.js"></script>
+  <script src="../../public/js/cadastro_cliente.js"></script>
   <script src="/public/js/adicionarMaisCartoes.js"></script>
 
 </body>

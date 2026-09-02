@@ -1,4 +1,4 @@
-const formularioLogin = document.getElementById("form-login");
+/*const formularioLogin = document.getElementById("form-login");
 formularioLogin.addEventListener("submit", function(evento){
     evento.preventDefault();
 
@@ -21,4 +21,13 @@ function mostrarErro(id, mensagem){
 
 function limparErros(){
     document.querySelectorAll('.erro-acesso').forEach(span => span.textContent = '');
-}
+}*/
+
+
+document.querySelector('.btn-entrar').addEventListener('click', function (e) {
+    e.preventDefault();
+ 
+    localStorage.setItem('clienteId', 8);
+ 
+    window.location.href = 'configuracoes.html'; // ou a tela inicial que vocês definirem
+});
