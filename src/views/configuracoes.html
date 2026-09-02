@@ -58,22 +58,22 @@
                         <div class="lista-perfil">
                             <div class="campo-perfil">
                                 <span class="legenda-campo">Nome Completo</span>
-                                <span class="dados-campos">Vitoria Cunha Lima</span>
+                                <span class="dados-campos" id="perfil-nome">Vitoria Cunha Lima</span>
                             </div>
 
                             <div class="campo-perfil">
                                 <span class="legenda-campo">Gênero</span>
-                                <span class="dados-campos">Feminino</span>
+                                <span class="dados-campos" id="perfil-genero">Feminino</span>
                             </div>
 
                             <div class="campo-perfil">
                                 <span class="legenda-campo">Telefone</span>
-                                <span class="dados-campos">(19) 6715-3204</span>
+                                <span class="dados-campos" id="perfil-telefone">(19) 6715-3204</span>
                             </div>
 
                             <div class="campo-perfil">
                                 <span class="legenda-campo">CPF</span>
-                                <span class="dados-campos">130.520.390-91</span>
+                                <span class="dados-campos" id="perfil-cpf">130.520.390-91</span>
                             </div>
                         </div>
                     </div>
@@ -108,19 +108,18 @@
                 </div>
 
                 <div class="coluna-endereco">
+                    <span class="titulo-configuracoes">Endereço</span>
+                    <a href="pagamento/cadastro_endereco.html">Adicionar endereço</a>
 
                     <div class="endereco-card">
-                        <span class="titulo-configuracoes">Endereço</span>
-                        <a href="pagamento/cadastro_endereco.html">Adicionar endereço</a>
 
                         <div class="conteudo-endereco">
                             <div class="linha-topo-endereco">
-                                <p class="linha-cep">CEP</p>
+                                <p class="linha-cep"></p>
                                 <a href="pagamento/alterar_endereco.html" class="link-alterar">Alterar endereço</a>
                             </div>
                             <div class="informacao-endereco">
-                                <p class="linha-nome">Rua João Augustinho 768, Ap. 35; Bl. A Jardim Lima, Bela Vista,
-                                    SP, 08888-888, Brasil</p>
+                                <p class="linha-nome"></p>
                             </div>
                             <div class="acoes-endereco">
                                 <button type="button" class="botao-excluir" data-modal="modal-abrir-1">
@@ -148,15 +147,16 @@
                     <span class="titulo-configuracoes">Cartões</span>
                     <a href="pagamento/cadastrar_cartao.html">Adicionar cartão</a>
 
+                
                     <div class="lista-cartoes">
                         <div class="cartoes-card">
                             <div class="informacao-cartao">
                                 <div class="topo-cartao">
-                                    <p class="linha-cartao">[Bandeira do cartão]</p>
+                                    <p class="linha-cartao"></p>
                                     <span class="cartao-principal">Cartão Principal</span>
                                 </div>
-                                <p class="linha-nome">[Nome impresso no cartão]</p>
-                                <p class="linha-nome">5134 **** **** ****</p>
+                                <p class="linha-nome"></p>
+                                <p class="linha-nome"></p>
                             </div>
                             <button type="button" class="botao-excluir" data-modal="modal-abrir-3">
                                 <img src="../../../public/images/lixeira.svg" alt="Excluir" />
@@ -175,39 +175,14 @@
                             </dialog>
                         </div>
                     </div>
-
-                    <div class="lista-cartoes">
-                        <div class="cartoes-card">
-                            <div class="informacao-cartao">
-                                <div class="topo-cartao">
-                                    <p class="linha-cartao">[Bandeira do cartão]</p>
-                                </div>
-                                <p class="linha-nome">[Nome impresso no cartão]</p>
-                                <p class="linha-nome">5134 **** **** ****</p>
-                            </div>
-                            
-                            <button type="button" class="botao-excluir" data-modal="modal-abrir-4">
-                                <img src="../../../public/images/lixeira.svg" alt="Excluir" />
-                            </button>
-                            <dialog id="modal-abrir-4" class="modal-abrir">
-                                <img class="icone-alerta" src="../../../public/images/modal-alerta.svg"
-                                    alt="alerta-modal">
-                                <h3>Remover endereço?</h3>
-                                <span>Você realmente deseja remover o cartão?</span>
-                                <div class="botoes-modais">
-                                    <button class="btn-modal-cancelar" data-modal="modal-abrir-4">Cancelar</button>
-                                    <button class="btn-modal-fechar btn-tema-alerta"
-                                        data-modal="modal-abrir-4">Remover</button>
-                                </div>
-                            </dialog>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </main>
+    <div id="toast" class="toast"></div>
     <script src="../../../public/js/botao_voltar.js"></script>
     <script src="/public/js/modal.js"></script>
+    <script src="/public/js/configuracoes.js"></script>
 </body>
 
 </html>
