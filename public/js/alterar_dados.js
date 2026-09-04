@@ -7,6 +7,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     carregarDadosCliente();
 });
+
+function apenasNumeros(valor) {
+    return valor.replace(/\D/g, '');
+}
+
+function mascararTelefone(valor) {
+    let v = apenasNumeros(valor).slice(0, 11);
+    v = v.replace(/^(\d{2})(\d)/, '($1) $2');
+    v = v.replace(/(\d{5})(\d{1,4})$/, '$1-$2');
+    return v;
+}
+
+document.getElementById('telefone').addEventListener('input', function (e) {
+    e.target.value = mascararTelefone(e.target.value);
+});
  
 async function carregarDadosCliente() {
     try {
@@ -22,7 +37,7 @@ async function carregarDadosCliente() {
         document.getElementById('nome').value = cliente.nome ?? '';
         document.getElementById('data-nascimento').value = cliente.dataNascimento ?? '';
         document.getElementById('genero').value = cliente.genero ?? '';
-        document.getElementById('telefone').value = cliente.telefone ?? '';
+        document.getElementById('telefone').value = mascararTelefone(cliente.telefone) ?? '';
     } catch (erro) {
         console.error(erro);
         exibirErroServidor('Não foi possível carregar os dados do cliente.');
@@ -66,7 +81,7 @@ document.querySelector('.cadastrar').addEventListener('click', async function (e
         nome: nomeCompleto,
         dataNascimento: dataNascimento,
         genero: genero,
-        telefone: telefone
+        telefone: apenasNumeros(telefone)
     };
  
     try {

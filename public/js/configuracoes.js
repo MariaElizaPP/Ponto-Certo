@@ -18,6 +18,11 @@ function formatarCep(cep) {
     return cep.replace(/(\d{5})(\d{3})/, '$1-$2');
 }
 
+function formatarCpf(cpf){
+    if(!cpf) return '';
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+}
+
 function montarEnderecoCompleto(endereco) {
     const partes = [
         `${endereco.end_logradouro}, ${endereco.end_numero}`,
@@ -38,6 +43,12 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
     carregarConfiguracoes();
+});
+
+window.addEventListener('pageshow', function (event) {
+    if (event.persisted) {
+        carregarConfiguracoes();
+    }
 });
 
 async function carregarConfiguracoes() {
@@ -69,7 +80,7 @@ function preencherPerfil(dados) {
     document.getElementById('perfil-nome').textContent = dados.nome ?? '',
         document.getElementById('perfil-genero').textContent = GENERO_LABEL[dados.genero] ?? dados.genero ?? '';
     document.getElementById('perfil-telefone').textContent = formatarTelefone(dados.telefone),
-        document.getElementById('perfil-cpf').textContent = dados.cpf ?? '';
+        document.getElementById('perfil-cpf').textContent = formatarCpf(dados.cpf) ?? '';
 }
 
 function preencherEnderecos(enderecos) {
@@ -84,12 +95,19 @@ function preencherEnderecos(enderecos) {
         card.querySelector('.linha-cep').textContent = endereco.end_nomeEndereco;
         card.querySelector('.linha-nome').textContent = montarEnderecoCompleto(endereco);
 
+        card.dataset.enderecoId = endereco.end_id;
+
         const modal = card.querySelector('dialog');
         const novoIdModal = `modal-endereco-${index}`;
         modal.id = novoIdModal;
-        card.querySelectorAll('[data-modal="modal-abrir-1"]').forEach(el => {
+        card.querySelectorAll('[data-modal]').forEach(el => {
             el.dataset.modal = novoIdModal;
         });
+
+        const linkAlterar = card.querySelector('.link-alterar');
+        if(linkAlterar){
+            linkAlterar.href = `/src/views/pagamento/alterar_endereco.html?enderecoId=${endereco.end_id}`;
+        }
 
         container.appendChild(card);
     });
@@ -97,13 +115,15 @@ function preencherEnderecos(enderecos) {
 
 function preencherCartoes(cartoes) {
     const container = document.querySelector('.coluna-cartoes');
-    const listaModelo = document.querySelector('.lista-cartoes').cloneNode(true); // guarda antes de remover
+    const listaModelo = document.querySelector('.lista-cartoes').cloneNode(true); 
 
-    container.querySelectorAll('.lista-cartoes').forEach(el => el.remove()); // limpa gerações anteriores, se a função rodar de novo
+    container.querySelectorAll('.lista-cartoes').forEach(el => el.remove()); 
 
     cartoes.forEach((cartao, index) => {
         const lista = listaModelo.cloneNode(true);
         const card = lista.querySelector('.cartoes-card');
+
+         card.dataset.cartaoId = cartao.car_id;
 
         card.querySelector('.linha-cartao').textContent = cartao.bdr_nome ?? '';
         card.querySelectorAll('.linha-nome')[0].textContent = cartao.car_nomeImpresso ?? '';
@@ -120,6 +140,105 @@ function preencherCartoes(cartoes) {
         container.appendChild(lista);
     });
 }
+
+document.addEventListener('click', function (e) {
+
+    const btnRemover = e.target.closest('.btn-tema-alerta');
+    if (btnRemover) {
+        const card = btnRemover.closest('.cartoes-card');
+        if (card) {
+            excluirCartao(card.dataset.cartaoId);
+            return;
+        }
+        
+    }
+
+    const btnRemoverEndereco = e.target.closest('.btn-tema-alerta');
+    if (btnRemoverEndereco) {
+        const card = btnRemoverEndereco.closest('.endereco-card');
+        if (card) {
+            deletarEndereco(card.dataset.enderecoId);
+            return;
+        }
+        
+    }
+
+    const btnPreferencial = e.target.closest('.botao-definir-preferencial');
+    console.log('btnPreferencial:', btnPreferencial);
+    if (btnPreferencial) {
+        const card = btnPreferencial.closest('.cartoes-card');
+        console.log('card encontrado:', card);
+        if (card) {
+            definirPreferencial(card.dataset.cartaoId);
+        }
+    }
+});
+
+async function definirPreferencial(cartaoId) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/cliente/${clienteId}/definirPreferencial/${cartaoId}`, {
+            method: 'PATCH'
+        });
+
+        const dados = await response.json();
+
+        if (!response.ok) {
+            mostrarToast(dados.mensagem || 'Erro ao definir cartão preferencial', 'erro');
+            return;
+        }
+        mostrarToast('Cartão definido como preferencial', 'sucesso');
+        carregarConfiguracoes();
+    } catch (erro) {
+        console.error(erro); 
+        mostrarToast('Não foi possível conectar ao servidor', 'erro');
+    }
+}
+
+async function excluirCartao(cartaoId) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/cliente/${clienteId}/cartoes/${cartaoId}`, {
+            method: 'DELETE'
+        });
+
+        const dados = await response.json();
+
+        if (!response.ok) {
+            mostrarToast(dados.mensagem || 'Erro ao remover o cartão', 'erro');
+            return;
+        }
+
+        mostrarToast(dados.mensagem, 'sucesso');
+        carregarConfiguracoes();
+
+    } catch (erro) {
+        console.error(erro);
+        mostrarToast('Não foi possível conectar ao servidor', 'erro');
+    }
+}
+
+
+async function deletarEndereco(enderecoId) {
+
+    try{
+        const response = await fetch(`http://localhost:3000/api/deletarEndereco/${clienteId}/${enderecoId}`, {
+            method: 'DELETE'
+        });
+
+        const dados = await response.json();
+
+        if (!response.ok){
+            mostrarToast (dados.mensagem || 'Erro ao excluir o endereço', 'erro');
+            return;
+        }
+        mostrarToast('Endereço excluído', 'sucesso');
+        carregarConfiguracoes();
+    } catch(erro){
+        console.error(erro);
+        mostrarToast('Não foi possível conectar ao servidor', 'erro');
+    }
+    
+}
+
 
 function mostrarErro(id, mensagem) {
     document.getElementById(id).classList.add('erro');

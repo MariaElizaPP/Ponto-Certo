@@ -51,7 +51,7 @@
 
             <div class="campo">
               <label for="genero" class="nome-campos">Gênero</label>
-              <select class="placeholder" id="genero" required>
+              <select class="placeholder select-status" id="genero" required>
                 <option value="" disabled selected hidden>Escolha o seu gênero</option>
                 <option value="H">Homem</option>
                 <option value="M">Mulher</option>
@@ -63,7 +63,7 @@
 
             <div class="campo">
               <label for="telefone" class="nome-campos">Telefone</label>
-              <input class="placeholder" placeholder="(00) 00000-0000" id="telefone" inputmode="numeric" pattern="[0-9]{10,11}" maxlength="11" required>
+              <input class="placeholder" placeholder="(00) 00000-0000" id="telefone" inputmode="tel" pattern="[0-9]{14,15}" required>
               <span class="erro-msg" id="erro-telefone"></span>
             </div>
           </div>

@@ -43,6 +43,7 @@
             <div class="cabecalho-configuracoes">
                 <h1 class="titulo-pagina">CONFIGURAÇÕES</h1>
                 <a href="alterar_senha.html" class="botao-alterar-senha">Alterar Senha</a>
+               
             </div>
 
             <div class="conteudo-configuracoes">
@@ -105,6 +106,7 @@
                             </div>
                         </div>
                     </div>
+                    <button class="botao-excluir-conta">Excluir Conta</button>
                 </div>
 
                 <div class="coluna-endereco">
@@ -158,26 +160,31 @@
                                 <p class="linha-nome"></p>
                                 <p class="linha-nome"></p>
                             </div>
-                            <button type="button" class="botao-excluir" data-modal="modal-abrir-3">
-                                <img src="../../../public/images/lixeira.svg" alt="Excluir" />
-                            </button>
+
+                            <div class="acoes-cartao">
+                                <button type="button" class="botao-definir-preferencial">Tornar principal</button>
+                                <button type="button" class="botao-excluir" data-modal="modal-abrir-3">
+                                    <img src="../../../public/images/lixeira.svg" alt="Excluir" />
+                                </button>
+                            </div>
 
                             <dialog id="modal-abrir-3" class="modal-abrir">
-                                <img class="icone-alerta" src="../../../public/images/modal-alerta.svg"
-                                    alt="alerta-modal">
+                                <img class="icone-alerta" src="../../../public/images/modal-alerta.svg" alt="alerta-modal">
                                 <h3>Remover cartão?</h3>
                                 <span>Você realmente deseja remover o cartão?</span>
                                 <div class="botoes-modais">
                                     <button class="btn-modal-cancelar" data-modal="modal-abrir-3">Cancelar</button>
-                                    <button class="btn-modal-fechar btn-tema-alerta"
-                                        data-modal="modal-abrir-3">Remover</button>
+                                    <button class="btn-modal-fechar btn-tema-alerta" data-modal="modal-abrir-3">Remover</button>
                                 </div>
                             </dialog>
                         </div>
                     </div>
                 </div>
             </div>
+             
         </div>
+
+       
     </main>
     <div id="toast" class="toast"></div>
     <script src="../../../public/js/botao_voltar.js"></script>

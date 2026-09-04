@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital@0;1&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 
-
 .pagina-conteudo {
   max-width: 1400px; 
   margin: 0 auto;
   padding: 0 40px;
+}
+
+.body{
+  font-family: "Montserrat";
 }
 
 .botao-voltar{
@@ -291,6 +294,20 @@
   font-family: "Montserrat";
 }
 
+.botao-excluir-conta{
+  display: block;
+  margin-top: 24px;
+  padding: 12px 42px;
+  background-color: #FFC8E4;
+  color: var(--primary-color);
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  font-family: "Montserrat";
+}
+
 /*isso aq serve para qualquer tema de modal- config padrao dos modais*/
 .modal-abrir{
   position: fixed;
@@ -378,6 +395,7 @@ a{
     padding: 14px 20px;
     border-radius: 8px;
     color: #fff;
+    font-family: "Montserrat";
     font-size: 14px;
     opacity: 0;
     pointer-events: none;
@@ -386,12 +404,38 @@ a{
     
 }
 
+.botao-definir-preferencial{
+  border: none;
+  background-color: transparent;
+  color: var(--primary-color);
+  font-size: 12px;
+  font-family: "Montserrat";
+  text-decoration: underline;
+
+}
+
+.acoes-cartao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.botao-excluir {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
 .toast.mostrar {
     opacity: 1;
 }
 
 .toast.sucesso {
     background-color: #2e7d32;
+    
 }
 
 .toast.erro {

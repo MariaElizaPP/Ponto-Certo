@@ -1,4 +1,25 @@
-document.querySelector('.cadastrar').addEventListener('click', function(e){
+
+const clienteId = localStorage.getItem('clienteId');
+
+function apenasNumeros(valor) {
+    return valor.replace(/\D/g, '');
+}
+
+function mascararCartao(valor) {
+    let v = apenasNumeros(valor).slice(0, 16);
+    v = v.replace(/(\d{4})(?=\d)/g, '$1 ');
+    return v;
+}
+
+document.getElementById('numero-cartao').addEventListener('input', function (e) {
+    e.target.value = mascararCartao(e.target.value);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    carregarBandeiras();
+});
+
+document.querySelector('.cadastrar').addEventListener('click', async function (e) {
     e.preventDefault();
 
     const numero = document.getElementById('numero-cartao').value.replace(/\s/g, '');
@@ -35,16 +56,62 @@ document.querySelector('.cadastrar').addEventListener('click', function(e){
 
     if (!valido) return;
 
-    document.getElementById('modal-abrir').showModal();
+    try {
+        const response = await fetch('http://localhost:3000/api/cadastrarCartao', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                cliId: clienteId,
+                numeroCartao: apenasNumeros(numero),
+                bandeiraCartao: bandeira,
+                nomeCartao: nome,
+                cvv: cvv
+            })
+        });
+
+        const dados = await response.json();
+
+        if (!response.ok) {
+            mostrarErro('numero-cartao', dados.mensagem || 'Erro ao cadastrar o cartão');
+            return;
+        }
+
+        document.getElementById('modal-abrir').showModal();
+    } catch (erro) {
+        console.error(erro);
+        mostrarErro('numero-cartao', 'Não foi possivel conectar ao servidor');
+
+    }
 
 });
 
-function mostrarErro(id, mensagem){
+async function carregarBandeiras() {
+    try {
+        const res = await fetch('http://localhost:3000/api/bandeiras');
+        const bandeiras = await res.json();
+
+        const select = document.getElementById('bandeira');
+        select.querySelectorAll('option:not([hidden])').forEach((opcao) => opcao.remove());
+
+        bandeiras.forEach((bandeira) => {
+            const option = document.createElement('option');
+            option.value = bandeira.bdr_id;
+            option.textContent = bandeira.bdr_nome;
+            select.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Erro ao carregar bandeiras:', error);
+    }
+}
+
+function mostrarErro(id, mensagem) {
     document.getElementById(id).classList.add('erro');
     document.getElementById('erro-' + id).textContent = mensagem;
 }
 
-function limparErros(){
+function limparErros() {
     document.querySelectorAll('.placeholder').forEach(campo => campo.classList.remove('erro'));
     document.querySelectorAll('.erro-msg').forEach(span => span.textContent = '');
 }

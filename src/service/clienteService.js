@@ -8,7 +8,7 @@ class UserService {
         return regex.test(senha);
     }
 
-    validarLuhn (numero) {
+    validarLuhn(numero) {
         let soma = 0;
         let alternar = false;
 
@@ -79,7 +79,7 @@ class UserService {
         }
         for (const cartao of cartoes) {
             if (!cartao.numeroCartao) throw { status: 400, mensagem: "O numero do cartão é obrigatório" };
-            if(this.validarLuhn(cartao.numero)) throw {status: 400, mensagem: "O numero do cartão está inválido."};
+            if (this.validarLuhn(cartao.numero)) throw { status: 400, mensagem: "O numero do cartão está inválido." };
             if (!cartao.bandeiraCartao) throw { status: 400, mensagem: "A bandeira do cartão é obrigatório" };
             if (!cartao.nomeCartao) throw { status: 400, mensagem: "O nome no cartão é obrigatório" };
             if (!cartao.cvv) throw { status: 400, mensagem: "O código de segurança do cartão é obrigatório" };
@@ -138,15 +138,15 @@ class UserService {
             dataNascimento,
             genero,
             telefone,
-            
+
         });
     }
 
-    async listarDados(id){
+    async listarDados(id) {
         const clienteModel = new ClienteModel();
 
-        if(!id){
-            throw { status: 400, mensagem: 'O id do cliente é obrigatório.'};
+        if (!id) {
+            throw { status: 400, mensagem: 'O id do cliente é obrigatório.' };
         }
 
         return clienteModel.listarDados(id);
@@ -154,31 +154,31 @@ class UserService {
 
     async alterarSenha(id, novaSenha) {
 
-        if(!novaSenha) throw {status: 400, mensagem: 'A nova senha é obrigatória'};
+        if (!novaSenha) throw { status: 400, mensagem: 'A nova senha é obrigatória' };
 
-        if (!this.validarSenha(novaSenha)){
-            throw{status: 400, mensagem: 'A nova senha deve ter no mínimo 8 caracteres, incluindo maiúscula, minúscula e caractere especial'};
+        if (!this.validarSenha(novaSenha)) {
+            throw { status: 400, mensagem: 'A nova senha deve ter no mínimo 8 caracteres, incluindo maiúscula, minúscula e caractere especial' };
         }
 
         const clienteModel = new ClienteModel();
 
         const cliente = await clienteModel.buscarPorId(id);
-        if(!cliente){
-            throw{status: 404,mensagem: 'Cliente não encontrado'};
+        if (!cliente) {
+            throw { status: 404, mensagem: 'Cliente não encontrado' };
         }
 
-        
+
         const novaSenhaCriptografada = await bcrypt.hash(novaSenha, 10);
 
         await clienteModel.atualizarSenha(id, novaSenhaCriptografada);
 
-        return {mensagem: 'Senha atualizada'};
+        return { mensagem: 'Senha atualizada' };
 
-        
+
     }
 
-    async dadosCadastrais(clienteId){
-        if(!clienteId) throw {status: 400, mensagem: "É necessário o id do cliente"};
+    async dadosCadastrais(clienteId) {
+        if (!clienteId) throw { status: 400, mensagem: "É necessário o id do cliente" };
         const model = new ClienteModel();
         const cliente = await model.dadosCadastrais(clienteId);
 
@@ -194,6 +194,62 @@ class UserService {
             cpf: cliente.cli_cpf
         }
     }
+
+    async buscarCliente(clienteId) {
+        const model = new ClienteModel();
+
+        if (!clienteId) {
+            throw { status: 400, mensagem: "O id do Cliente não foi encontrado" };
+        }
+
+        const cliente = await model.buscarPorId(clienteId);
+
+        if (!cliente) {
+            throw { status: 404, mensagem: "Cliente não encontrado" };
+        }
+
+        return{
+            id: cliente.cli_id,
+            nome: cliente.cli_nome,
+            ativo: cliente.cli_ativo
+        }
+
+    }
+
+    async alterarStatus(clienteId, status) {
+        const model = new ClienteModel();
+        const clienteExistente = await model.buscarPorId(clienteId);
+
+        if (!clienteExistente) {
+            throw { status: 404, mensagem: "Cliente não encontrado" };
+        }
+
+        await model.atualizarStatus(clienteId, status);
+
+        return model.buscarPorId(clienteId);
+    }
+
+    async deletarCliente(clienteId) {
+        if (!clienteId) throw { status: 400, mensagem: 'O id do cliente é obrigatorio' };
+
+        const clienteModel = new ClienteModel();
+
+        const cliente = await clienteModel.buscarPorId(clienteId);
+        if (!cliente) throw { status: 400, mensagem: 'Cliente não encontrado' };
+
+        const deletado = await clienteModel.deletarCliente(clienteId);
+        if (!deletado) throw { status: 500, mensagem: 'Não foi possivel excluir o cliente' };
+
+        return { mensagem: 'Cliente excluído com sucesso' };
+
+    }
+
+    async listarClientes(filtros){
+        const clienteModel = new ClienteModel();
+        return clienteModel.listarTodos(filtros);
+    }
+
+    
 
 }
 

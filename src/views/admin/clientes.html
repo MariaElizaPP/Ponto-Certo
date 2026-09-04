@@ -57,15 +57,15 @@
             <div class="filtro-grupo">
               <h4 class="filtro_titulo">Gênero</h4>
               <label class="checkbox-opcoes">
-                <input type="checkbox" name="genero" value="feminino">
+                <input type="checkbox" name="genero" value="M">
                 Feminino
               </label>
               <label class="checkbox-opcoes">
-                <input type="checkbox" name="genero" value="Masculino">
+                <input type="checkbox" name="genero" value="H">
                 Masculino
               </label>
               <label class="checkbox-opcoes">
-                <input type="checkbox" name="genero" value="Prefiro_nao_informar">
+                <input type="checkbox" name="genero" value="N">
                 Prefiro não informar
               </label>
             </div>
@@ -100,99 +100,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>123.456.789-00</td>
-            <td>Maria Silva</td>
-            <td>maria@email.com </td>
-            <td>(11) 99999-9999 </td>
-            <td>20/04/1984</td>
-            <td class="acoes-tabela">
-              <label class="status-produto">
-                <input type="checkbox" checked>
-                <span class="slider-status"></span>
-              </label>
-              <a class="botao-editar" href="editar_cliente.html">
-                <img src="/public/images/editar-roxo.svg" alt="Editar">
-              </a>
-              <button type="button" class="botao-excluir" data-modal="modal-abrir-1">
-                <img src="/public/images/lixo-roxo.svg" alt="Excluir">
-              </button>
-              <dialog id="modal-abrir-1" class="modal-abrir">
-                <img class="icone-alerta" src="../../../public/images/modal-alerta.svg" alt="alerta-modal">
-                <h3>Remover cliente?</h3>
-                <span>Você realmente deseja remover o cliente?</span>
-                <div class="botoes-modais">
-                  <button class="btn-modal-cancelar" data-modal="modal-abrir-1">Cancelar</button>
-                  <button class="btn-modal-fechar btn-tema-alerta" data-modal="modal-abrir-1">Remover</button>
-                </div>
-              </dialog>
-            </td>
-          </tr>
-
-          <tr>
-            <td>123.456.789-00</td>
-            <td>Maria Silva</td>
-            <td>maria@email.com </td>
-            <td>(11) 99999-9999 </td>
-            <td>20/04/1984</td>
-            <td class="acoes-tabela">
-              <label class="status-produto">
-                <input type="checkbox" checked>
-                <span class="slider-status"></span>
-              </label>
-              <a href="editar_cliente.html" class="botao-editar">
-                <img src="/public/images/editar-roxo.svg" alt="Editar">
-              </a>
-              <button type="button" class="botao-excluir" data-modal="modal-abrir-2">
-                <img src="/public/images/lixo-roxo.svg" alt="Excluir">
-              </button>
-              <dialog id="modal-abrir-2" class="modal-abrir">
-                <img class="icone-alerta" src="../../../public/images/modal-alerta.svg" alt="alerta-modal">
-                <h3>Remover cliente?</h3>
-                <span>Você realmente deseja remover o cliente?</span>
-                <div class="botoes-modais">
-                  <button class="btn-modal-cancelar" data-modal="modal-abrir-2">Cancelar</button>
-                  <button class="btn-modal-fechar btn-tema-alerta" data-modal="modal-abrir-2">Remover</button>
-                </div>
-              </dialog>
-            </td>
-          </tr>
-
-          <tr>
-            <td>123.456.789-00</td>
-            <td>Maria Silva</td>
-            <td>maria@email.com </td>
-            <td>(11) 99999-9999 </td>
-            <td>20/04/1984</td>
-            <td class="acoes-tabela">
-              <label class="status-produto">
-                <input type="checkbox" checked>
-                <span class="slider-status"></span>
-              </label>
-              <a href="editar_cliente.html" class="botao-editar">
-                <img src="/public/images/editar-roxo.svg" alt="Editar">
-              </a>
-              <button type="button" class="botao-excluir" data-modal="modal-abrir-3">
-                <img src="/public/images/lixo-roxo.svg" alt="Excluir">
-              </button>
-              <dialog id="modal-abrir-3" class="modal-abrir">
-                <img class="icone-alerta" src="../../../public/images/modal-alerta.svg" alt="alerta-modal">
-                <h3>Remover cliente?</h3>
-                <span>Você realmente deseja remover o cliente?</span>
-                <div class="botoes-modais">
-                  <button class="btn-modal-cancelar" data-modal="modal-abrir-3">Cancelar</button>
-                  <button class="btn-modal-fechar btn-tema-alerta botao-voltar" data-modal="modal-abrir-3">Remover</button>
-                </div>
-            </td>
-          </tr>
-          </tr>
+      
         </tbody>
       </table>
 
     </main>
 
   </div>
-  <script src="../../../public/js/filtros.js"></script>
+  <div id="toast" class="toast"></div>
+  <script src="/public/js/filtros.js"></script>
   <script src="/public/js/modal.js"></script>
 </body>
 
