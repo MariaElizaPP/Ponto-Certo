@@ -1,4 +1,4 @@
-document.querySelector('.cadastrar').addEventListener('click', function(e){
+document.querySelector('.cadastrar').addEventListener('click', async function(e){
     e.preventDefault();
     limparErros();
 
@@ -17,20 +17,42 @@ document.querySelector('.cadastrar').addEventListener('click', function(e){
 
     const senhaRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!*@#$%^&(),.?":{}|<>_\-+=~`\[\]\/]).{8,}$/;
 
-    if(!senhaRegex.test(senha) ){
+    if(!senhaRegex.test(senha)){
         mostrarErro("senha", "A senha deve ter no mínimo 8 caracteres, incluindo uma letra maiúscula, minúscula e um caractere especial");
         valido = false;
     }
-    
+
     if(senha !== confirmarSenha){
         mostrarErro("confirmar-senha", "As senhas não coincidem");
         valido = false;
     }
 
-    if(!valido) return 
+    if(!valido) return;
 
-    document.getElementById('modal-abrir').showModal();
-    
+    const clienteId = localStorage.getItem('clienteId');
+
+    try {
+        const response = await fetch(`http://localhost:3000/api/cliente/${clienteId}/senha`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ novaSenha: senha })
+        });
+
+        const dados = await response.json();
+
+        if(!response.ok){
+            mostrarErro("senha", dados.mensagem || "Erro ao alterar a senha");
+            return;
+        }
+
+        document.getElementById('modal-abrir').showModal();
+
+    } catch(erro){
+        console.error(erro);
+        mostrarErro("senha", "Não foi possível conectar ao servidor");
+    }
 });
 
 function mostrarErro(id, mensagem){

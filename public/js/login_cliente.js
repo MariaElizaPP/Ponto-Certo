@@ -24,10 +24,56 @@ function limparErros(){
 }*/
 
 
-document.querySelector('.btn-entrar').addEventListener('click', function (e) {
+document.querySelector('.btn-entrar').addEventListener('click', async function (e) {
     e.preventDefault();
- 
-    localStorage.setItem('clienteId', 8);
- 
-    window.location.href = 'configuracoes.html'; // ou a tela inicial que vocês definirem
+    const clienteId = 8;
+
+    try {
+        const resposta = await fetch(`http://localhost:3000/api/buscarCliente/${clienteId}`);
+
+        const cliente = await resposta.json();
+        
+        if (!resposta.ok) {
+            exibirErroServidor(cliente.mensagem || "Erro ao buscar cliente.");
+            return;
+        }
+
+        if (!cliente.ativo) {
+            exibirErroServidor("Cliente inativado pelo administrador.");
+            return;
+        }
+
+        localStorage.setItem('clienteId', clienteId);
+        window.location.href = 'index.html';
+
+    } catch (error) {
+        console.error(error);
+        exibirErroServidor("Erro ao verificar cliente. Tente novamente.");
+    }
 });
+
+
+function mostrarErro(id, mensagem) {
+    document.getElementById(id).classList.add('erro');
+    document.getElementById('erro-' + id).textContent = mensagem;
+}
+
+function limparErros() {
+    document.querySelectorAll('.placeholder, select').forEach(campo => campo.classList.remove('erro'));
+    document.querySelectorAll('.erro-msg').forEach(span => span.textContent = '');
+}
+
+
+function mostrarToast(mensagem, tipo = 'erro') {
+    const toast = document.getElementById('toast');
+    toast.textContent = mensagem;
+    toast.className = `toast mostrar ${tipo}`;
+
+    setTimeout(() => {
+        toast.className = 'toast';
+    }, 3000);
+}
+
+function exibirErroServidor(mensagem) {
+    mostrarToast(mensagem, 'erro');
+}

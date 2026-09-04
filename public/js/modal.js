@@ -1,34 +1,15 @@
+document.addEventListener('click', (e) => {
+    
+    const closeBtn = e.target.closest('.btn-modal-fechar, .btn-modal-cancelar');
+    if (closeBtn) {
+        const modal = document.getElementById(closeBtn.getAttribute('data-modal'));
+        if (modal) modal.close();
+        return;
+    }
 
-const openButtons = document.querySelectorAll('[data-modal]');
-
-openButtons.forEach(button =>{
-    button.addEventListener('click', () =>{
-        const modalId = button.getAttribute('data-modal');
-        const modal = document.getElementById(modalId);
-
-        modal.showModal();
-    });
-        
+    const openBtn = e.target.closest('[data-modal]');
+    if (openBtn) {
+        const modal = document.getElementById(openBtn.getAttribute('data-modal'));
+        if (modal) modal.showModal();
+    }
 });
-
-const closeButtons = document.querySelectorAll('.btn-modal-fechar');
-
-closeButtons.forEach(button =>{
-    button.addEventListener('click', () =>{
-        const modalId = button.getAttribute('data-modal');
-        const modal = document.getElementById(modalId);
-
-        modal.close();
-    });
-});
-
-const cancelButtons = document.querySelectorAll('.btn-modal-cancelar');
-
-cancelButtons.forEach(button =>{
-    button.addEventListener('click', () =>{
-        const modalId = button.getAttribute('data-modal');
-        const modal = document.getElementById(modalId);
-
-        modal.close();
-    })
-})

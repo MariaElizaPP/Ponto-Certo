@@ -203,6 +203,60 @@ class ClienteModel {
         return linhas[0];
     }
 
+    async atualizarStatus(clienteId, ativo){
+        const [linhas] = await pool.execute(`UPDATE cliente SET cli_ativo=? WHERE cli_id=?`, [ativo, clienteId]);
+        return linhas;
+    }
+
+    async deletarCliente(clienteId) {
+        const conexao = await pool.getConnection();
+
+        try {
+            await conexao.beginTransaction();
+
+            await conexao.execute('DELETE FROM cartao WHERE car_cli_id= ?', [clienteId]);
+            await conexao.execute('DELETE FROM endereco WHERE end_cli_id = ?', [clienteId]);
+
+            const [resultado] = await conexao.execute(
+                'DELETE FROM cliente WHERE cli_id = ?',
+                [clienteId]
+            );
+
+            await conexao.commit();
+            return resultado.affectedRows > 0;
+        } catch (error) {
+            await conexao.rollback();
+            console.log(error);
+            throw error;
+        } finally {
+            conexao.release();
+        }
+
+    }
+
+        async listarTodos(filtros = {}) {
+        let sql = `SELECT cli_id, cli_cpf, cli_nome, cli_email, cli_telefone, cli_dataNasc, cli_genero, cli_ativo
+                    FROM cliente WHERE 1=1`;
+        const parametros = [];
+
+        if (filtros.genero && filtros.genero.length > 0) {
+            const generos = Array.isArray(filtros.genero) ? filtros.genero : [filtros.genero];
+            const placeholders = generos.map(() => '?').join(', ');
+            sql += ` AND cli_genero IN (${placeholders})`;
+            parametros.push(...generos);
+        }
+
+        if (filtros.dataNascimento) {
+            sql += ' AND DATE(cli_dataNasc) = ?';
+            parametros.push(filtros.dataNascimento);
+        }
+
+        sql += ' ORDER BY cli_nome';
+
+        const [linhas] = await pool.execute(sql, parametros);
+        return linhas;
+    }
+
 }
 
 module.exports = { ClienteModel };

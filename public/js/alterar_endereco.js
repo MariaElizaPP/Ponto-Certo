@@ -1,4 +1,14 @@
 const clienteId = localStorage.getItem('clienteId');
+const params = new URLSearchParams(window.location.search);
+const enderecoId = params.get('enderecoId');
+
+document.addEventListener('DOMContentLoaded', function () {
+    if (!clienteId || !enderecoId) {
+        window.location.href = 'login.html';
+        return;
+    }
+    carregarDadosCliente();
+});
 
 function apenasNumeros(valor) {
     return valor.replace(/\D/g, '');
@@ -14,14 +24,37 @@ document.getElementById('cep').addEventListener('input', function (e) {
     e.target.value = mascararCep(e.target.value);
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    if (!clienteId || !enderecoId) {
-        window.location.href = 'login.html';
-        return;
-    }
-});
 
-document.querySelector('.cadastrar').addEventListener('click', async function(e){
+async function carregarDadosCliente() {
+    try {
+        const response = await fetch(`http://localhost:3000/api/buscarEndereco/${clienteId}/${enderecoId}`);
+
+        if (!response.ok) {
+            throw new Error('Erro ao carregar o endereço');
+        }
+
+        const endereco = await response.json();
+
+        document.getElementById('tipo-residencia').value = endereco.end_tipoResidencia;
+        document.getElementById('cep').value = mascararCep(endereco.end_cep);
+        document.getElementById('tipo-logradouro').value = endereco.end_tipoLogradouro;
+        document.getElementById('cidade').value = endereco.end_cidade;
+        document.getElementById('pais').value = endereco.end_pais;
+        document.getElementById('estado').value = endereco.end_estado;
+        document.getElementById('bairro').value = endereco.end_bairro;
+        document.getElementById('logradouro').value = endereco.end_logradouro;
+        document.getElementById('nome-endereco').value = endereco.end_nomeEndereco;
+        document.getElementById('numero').value = endereco.end_numero;
+        document.getElementById('tipo-endereco').value = endereco.end_tipoEndereco;
+        document.getElementById('complemento').value = endereco.end_complemento;
+
+    } catch (erro) {
+        console.error(erro);
+        exibirErroServidor('Não foi possível carregar os dados do cliente.');
+    }
+}
+
+document.querySelector('.cadastrar').addEventListener('click', async function (e) {
     e.preventDefault();
 
     const tipoResidencia = document.getElementById('tipo-residencia').value.trim();
@@ -41,52 +74,52 @@ document.querySelector('.cadastrar').addEventListener('click', async function(e)
 
     let valido = true;
 
-    if (!tipoResidencia){
+    if (!tipoResidencia) {
         mostrarErro('tipo-residencia', 'O tipo de residência é obrigatório');
         valido = false;
     }
-    if (!tipoEndereco){
-        mostrarErro('tipo-endereco', 'O tipo de endereço é obrigatório');
-        valido = false;
-    }
-    if (!cep){
+    if (!cep) {
         mostrarErro('cep', 'O cep é obrigatório');
         valido = false;
     }
-    if (!tipoLogradouro){
+    if (!tipoLogradouro) {
         mostrarErro('tipo-logradouro', 'O tipo de logradouro é obrigatório');
         valido = false;
     }
-    if (!cidade){
+    if (!cidade) {
         mostrarErro('cidade', 'A cidade é obrigatória');
         valido = false;
     }
-    if (!pais){
+    if (!pais) {
         mostrarErro('pais', 'O país é obrigatório');
         valido = false;
     }
-    if (!estado){
+    if (!estado) {
         mostrarErro('estado', 'O estado é obrigatório');
         valido = false;
     }
-    if (!bairro){
+    if (!bairro) {
         mostrarErro('bairro', 'O bairro é obrigatório');
         valido = false;
     }
-    if (!logradouro){
+    if (!logradouro) {
         mostrarErro('logradouro', 'O logradouro é obrigatório');
         valido = false;
     }
-    if (!nomeEndereco){
+    if (!nomeEndereco) {
         mostrarErro('nome-endereco', 'O nome do endereco é obrigatório');
         valido = false;
     }
-    if (!numero){
+    if (!numero) {
         mostrarErro('numero', 'O número é obrigatório');
         valido = false;
     }
+    if (!tipoEndereco) {
+        mostrarErro('tipo-endereco', 'O tipo de endereço é obrigatório');
+        valido = false;
+    }
 
-    if(!valido){
+    if (!valido) {
         return;
     }
 
@@ -104,11 +137,11 @@ document.querySelector('.cadastrar').addEventListener('click', async function(e)
         numero: numero,
         tipoEndereco: tipoEndereco,
         complemento: complemento || null
-    }
+    };
 
     try {
-        const response = await fetch(`http://localhost:3000/api/cadastrarEndereco`, {
-            method: 'POST',
+        const response = await fetch(`http://localhost:3000/api/alterarEndereco/${enderecoId}`, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -117,22 +150,40 @@ document.querySelector('.cadastrar').addEventListener('click', async function(e)
 
         if (!response.ok) {
             const erro = await response.json().catch(() => ({}));
-            throw new Error(erro.mensagem || 'Erro ao cadastrar o cliente');
+            throw new Error(erro.mensagem || 'Erro ao atualizar cliente');
         }
+
         document.getElementById('modal-abrir').showModal();
-    } catch (error) {
-        
+
+    } catch (erro) {
+        console.error(erro);
+        exibirErroServidor(erro.message);
     }
 
-    
 });
 
-function mostrarErro(id, mensagem){
+function mostrarErro(id, mensagem) {
     document.getElementById(id).classList.add('erro');
     document.getElementById('erro-' + id).textContent = mensagem;
 }
 
-function limparErros(){
-    document.querySelectorAll('.placeholder').forEach(campo => campo.classList.remove('erro'));
+function limparErros() {
+    document.querySelectorAll('.placeholder, select').forEach(campo => campo.classList.remove('erro'));
     document.querySelectorAll('.erro-msg').forEach(span => span.textContent = '');
 }
+
+
+function mostrarToast(mensagem, tipo = 'erro') {
+    const toast = document.getElementById('toast');
+    toast.textContent = mensagem;
+    toast.className = `toast mostrar ${tipo}`;
+
+    setTimeout(() => {
+        toast.className = 'toast';
+    }, 3000);
+}
+
+function exibirErroServidor(mensagem) {
+    mostrarToast(mensagem, 'erro');
+}
+
