@@ -15,7 +15,7 @@
     --alerta-verde-hover: #5A862C;
     --alerta-amarelo: #E4CB31;
     --alerta-amarelo-hover: #B8A42A;
-    
+    font-family: "Montserrat";
 }
 
 *{
@@ -115,6 +115,37 @@
     color: #5C5C5C;
 }
 
+
+select.select-status {
+  padding: 7px;
+  border: 1px solid #DFDFDF;
+  border-radius: 100px;
+  background-color: #F8F8F8;
+  font-size: 16px;
+  font-family: "Montserrat";
+  color: #5C5C5C;
+  outline: none;
+  appearance: none;
+  background-image: url('../../../public/images/setinha.svg');
+  background-repeat: no-repeat;
+  background-position: right 20px center;
+  background-size: 14px;
+  padding-right: 44px;
+  border-radius: 54px;
+  width: 100%;
+  height: 48px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+input{
+    font-family: "Montserrat", regular;
+    font-size: 16px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    color: var(--neutro-100);
+}
 
 .voltar{
     background-color: #fff;

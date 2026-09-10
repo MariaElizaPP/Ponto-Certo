@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital@0;1&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root{
+    --primary-color: #6D5960;
+    --verde-100: #A3DC9A;
+    --rosa-100: #FFBADD;
+    --amarelo-100: #FFF489;
+    --neutro-100: #212121;
+    --neutro-80: #404040;
+    --neutro-60: #7E7E7E;
+    --neutro-subcategoria: #414141;
+    --alerta-vermelho: #D52525;
+    --alerta-verde: #6C9F38;
+    --alerta-verde-hover: #5A862C;
+    --alerta-amarelo: #E4CB31;
+    
+}
+
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+body{
+    padding-left: 19px;
+    padding-right: 19px;
+    font-family: "Montserrat";
+}
+
+
+
+.img-voltar{
+    margin-top: 24px;
+    height: 18px;
+    width: 18px;
+   
+    
+}
+.titulo-container{
+    color: #6D5960;
+    font-size: 20px;
+    font-weight: 400;
+    font-family: "Raleway";
+    margin-bottom: 24px;
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.subtitulo {
+    color: var(--primary-color); 
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    font-family: "Raleway";
+}
+
+.dados_perfil {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 40px;
+}
+
+.coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.campo .label {
+    font-size: 13px;
+    color:var(--neutro-80); 
+    font-weight: 500;
+    font-family: "Montserrat";
+}
+
+.campo .valor {
+    font-size: 15px;
+    color: var(--neutro-100); 
+    font-weight: 500;
+}
+
+
+.secao-endereco {
+    margin-top: 32px;
+}
+
+.container-enderecos {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+
+.card_endereco {
+    background-color: #FFF1F8;
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    max-width: 550px;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.card-header span {
+    width: auto; 
+}
+
+.card-header .ponto {
+    font-size: 12px;
+    color: var(--primary-color);
+}
+
+.card-header .nome-endereco {
+    color: var(--neutro-100);
+    font-weight: 500;
+}
+
+.card-corpo {
+    font-size: 14px;
+    color: var(--neutro-80);
+    line-height: 1.4;
+}

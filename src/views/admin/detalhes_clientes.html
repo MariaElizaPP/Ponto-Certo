@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ponto Certo</title>
+
+    <link rel="stylesheet" href="../../../public/css/admin/navbar_master.css">
+    <link rel="stylesheet" href="../../../public/css/admin/conteudo_master.css">
+    <link rel="stylesheet" href="../../../public/css/admin/detalhes_cliente.css">
+</head>
+
+<body>
+
+        <a class="botao-voltar" id="botao-voltar" href="#">
+            <img class="img-voltar" src="../../../public/images/voltar.svg" alt="Voltar">
+        </a>
+    
+
+    <div class="titulo-container">
+            <h2>Detalhes do cliente</h2>
+        </div>
+
+    <div class="secao-perfil">
+        <h3 class="subtitulo">Dados do perfil</h3>
+
+        <div class="dados_perfil">
+        
+            <div class="coluna">  
+                <div class="campo">
+                    <span class="label">Nome completo</span>
+                    <span class="valor" id="nome"></span>
+                </div>
+                <div class="campo">
+                    <span class="label">CPF</span>
+                    <span class="valor" id="cpf"></span>
+                </div>
+            </div>
+
+            <div class="coluna">
+                <div class="campo">
+                    <span class="label">Data de nascimento</span>
+                    <span class="valor" id="data-nascimento"></span>
+                </div>
+                <div class="campo">
+                    <span class="label">Telefone</span>
+                    <span class="valor" id="telefone"></span>
+                </div>
+            </div>
+
+            
+            <div class="coluna">
+                <div class="campo">
+                    <span class="label">Gênero</span>
+                    <span class="valor" id="genero"></span>
+                </div>
+                <div class="campo">
+                    <span class="label">E-mail</span>
+                    <span class="valor" id="email"></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+   <div class="secao-endereco">
+    <h3 class="subtitulo">Endereço</h3>
+    
+    
+    <div class="container-enderecos" id="container-enderecos">
+    </div>
+</div>
+
+    <div id="toast" class="toast"></div>
+ 
+   <script src="/public/js/detalhesCliente.js"></script>
+</body>
+</html>

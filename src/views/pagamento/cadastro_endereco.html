@@ -44,13 +44,13 @@
                 </div>
                 <div class="campo">
                     <label class="nome-campos">CEP</label>
-                    <input class="placeholder" placeholder="00000-000" id="cep" pattern="[0-9]" maxlength="8" inputmode="numeric"  required></input>
+                    <input class="placeholder" placeholder="00000-000" id="cep" inputmode="numeric"  required></input>
                     <span class="erro-msg" id="erro-cep"></span>
                 </div>
 
                 <div class="campo">
                     <label class="nome-campos">Tipo de Logradouro</label>
-                    <input class="placeholder" placeholder="Insira o tipo de logradouro" id="tipo-logradouro" inputmode="text" pattern="[0-9]{3,4}" maxlength="4"  required></input>
+                    <input class="placeholder" placeholder="Insira o tipo de logradouro" id="tipo-logradouro" inputmode="text" required></input>
                     <span class="erro-msg" id="erro-tipo-logradouro"></span>
                 </div>
                 <div class="campo">
@@ -89,11 +89,20 @@
                     <span class="erro-msg" id="erro-numero"></span>
                 </div>
                 <div class="campo-pequeno">
-                    <label class="nome-campos">Completo</label>
+                    <label class="nome-campos">Complemento</label>
                     <input class="placeholder" placeholder="Insira o complemento" id="complemento" inputmode="text"></input>
                 </div>
 
-        
+                <div class="campo">
+                  <label class="nome-campos">Tipo de Endereço</label>
+                  <select class="placeholder select-status" name="tipoEndereco" id="tipo-endereco">
+                    <option value="" disabled selected hidden>Escolha o tipo do endereço</option>
+                    <option value="C">Cobrança</option>
+                    <option value="E">Entrega</option>
+                  </select>
+                  <span class="erro-msg" id="erro-tipo-endereco"></span>
+                </div>
+
             </div>
         </form>
         

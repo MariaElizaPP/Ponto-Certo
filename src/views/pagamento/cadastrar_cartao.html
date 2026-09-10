@@ -38,13 +38,13 @@
             <div class="campos">
                 <div class="campo">
                     <label class="nome-campos">Número do cartão</label>
-                    <input class="placeholder" id="numero-cartao" inputmode="numeric" pattern="[0-9]{13,19}" maxlength="19" placeholder="Insira o número" required></input>
+                    <input class="placeholder" id="numero-cartao" inputmode="tel" pattern="[0-9]{13,19}" placeholder="Insira o número" required></input>
                     <span class="erro-msg" id="erro-numero-cartao"></span>
                 </div>
 
                 <div class="campo">
                     <label class="nome-campos" >Bandeira do cartão</label>
-                    <select class="placeholder" id="bandeira" required>
+                    <select class="select-status" id="bandeira" required>
                         <option value="" disabled selected hidden>Escolha a bandeira</option>
                         <option value="visa">Visa</option>
                         <option value="elo">Elo</option>
@@ -61,7 +61,7 @@
 
                 <div class="campo">
                     <label class="nome-campos">Código de Segurança</label>
-                    <input class="placeholder" placeholder="Insira o CVV" id="cvv" inputmode="numeric" pattern="[0-9]{3,4}" maxlength="4" required></input>
+                    <input class="placeholder" placeholder="Insira o CVV" id="cvv" type="tel" maxlength="4" required></input>
                     <span class="erro-msg" id="erro-cvv"></span>
                 </div>
 
