@@ -90,14 +90,14 @@ async function buscarCliente(req, res){
     }
 }
 
-async function listarDados(req, res){
+async function detalhesCliente(req, res){
     try {
         const service = new UserService();
         const id = req.params.id;
 
-        const dadosCadastrais = await service.listarDados(id);
+        const dadosCadastrais = await service.detalhesCliente(id);
 
-        return res.status(200).json({ dadosCadastrais });
+        return res.status(200).json(dadosCadastrais);
 
     } catch (error) {
         console.error(error);
@@ -150,4 +150,4 @@ async function deletarCliente(req, res) {
 }
 
 
-module.exports = { cadastrar, alterar, buscarCliente, alterarSenha, listarDados, listarTodos, dadosCadastrais, alterarStatus, deletarCliente };
+module.exports = { cadastrar, alterar, buscarCliente, alterarSenha, detalhesCliente , listarTodos, dadosCadastrais, alterarStatus, deletarCliente };

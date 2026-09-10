@@ -178,13 +178,13 @@ class ClienteModel {
         }
     }
 
-    async listarDados(id) {
+    async detalhesCliente(id) {
         const conexao = await pool.getConnection();
 
         try {
-            const [linha] = await conexao.execute(`SELECT cli_nome, cli_genero, cli_dataNasc, cli_telefone FROM cliente WHERE cli_id = ?`, [id]);
+            const [linha] = await conexao.execute(`SELECT cli_nome, cli_genero, cli_dataNasc, cli_telefone, cli_email, cli_cpf FROM cliente WHERE cli_id = ?`, [id]);
 
-            return linha;
+            return linha[0];
         } catch (error) {
             console.log(error);
             throw error;
@@ -208,7 +208,7 @@ class ClienteModel {
         return linhas;
     }
 
-    async deletarCliente(clienteId) {
+    /*async deletarCliente(clienteId) {
         const conexao = await pool.getConnection();
 
         try {
@@ -232,7 +232,7 @@ class ClienteModel {
             conexao.release();
         }
 
-    }
+    }*/
 
         async listarTodos(filtros = {}) {
         let sql = `SELECT cli_id, cli_cpf, cli_nome, cli_email, cli_telefone, cli_dataNasc, cli_genero, cli_ativo

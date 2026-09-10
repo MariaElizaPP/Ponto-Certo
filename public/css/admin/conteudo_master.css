@@ -477,3 +477,7 @@ dialog h3{
 .toast.erro {
     background-color: #c62828;
 }
+
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
