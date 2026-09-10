@@ -3,14 +3,51 @@ const fecharFiltro = document.getElementById("fecharFiltro");
 const painelFiltro = document.getElementById("painelFiltro");
 const limparFiltro = document.getElementById("limparFiltro");
 const aplicarFiltro = document.getElementById("aplicarFiltro");
+const inputBusca = document.getElementById('buscaCliente');
 
-
+let clientes = []
 async function carregarClientes(params = new URLSearchParams()) {
     const resposta = await fetch(`http://localhost:3000/api/clientes?${params.toString()}`);
-    const clientes = await resposta.json();
-    renderizarTabela(clientes);
+    clientes = await resposta.json();
+    aplicarBuscaRenderizar();
 }
 
+function aplicarBuscaRenderizar() {
+    const termo = normalizar(inputBusca.value);
+
+    if (!termo) {
+        renderizarTabela(clientes);
+        return;
+    }
+
+    const filtrados = clientes.filter(cliente => {
+        return (
+            normalizar(cliente.cli_nome).includes(termo) ||
+            normalizar(cliente.cli_cpf).includes(termo) ||
+            normalizar(cliente.cli_telefone).includes(termo) ||
+            normalizar(cliente.cli_email).includes(termo)
+        );
+    });
+
+    renderizarTabela(filtrados);
+}
+
+inputBusca.addEventListener('input', aplicarBuscaRenderizar);
+
+function apenasNumeros(valor) {
+    return valor.replace(/\D/g, '');
+}
+
+function mascararTelefone(valor) {
+    let v = apenasNumeros(valor).slice(0, 11);
+    v = v.replace(/^(\d{2})(\d)/, '($1) $2');
+    v = v.replace(/(\d{5})(\d{1,4})$/, '$1-$2');
+    return v;
+}
+
+function mascararCpf(cpf){
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     carregarClientes();
@@ -32,6 +69,7 @@ limparFiltro.addEventListener("click", function () {
         checkbox.checked = false;
     });
     document.getElementById("data_nascimento").value = "";
+    inputBusca.value = "";
 
     carregarClientes();
 });
@@ -61,10 +99,10 @@ function renderizarTabela(clientes) {
 
         const linha = document.createElement("tr");
         linha.innerHTML = `
-            <td>${cliente.cli_cpf}</td>
+            <td>${mascararCpf(cliente.cli_cpf)}</td>
             <td>${cliente.cli_nome}</td>
             <td>${cliente.cli_email}</td>
-            <td>${cliente.cli_telefone}</td>
+            <td>${mascararTelefone(cliente.cli_telefone)}</td>
             <td>${dataFormatada}</td>
             <td class="acoes-tabela">
                 <label class="status-produto" data-modal="modal-abrir-${cliente.cli_id}">
@@ -73,17 +111,29 @@ function renderizarTabela(clientes) {
                 </label>
                 <dialog id="modal-abrir-${cliente.cli_id}" class="modal-abrir">
                     <img class="icone-alerta" src="../../../public/images/modal-alerta.svg" alt="alerta-modal">
-                    <h3>Inativar cliente?</h3>
+                    <h3>Alterar o status do cliente?</h3>
                     <span>Você realmente deseja alterar o status do cliente na plataforma?</span>
                     <div class="botoes-modais">
                         <button class="btn-modal-cancelar" data-modal="modal-abrir-${cliente.cli_id}">Cancelar</button>
                         <button class="btn-modal-fechar btn-tema-alerta" data-modal="modal-abrir-${cliente.cli_id}">Confirmar</button>
                     </div>
                 </dialog>
+                <a href="/src/views/admin/detalhes_clientes.html?id=${cliente.cli_id}" class="botao-detalhes"><img src="/public/images/detalhes-roxo.svg" alt=""></a>
+
             </td>
         `;
         tbody.appendChild(linha);
     });
+}
+
+function normalizar(texto) {
+    if (!texto) return '';
+    return texto
+        .toString()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[.\-\s()]/g, '')      
+        .toLowerCase();
 }
 
 document.addEventListener('click', function (e) {

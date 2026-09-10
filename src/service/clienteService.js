@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const { ClienteModel } = require('../models/clienteModel');
+const { EnderecoModel } = require('../models/enderecoModel');
 
 class UserService {
 
@@ -142,14 +143,30 @@ class UserService {
         });
     }
 
-    async listarDados(id) {
+    async detalhesCliente(id) {
         const clienteModel = new ClienteModel();
+        const enderecoModel = new EnderecoModel();
 
         if (!id) {
             throw { status: 400, mensagem: 'O id do cliente é obrigatório.' };
         }
 
-        return clienteModel.listarDados(id);
+        const dadosCadastrais = await  clienteModel.detalhesCliente(id);
+        const enderecos = await enderecoModel.listar(id);
+        const dataFormatada = new Date(dadosCadastrais.cli_dataNasc).toISOString().split('T')[0];
+
+        return{
+            dadosCadastrais:{
+                nome: dadosCadastrais.cli_nome,
+                genero: dadosCadastrais.cli_genero,
+                dataNasc: dataFormatada,
+                telefone: dadosCadastrais.cli_telefone,
+                email: dadosCadastrais.cli_email,
+                cpf: dadosCadastrais.cli_cpf,
+                enderecos
+            }
+            
+        }
     }
 
     async alterarSenha(id, novaSenha) {
