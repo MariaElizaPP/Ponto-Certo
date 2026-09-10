@@ -13,7 +13,7 @@ class UserService {
         let soma = 0;
         let alternar = false;
 
-        for (let i = numero.length - 1; i >= 0; i--) {
+        for (let i = numero?.length - 1; i >= 0; i--) {
             let n = parseInt(numero[i], 10);
             if (alternar) {
                 n *= 2;
@@ -80,7 +80,7 @@ class UserService {
         }
         for (const cartao of cartoes) {
             if (!cartao.numeroCartao) throw { status: 400, mensagem: "O numero do cartão é obrigatório" };
-            if (this.validarLuhn(cartao.numero)) throw { status: 400, mensagem: "O numero do cartão está inválido." };
+            if (!this.validarLuhn(cartao.numeroCartao)) throw { status: 400, mensagem: "O numero do cartão está inválido." };
             if (!cartao.bandeiraCartao) throw { status: 400, mensagem: "A bandeira do cartão é obrigatório" };
             if (!cartao.nomeCartao) throw { status: 400, mensagem: "O nome no cartão é obrigatório" };
             if (!cartao.cvv) throw { status: 400, mensagem: "O código de segurança do cartão é obrigatório" };

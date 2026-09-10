@@ -86,7 +86,7 @@ document.querySelector('.cadastrar').addEventListener('click', async function (e
         });
     });
 
-    if (blocosEndereco.length > 0) {
+    if (blocosEndereco?.length > 0) {
         const tipos = Array.from(blocosEndereco).map((b) => b.querySelector('[name="tipoEndereco"]').value);
         if (!tipos.includes('C')) { mostrarToast('É necessário ao menos um endereço de cobrança.', 'erro'); valido = false; }
 
