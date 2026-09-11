@@ -4,7 +4,7 @@ const enderecoId = params.get('enderecoId');
 
 document.addEventListener('DOMContentLoaded', function () {
     if (!clienteId || !enderecoId) {
-        window.location.href = 'login.html';
+        window.location.href = '/login.html';
         return;
     }
     carregarDadosCliente();

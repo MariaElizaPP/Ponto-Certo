@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ponto Certo</title>
-  <link rel="stylesheet" href= "../../../public/css/navbar/navbar.css">
-  <link rel="stylesheet" href= "../../../public/css/carrinho.css">
-  <link rel="stylesheet" href= "../../../public/css/pagamento.css">
+  <link rel="stylesheet" href= "/public/css/navbar/navbar.css">
+  <link rel="stylesheet" href= "/public/css/carrinho.css">
+  <link rel="stylesheet" href= "/public/css/pagamento.css">
   
     </head>
 
@@ -14,19 +14,19 @@
     <header>
         <nav class= "navbar">
 
-        <a class="logo" href="index.html">
+        <a class="logo" href="/index.html">
             <img src="/public/images/logo_ponto.svg" alt="Logo Ponto Certo">
             </a>
 
 
         <ul class="nav-list">
-            <li><a href="/src/views/index.html"> Página Inicial </a></li>
-            <li><a href="#"> Meus Pedidos</a></li>
+            <li><a href="/index.html"> Página Inicial </a></li>
+            <li><a href="/historico.html"> Meus Pedidos</a></li>
         </ul>
 
         <ul class= "nav_icones">
-            <li><a href="../carrinho.html"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
-            <li><a href="../configuracoes.html"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
+            <li><a href="/carrinho.html"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
+            <li><a href="/configuracoes.html"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
         
         </ul>
         
@@ -47,7 +47,7 @@
 
           <div class="cabecalho-pagamento">
            <span class="cabecalho-titulo">Escolha endereço de entrega</span>
-            <a href="cadastro_endereco.html" class="link-adicionar-endereco">Adicionar outro endereço</a>
+            <a href="/pagamento/cadastro_endereco.html" class="link-adicionar-endereco">Adicionar outro endereço</a>
           </div>
 
           <div class="linha-enderecos">
@@ -60,7 +60,7 @@
                 </div>
 
                 <div class="acoes-endereco">
-                    <a href="alterar_endereco.html" class="link-alterar">Alterar endereço</a>
+                    <a href="/pagamento/alterar_endereco.html" class="link-alterar">Alterar endereço</a>
                     
                     
                 </div>
@@ -74,7 +74,7 @@
                 </div>
 
                 <div class="acoes-endereco">
-                    <a href="alterar_endereco.html" class="link-alterar">Alterar endereço</a>
+                    <a href="/pagamento/alterar_endereco.html" class="link-alterar">Alterar endereço</a>
                    
                 </div>
             </label>
@@ -90,7 +90,7 @@
                
                 <div class="subcabecalho-cartao">
                 <span class="titulo-pequeno">Cartão de crédito</span>
-                <a href="cadastrar_cartao.html" class="link-adicionar-pagamento">Adicionar outro cartão</a>
+                <a href="/pagamento/cadastrar_cartao.html" class="link-adicionar-pagamento">Adicionar outro cartão</a>
                 </div>
 
                 
@@ -189,10 +189,10 @@
         <span id="mensagem-erro-cartoes" class="mensagem-erro-cartoes"></span>
         <button type="button" class="btn-modal-abrir" data-modal="modal-abrir">Finalizar Compra</button>
         <dialog id="modal-abrir" class="modal-abrir">
-            <img class="icone-sucesso" src="../../../public/images/sucesso-modal.svg" alt="sucesso-modal">
+            <img class="icone-sucesso" src="/public/images/sucesso-modal.svg" alt="sucesso-modal">
             <h3>Sucesso</h3>
             <span>Compra realizada com sucesso!</span>
-            <a href="../index.html"><button class="btn-modal-fechar btn-tema-sucesso" data-modal="modal-abrir">Voltar</button></a>
+            <a href="/index.html"><button class="btn-modal-fechar btn-tema-sucesso" data-modal="modal-abrir">Voltar</button></a>
         </dialog>
         
     </div>
@@ -200,9 +200,9 @@
     </div>
 
   </main>
-    <script src="../../../public/js/cupom.js"></script>
-    <script src="../../../public/js/botao_voltar.js"></script>
-    <script src="../../../public/js/selecionar_cartao.js"></script>
-    <script src="../../../public/js/modal.js"></script>
+    <script src="/public/js/cupom.js"></script>
+    <script src="/public/js/botao_voltar.js"></script>
+    <script src="/public/js/selecionar_cartao.js"></script>
+    <script src="/public/js/modal.js"></script>
  </body>
 </html>

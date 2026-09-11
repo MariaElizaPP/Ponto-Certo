@@ -45,6 +45,10 @@ input{
     color: var(--neutro-100)
 }
 
+a{
+    text-decoration: none;
+}
+
 .info-cartao{
     margin-top: 30px;
 }

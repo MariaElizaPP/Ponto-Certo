@@ -106,7 +106,7 @@ function preencherEnderecos(enderecos) {
 
         const linkAlterar = card.querySelector('.link-alterar');
         if(linkAlterar){
-            linkAlterar.href = `/src/views/pagamento/alterar_endereco.html?enderecoId=${endereco.end_id}`;
+            linkAlterar.href = `/pagamento/alterar_endereco.html?enderecoId=${endereco.end_id}`;
         }
 
         container.appendChild(card);
