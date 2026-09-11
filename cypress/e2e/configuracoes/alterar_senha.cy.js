@@ -1,56 +1,65 @@
 describe('Alterar senha', () => {
   beforeEach(() => {
-    cy.visit('/login')
-    cy.get('input[name="email"]').type('usuario@teste.com')
-    cy.get('input[name="senha"]').type('SenhaAtual123!')
-    cy.get('button[type="submit"]').click()
-
-    cy.visit('/configuracoes')
+    cy.visit('http://127.0.0.1:5500/src/views/login.html')
+    cy.wait(1000)
+    cy.get('#btn-entrar').click()
+    cy.wait(1000)
+    cy.visit('http://127.0.0.1:5500/src/views/alterar_senha.html')
   })
 
   it('deve alterar a senha com sucesso quando atende aos requisitos', () => {
     cy.get('input[name="novaSenha"]').type('NovaSenha456!')
+    cy.wait(1000)
     cy.get('input[name="confirmarSenha"]').type('NovaSenha456!')
-    cy.get('button').contains('Salvar').click()
+    cy.wait(1000)
+    cy.get('button.cadastrar').click()
 
-    cy.contains('Senha atualizada').should('be.visible')
+    cy.contains('Senha alterada com sucesso!').should('be.visible')
   })
 
   it('não deve permitir senha sem letra maiúscula', () => {
     cy.get('input[name="novaSenha"]').type('novasenha456!')
+    cy.wait(1000)
     cy.get('input[name="confirmarSenha"]').type('novasenha456!')
-    cy.get('button').contains('Salvar').click()
+    cy.wait(1000)
+    cy.get('button.cadastrar').click()
 
-    cy.contains('mínimo 8 caracteres').should('be.visible')
+    cy.contains('A senha deve ter no mínimo 8 caracteres, incluindo uma letra maiúscula, minúscula e um caractere especial').should('be.visible')
   })
 
   it('não deve permitir senha sem caractere especial', () => {
     cy.get('input[name="novaSenha"]').type('NovaSenha456')
+    cy.wait(1000)
     cy.get('input[name="confirmarSenha"]').type('NovaSenha456')
-    cy.get('button').contains('Salvar').click()
+    cy.wait(1000)
+    cy.get('button.cadastrar').click()
 
-    cy.contains('mínimo 8 caracteres').should('be.visible')
+    cy.contains('A senha deve ter no mínimo 8 caracteres, incluindo uma letra maiúscula, minúscula e um caractere especial').should('be.visible')
   })
 
   it('não deve permitir senha com menos de 8 caracteres', () => {
     cy.get('input[name="novaSenha"]').type('Nv4!')
+    cy.wait(1000)
     cy.get('input[name="confirmarSenha"]').type('Nv4!')
-    cy.get('button').contains('Salvar').click()
+    cy.wait(1000)
+    cy.get('button.cadastrar').click()
 
-    cy.contains('mínimo 8 caracteres').should('be.visible')
+    cy.contains('A senha deve ter no mínimo 8 caracteres, incluindo uma letra maiúscula, minúscula e um caractere especial').should('be.visible')
   })
 
-  it('não deve permitir salvar se as senhas não coincidirem (validação de front)', () => {
+  it('não deve permitir Cadastrar se as senhas não coincidirem (validação de front)', () => {
     cy.get('input[name="novaSenha"]').type('NovaSenha456!')
+    cy.wait(1000)
     cy.get('input[name="confirmarSenha"]').type('OutraSenha789!')
-    cy.get('button').contains('Salvar').click()
+    cy.wait(1000)
+    cy.get('button.cadastrar').click()
 
     cy.contains('As senhas não coincidem').should('be.visible')
   })
 
-  it('não deve permitir salvar com o campo de senha vazio', () => {
-    cy.get('button').contains('Salvar').click()
-
-    cy.contains('obrigatória').should('be.visible')
+  it('não deve permitir Cadastrar com o campo de senha vazio', () => {
+    cy.get('button.cadastrar').click()
+    cy.wait(1000)
+    cy.contains('A senha é obrigatória').should('be.visible')
   })
 })
