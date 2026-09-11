@@ -5,27 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ponto Certo</title>
-    <link rel="stylesheet" href="../../public/css/navbar/navbar.css">
-    <link rel="stylesheet" href="../../public/css/configuracoes.css">
+    <link rel="stylesheet" href="/public/css/navbar/navbar.css">
+    <link rel="stylesheet" href="/public/css/configuracoes.css">
 </head>
 
 <body>
     <header>
         <nav class="navbar">
 
-            <a class="logo" href="index.html">
+            <a class="logo" href="/index.html">
                 <img src="/public/images/logo_ponto.svg" alt="Logo Ponto Certo">
             </a>
 
 
             <ul class="nav-list">
-                <li><a href="/src/views/index.html"> Página Inicial </a></li>
-                <li><a href="historico.html"> Meus Pedidos</a></li>
+                <li><a href="/index.html"> Página Inicial </a></li>
+                <li><a href="/historico.html"> Meus Pedidos</a></li>
             </ul>
 
             <ul class="nav_icones">
-                <li><a href="carrinho.html"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
-                <li><a href="configuracoes.html"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
+                <li><a href="/carrinho.html"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
+                <li><a href="/configuracoes.html"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
 
             </ul>
 
@@ -42,7 +42,7 @@
 
             <div class="cabecalho-configuracoes">
                 <h1 class="titulo-pagina">CONFIGURAÇÕES</h1>
-                <a href="alterar_senha.html" class="botao-alterar-senha">Alterar Senha</a>
+                <a href="/alterar_senha.html" class="botao-alterar-senha">Alterar Senha</a>
                
             </div>
 
@@ -53,7 +53,7 @@
                     <div class="perfil-card">
                         <div class="cabecalho-perfil">
                             <span class="titulo-perfil">Dados de Perfil</span>
-                            <a href="alterar_dados.html"><img src="/public/images/editar-branco.svg"></a>
+                            <a href="/alterar_dados.html"><img src="/public/images/editar-branco.svg"></a>
                         </div>
 
                         <div class="lista-perfil">
@@ -111,24 +111,24 @@
 
                 <div class="coluna-endereco">
                     <span class="titulo-configuracoes">Endereço</span>
-                    <a href="pagamento/cadastro_endereco.html">Adicionar endereço</a>
+                    <a href="/pagamento/cadastro_endereco.html">Adicionar endereço</a>
 
                     <div class="endereco-card">
 
                         <div class="conteudo-endereco">
                             <div class="linha-topo-endereco">
                                 <p class="linha-cep"></p>
-                                <a href="pagamento/alterar_endereco.html" class="link-alterar">Alterar endereço</a>
+                                <a href="/pagamento/alterar_endereco.html" class="link-alterar">Alterar endereço</a>
                             </div>
                             <div class="informacao-endereco">
                                 <p class="linha-nome"></p>
                             </div>
                             <div class="acoes-endereco">
                                 <button type="button" class="botao-excluir" data-modal="modal-abrir-1">
-                                    <img src="../../../public/images/lixeira.svg" alt="Excluir" />
+                                    <img src="/public/images/lixeira.svg" alt="Excluir" />
                                 </button>
                                 <dialog id="modal-abrir-1" class="modal-abrir">
-                                    <img class="icone-alerta" src="../../../public/images/modal-alerta.svg"
+                                    <img class="icone-alerta" src="/public/images/modal-alerta.svg"
                                         alt="alerta-modal">
                                     <h3>Remover endereço?</h3>
                                     <span>Você realmente deseja remover o endereço?</span>
@@ -147,7 +147,7 @@
 
                 <div class="coluna-cartoes">
                     <span class="titulo-configuracoes">Cartões</span>
-                    <a href="pagamento/cadastrar_cartao.html">Adicionar cartão</a>
+                    <a href="/pagamento/cadastrar_cartao.html">Adicionar cartão</a>
 
                 
                     <div class="lista-cartoes">
@@ -164,12 +164,12 @@
                             <div class="acoes-cartao">
                                 <button type="button" class="botao-definir-preferencial">Tornar principal</button>
                                 <button type="button" class="botao-excluir" data-modal="modal-abrir-3">
-                                    <img src="../../../public/images/lixeira.svg" alt="Excluir" />
+                                    <img src="/public/images/lixeira.svg" alt="Excluir" />
                                 </button>
                             </div>
 
                             <dialog id="modal-abrir-3" class="modal-abrir">
-                                <img class="icone-alerta" src="../../../public/images/modal-alerta.svg" alt="alerta-modal">
+                                <img class="icone-alerta" src="/public/images/modal-alerta.svg" alt="alerta-modal">
                                 <h3>Remover cartão?</h3>
                                 <span>Você realmente deseja remover o cartão?</span>
                                 <div class="botoes-modais">
@@ -187,7 +187,7 @@
        
     </main>
     <div id="toast" class="toast"></div>
-    <script src="../../../public/js/botao_voltar.js"></script>
+    <script src="/public/js/botao_voltar.js"></script>
     <script src="/public/js/modal.js"></script>
     <script src="/public/js/configuracoes.js"></script>
 </body>
