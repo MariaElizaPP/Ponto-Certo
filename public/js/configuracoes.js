@@ -39,7 +39,7 @@ function montarEnderecoCompleto(endereco) {
 
 document.addEventListener('DOMContentLoaded', function () {
     if (!clienteId) {
-        window.location.href = '../../src/views/login.html';
+        window.location.href = '/login.html';
         return;
     }
     carregarConfiguracoes();

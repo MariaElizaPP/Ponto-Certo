@@ -2,7 +2,7 @@ const clienteId = localStorage.getItem('clienteId');
  
 document.addEventListener('DOMContentLoaded', function () {
     if (!clienteId) {
-        window.location.href = 'login.html';
+        window.location.href = '/login.html';
         return;
     }
     carregarDadosCliente();
