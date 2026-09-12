@@ -4,6 +4,7 @@ document.addEventListener('click', (e) => {
     if (closeBtn) {
         const modal = document.getElementById(closeBtn.getAttribute('data-modal'));
         if (modal) modal.close();
+        
         return;
     }
 

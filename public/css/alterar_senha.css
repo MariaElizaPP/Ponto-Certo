@@ -45,6 +45,10 @@ input{
     color: var(--neutro-100)
 }
 
+a{
+    text-decoration: none;
+}
+
 .info-cartao{
     margin-top: 30px;
 }
@@ -258,7 +262,7 @@ select.select-status {
   
 }
 
-.modal-abrir dialog::backdrop{
+.modal-abrir::backdrop{
   background-color: rgba(115, 24, 24, 0);
 }
 

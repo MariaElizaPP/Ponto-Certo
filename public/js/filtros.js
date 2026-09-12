@@ -110,7 +110,7 @@ function renderizarTabela(clientes) {
                     <span class="slider-status"></span>
                 </label>
                 <dialog id="modal-abrir-${cliente.cli_id}" class="modal-abrir">
-                    <img class="icone-alerta" src="../../../public/images/modal-alerta.svg" alt="alerta-modal">
+                    <img class="icone-alerta" src="/public/images/modal-alerta.svg" alt="alerta-modal">
                     <h3>Alterar o status do cliente?</h3>
                     <span>Você realmente deseja alterar o status do cliente na plataforma?</span>
                     <div class="botoes-modais">
@@ -118,7 +118,7 @@ function renderizarTabela(clientes) {
                         <button class="btn-modal-fechar btn-tema-alerta" data-modal="modal-abrir-${cliente.cli_id}">Confirmar</button>
                     </div>
                 </dialog>
-                <a href="/src/views/admin/detalhes_clientes.html?id=${cliente.cli_id}" class="botao-detalhes"><img src="/public/images/detalhes-roxo.svg" alt=""></a>
+                <a href="/admin/detalhes_clientes.html?id=${cliente.cli_id}" class="botao-detalhes"><img src="/public/images/detalhes-roxo.svg" alt=""></a>
 
             </td>
         `;
