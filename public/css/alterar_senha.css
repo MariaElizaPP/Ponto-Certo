@@ -262,7 +262,7 @@ select.select-status {
   
 }
 
-.modal-abrir dialog::backdrop{
+.modal-abrir::backdrop{
   background-color: rgba(115, 24, 24, 0);
 }
 
