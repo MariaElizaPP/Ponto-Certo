@@ -1,10 +1,10 @@
 describe('Alterar senha', () => {
   beforeEach(() => {
-    cy.visit('http://127.0.0.1:5500/login.html')
+    cy.visit('https://pontocertoweb.netlify.app/login')
     cy.wait(1000)
     cy.get('#btn-entrar').click()
     cy.wait(1000)
-    cy.visit('http://127.0.0.1:5500/alterar_senha.html')
+    cy.visit('https://pontocertoweb.netlify.app/alterar_senha')
   })
 
   it('deve alterar a senha com sucesso quando atende aos requisitos', () => {
