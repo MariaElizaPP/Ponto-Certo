@@ -26,7 +26,11 @@ function limparErros(){
 
 document.querySelector('.btn-entrar').addEventListener('click', async function (e) {
     e.preventDefault();
+<<<<<<< HEAD
     const clienteId =2;
+=======
+    const clienteId = CONFIG.CLIENTE_ID_TESTE;
+>>>>>>> 5ad9fee9e16c6be436b73a8a00b38a336be58ca2
 
     try {
         const resposta = await fetch(`http://localhost:3000/api/buscarCliente/${clienteId}`);
