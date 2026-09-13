@@ -5,17 +5,23 @@ class EnderecoService {
 
         const { cliId, tipoResidencia, cep, tipoLogradouro, cidade, pais, estado, bairro, logradouro, nomeEndereco, numero, tipoEndereco } = dados
 
-        if (!tipoResidencia) throw { status: 400, mensagem: "Tipo de residência é obrigatório" };
+        if (!tipoResidencia?.trim()) throw { status: 400, mensagem: "Tipo de residência é obrigatório" };
+
         if (!cep) throw { status: 400, mensagem: "O CEP é obrigatório" };
-        if (!tipoLogradouro) throw { status: 400, mensagem: "Tipo de logradouro é obrigatório" };
-        if (!cidade) throw { status: 400, mensagem: "A cidade é obrigatória" };
-        if (!pais) throw { status: 400, mensagem: "O país é obrigatório" };
-        if (!estado) throw { status: 400, mensagem: "O estado é obrigatório" };
-        if (!bairro) throw { status: 400, mensagem: "O bairro é obrigatório" };
-        if (!logradouro) throw { status: 400, mensagem: "O lougradouro é obrigatório" };
-        if (!nomeEndereco) throw { status: 400, mensagem: "O nome do endereço é obrigatório" };
-        if (!numero) throw { status: 400, mensagem: "O número é obrigatório" };
-        if (!tipoEndereco) throw { status: 400, mensagem: "O tipo de endereço é obrigatório" };
+        const cepLimpo = cep.replace(/\D/g, '');
+        if (cepLimpo.length !== 8) throw { status: 400, mensagem: "O CEP deve conter 8 dígitos" };
+
+
+        if (/^(\d)\1{7}$/.test(cepLimpo)) throw { status: 400, mensagem: "CEP inválido" };
+        if (!tipoLogradouro?.trim()) throw { status: 400, mensagem: "Tipo de logradouro é obrigatório" };
+        if (!cidade?.trim()) throw { status: 400, mensagem: "A cidade é obrigatória" };
+        if (!pais?.trim()) throw { status: 400, mensagem: "O país é obrigatório" };
+        if (!estado?.trim()) throw { status: 400, mensagem: "O estado é obrigatório" };
+        if (!bairro?.trim()) throw { status: 400, mensagem: "O bairro é obrigatório" };
+        if (!logradouro?.trim()) throw { status: 400, mensagem: "O lougradouro é obrigatório" };
+        if (!nomeEndereco?.trim()) throw { status: 400, mensagem: "O nome do endereço é obrigatório" };
+        if (!numero?.trim()) throw { status: 400, mensagem: "O número é obrigatório" };
+        if (!tipoEndereco?.trim()) throw { status: 400, mensagem: "O tipo de endereço é obrigatório" };
 
         if (!(tipoEndereco === 'C' || tipoEndereco === 'E')) {
             throw { status: 400, mensagem: 'É necessário definir se o endereço é de cobrança ou de entrega' }
@@ -32,7 +38,7 @@ class EnderecoService {
         return model.buscarId(enderecoId, cliId);
     }
 
-    async cadastrarEndereco(dados){
+    async cadastrarEndereco(dados) {
         const { cliId, tipoResidencia, cep, tipoLogradouro, cidade, pais, estado, bairro, logradouro, nomeEndereco, numero, tipoEndereco } = dados
 
         if (!tipoResidencia) throw { status: 400, mensagem: "Tipo de residência é obrigatório" };
@@ -65,7 +71,7 @@ class EnderecoService {
             numero,
             tipoEndereco
         });
-        
+
     }
 
     async listar(cliId) {
