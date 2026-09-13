@@ -35,4 +35,90 @@ describe('Alterar endereço', () => {
 
         cy.contains('Endereço atualizado com sucesso!').should('be.visible');
     })
+
+     it('Não deve permitir salvar apenas com o campo "número" vazio', () => {
+        cy.get('input[name="tipo-residencia"]').clear().type('Casa');
+        cy.get('input[name="tipo-logradouro"]').clear().type('Rua');
+        cy.get('input[name="cep"]').clear().type('58059772').blur();
+        cy.get('input[name="numero"]').clear();
+        cy.get('input[name="nome-endereco"]').clear().type('Trabalho');
+
+        cy.get('button.cadastrar').click();
+
+        cy.contains('O número é obrigatório').should('be.visible');
+    })
+
+    it('Não deve permitir salvar apenas com o campo "nome do endereço" vazio', () => {
+        cy.get('input[name="tipo-residencia"]').clear().type('Casa');
+        cy.get('input[name="tipo-logradouro"]').clear().type('Rua');
+        cy.get('input[name="cep"]').clear().type('58059772').blur();
+        cy.get('input[name="numero"]').clear().type('502');
+        cy.get('input[name="nome-endereco"]').clear();
+
+        cy.get('button.cadastrar').click();
+
+        cy.contains('O nome do endereco é obrigatório').should('be.visible');
+    })
+
+    it('Deve rejeitar CEP inválido (menos de 8 dígitos)', () => {
+        cy.get('input[name="cep"]').clear();
+        cy.get('input[name="cep"]').type('580597').blur();
+
+        cy.contains('O CEP deve conter 8 dígitos').should('be.visible');
+    })
+
+    it('Deve rejeitar CEP com letras', () => {
+        cy.get('input[name="cep"]').clear();
+        cy.get('input[name="cep"]').type('abc12345').blur();
+
+        cy.contains('Insira um CEP válido').should('be.visible');
+    })
+
+    it('Deve rejeitar CEP inexistente e não preencher os campos automaticamente', () => {
+        cy.get('input[name="cep"]').clear();
+        cy.get('input[name="cep"]').type('00000000').blur();
+
+        cy.contains('CEP não encontrado').should('be.visible');
+        cy.get('input[name="logradouro"]').should('have.value', '');
+    })
+
+    it('Deve permitir salvar sem preencher o campo "complemento" (opcional)', () => {
+        cy.get('input[name="tipo-residencia"]').clear().type('Casa');
+        cy.get('input[name="tipo-logradouro"]').clear().type('Rua');
+        cy.get('input[name="cep"]').clear().type('58059772').blur();
+        cy.get('input[name="numero"]').clear().type('502');
+        cy.get('input[name="nome-endereco"]').clear().type('Trabalho');
+        cy.get('input[name="complemento"]').clear();
+        cy.get('select[name="tipoEndereco"]').select('Cobrança');
+
+        cy.get('button.cadastrar').click();
+
+        cy.contains('Endereço atualizado com sucesso!').should('be.visible');
+    })
+
+    it('Não deve permitir salvar sem selecionar o tipo de endereço', () => {
+        cy.get('input[name="tipo-residencia"]').clear().type('Casa');
+        cy.get('input[name="tipo-logradouro"]').clear().type('Rua');
+        cy.get('input[name="cep"]').clear().type('58059772').blur();
+        cy.get('input[name="numero"]').clear().type('502');
+        cy.get('input[name="nome-endereco"]').clear().type('Trabalho');
+        cy.get('select[name="tipoEndereco"]').clear();
+
+        cy.get('button.cadastrar').click();
+
+        cy.contains('O tipo de endereço é obrigatório').should('be.visible');
+    })
+
+    it('Deve manter os dados preenchidos ao exibir mensagem de erro (não deve limpar o formulário)', () => {
+        cy.get('input[name="tipo-residencia"]').clear().type('Casa');
+        cy.get('input[name="numero"]').clear(); 
+
+        cy.get('button.cadastrar').click();
+
+        cy.contains('O número é obrigatório').should('be.visible');
+        cy.get('input[name="tipo-residencia"]').should('have.value', 'Casa');
+    })
+
+
+
 })
