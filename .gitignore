@@ -5,3 +5,4 @@ server.js
 package-lock.json
 package.json
 .vscode
+config.js
