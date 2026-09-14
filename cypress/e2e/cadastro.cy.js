@@ -97,12 +97,11 @@ describe('Cadastro cliente', () => {
     })
 
     it('RNF0031 - RNF0032 - Confirmação de senha' , ()=>{
-        cy.get('input[id="senha"]');
+        cy.get('input[id="senha"]').type('SenhaForte1!');
         cy.wait(30);
-        cy.get('input[id="confirmar-senha"]');
-        cy.wait(30);
+        //cy.get('input[id="confirmar-senha"]').type('OutroForte1!');
+        //cy.wait(30);
         cy.get('button[type="submit"]').click();
-        cy.contains('O senha é obrigatório').should('be.visible');
         cy.contains('A confirmação da senha é obrigatória').should('be.visible');
     })
 

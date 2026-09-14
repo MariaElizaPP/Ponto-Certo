@@ -93,6 +93,14 @@ document.querySelector('.cadastrar').addEventListener('click', async function (e
         if (!tipos.includes('E')) { mostrarToast('É necessário ao menos um endereço de entrega.', 'erro'); valido = false; }
     }
 
+    const blocosCartao = document.querySelectorAll('.bloco-cartao');
+    const camposCartao = [
+        ['numeroCartao', 'O número do cartão é obrigatório'],
+        ['bandeiraCartao', 'A bandeira é obrigatória'],
+        ['nomeCartao', 'O nome impresso é obrigatório'],
+        ['cvv', 'O código de segurança é obrigatório'],
+    ];
+
     const blocosCartaoPreenchidos = Array.from(blocosCartao).filter((bloco) =>
         camposCartao.some(([name]) => {
             const campo = bloco.querySelector(`[name="${name}"]`);
