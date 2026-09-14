@@ -191,12 +191,12 @@
                 <div class="campo">
                   <label class="nome-campos">Número do cartão</label>
                   <input class="placeholder" name="numeroCartao" id="numero-cartao" inputmode="numeric" pattern="[0-9]{13,19}"
-                    maxlength="19" placeholder="Insira o número" required>
+                    maxlength="19" placeholder="Insira o número">
                   <span class="erro-msg" id="erro-numero-cartao"></span>
                 </div>
                 <div class="campo">
                   <label class="nome-campos">Bandeira do cartão</label>
-                  <select class="placeholder" name="bandeiraCartao" id="bandeira" required>
+                  <select class="placeholder" name="bandeiraCartao" id="bandeira">
                     <option value="" disabled selected hidden>Escolha a bandeira</option>
                   </select>
                   <span class="erro-msg" id="erro-bandeira"></span>
@@ -204,15 +204,14 @@
 
                 <div class="campo">
                   <label class="nome-campos">Nome impresso no cartão</label>
-                  <input class="placeholder" placeholder="Insira o nome" name="nomeCartao" id="nome-cartao" pattern="[A-Za-zÀ-ÿ\s]+"
-                    required>
+                  <input class="placeholder" placeholder="Insira o nome" name="nomeCartao" id="nome-cartao" pattern="[A-Za-zÀ-ÿ\s]+">
                   <span class="erro-msg" id="erro-nome-cartao"></span>
                 </div>
 
                 <div class="campo">
                   <label class="nome-campos">Código de Segurança</label>
                   <input class="placeholder" placeholder="Insira o CVV" name="cvv" id="cvv" inputmode="numeric"
-                    pattern="[0-9]{3,4}" maxlength="4" required>
+                    pattern="[0-9]{3,4}" maxlength="4">
                   <span class="erro-msg" id="erro-cvv"></span>
                 </div>
 
