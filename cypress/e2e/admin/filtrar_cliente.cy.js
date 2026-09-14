@@ -1,10 +1,8 @@
 describe('Filtrar Cliente', ()=>{
     beforeEach(()=> {
-        cy.visit('http://localhost:3000/login.html'); 
-        cy.wait(500);
-        cy.get('#btn-entrar').click();
-        cy.wait(500)
-        cy.visit('http://localhost:3000/clientes.html');
+        cy.visit('https://pontocertoweb.netlify.app/admin/clientes');
+        cy.get('#abrirFiltro').click();
+
     })
 
     it('RF0024 - Consulta de clientes:Filtrar por gênero', () =>{

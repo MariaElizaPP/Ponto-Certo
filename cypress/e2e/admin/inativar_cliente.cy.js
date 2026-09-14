@@ -13,9 +13,8 @@ describe('Alterar Cliente', () => {
     })
 
    it('RF0023 - Cliente inativo não consegue logar', () => {
-    
-       cy.get('[data-modal="modal-abrir-3"]').click();
-       cy.get('label.status-produto[data-modal="modal-abrir-3"] .slider-status').click();
+       cy.get('label.status-produto[data-modal="modal-abrir-2"] .slider-status').click();
+       cy.get('.btn-modal-fechar.btn-tema-alerta[data-modal="modal-abrir-2"]').click();
        cy.visit('https://pontocertoweb.netlify.app/login');
        cy.wait(500);
        cy.get('#btn-entrar').click();
