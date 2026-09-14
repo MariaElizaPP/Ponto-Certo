@@ -1,31 +1,27 @@
 describe('Alterar Cliente', () => {
     beforeEach(() => {
-        cy.visit('http://localhost:3000/login.html'); 
+        cy.visit('https://pontocertoweb.netlify.app/admin/login'); 
         cy.wait(500);
+        cy.get('#email').type('admin@gmail.com');
+        cy.wait(30);
+        cy.get('#senha').type('1234');
+        cy.wait(30);
         cy.get('#btn-entrar').click();
         cy.wait(500)
-        cy.visit('http://localhost:3000/clientes.html');
+        cy.visit('https://pontocertoweb.netlify.app/admin/clientes');
 
     })
 
    it('RF0023 - Cliente inativo não consegue logar', () => {
-        
-        cy.request('PATCH', 'http://localhost:3000/api/cliente/alterarStatus/2', {
-            ativo: false
-        });
-
-        
-        cy.visit('http://localhost:3000/login.html');
-        cy.get('.btn-entrar').click();
-
-        cy.get('#toast').should('be.visible').and('contain', 'Cliente inativado pelo administrador.');
+    
+       cy.get('[data-modal="modal-abrir-3"]').click();
+       cy.get('label.status-produto[data-modal="modal-abrir-3"] .slider-status').click();
+       cy.visit('https://pontocertoweb.netlify.app/login');
+       cy.wait(500);
+       cy.get('#btn-entrar').click();
+       cy.contains('Cliente inativado pelo administrador.').should('be.visible');
     });
 
-    afterEach(() => {
-        
-        cy.request('PATCH', 'http://localhost:3000/api/cliente/alterarStatus/2', {
-            ativo: true
-        });
-    });
+    
 
 })

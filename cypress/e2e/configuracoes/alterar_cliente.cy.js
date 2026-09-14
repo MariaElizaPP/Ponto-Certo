@@ -14,7 +14,7 @@ describe('Alterar Cliente', () =>{
         cy.get('input[id ="nome"]').type('Sophia Natália Gonçalves');
         cy.wait(30);
         cy.get('input[id="data-nascimento"]').clear();
-        cy.get('input[id ="data-nascimento"]').type('21/02/2008');
+        cy.get('input[id ="data-nascimento"]').type('2008-02-21');
         cy.wait(30);
         cy.get('select[id ="genero"]').select('Mulher');
         cy.wait(30);
@@ -22,7 +22,7 @@ describe('Alterar Cliente', () =>{
         cy.get('input[id ="telefone"]').type('992783988');
         cy.wait(30);
 
-        cy.get('#alterar').click();
+        cy.get('button.cadastrar').click();
 
         cy.contains('Dados alterados com sucesso!').should('be.visible');   
 
