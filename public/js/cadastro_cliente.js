@@ -56,12 +56,12 @@ document.querySelector('.cadastrar').addEventListener('click', async function (e
     const senhaRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!*@#$%^&(),.?":{}|<>_\-+=~`\[\]\/]).{8,}$/;
 
     if (campoSenha.value && !senhaRegex.test(campoSenha.value)) {
-        mostrarErro("senha", "A senha deve ter no mínimo 8 caracteres, incluindo uma letra maiúscula, minúscula e um caractere especial");
+        mostrarErro(campoSenha, "A senha deve ter no mínimo 8 caracteres, incluindo uma letra maiúscula, minúscula e um caractere especial");
         valido = false;
     }
 
     if (campoSenha.value && campoConfirmarSenha.value && campoSenha.value !== campoConfirmarSenha.value) {
-        mostrarErro("confirmar-senha", "As senhas não coincidem");
+        mostrarErro(campoConfirmarSenha, "As senhas não coincidem");
         valido = false;
     }
 
@@ -93,22 +93,21 @@ document.querySelector('.cadastrar').addEventListener('click', async function (e
         if (!tipos.includes('E')) { mostrarToast('É necessário ao menos um endereço de entrega.', 'erro'); valido = false; }
     }
 
-    const blocosCartao = document.querySelectorAll('.bloco-cartao');
-    const camposCartao = [
-        ['numeroCartao', 'O número do cartão é obrigatório'],
-        ['bandeiraCartao', 'A bandeira é obrigatória'],
-        ['nomeCartao', 'O nome impresso é obrigatório'],
-        ['cvv', 'O código de segurança é obrigatório'],
-    ];
+    const blocosCartaoPreenchidos = Array.from(blocosCartao).filter((bloco) =>
+        camposCartao.some(([name]) => {
+            const campo = bloco.querySelector(`[name="${name}"]`);
+            return campo && campo.value.toString().trim();
+        })
+    );
 
-    blocosCartao.forEach((bloco) => {
+    blocosCartaoPreenchidos.forEach((bloco) => {
         camposCartao.forEach(([name, mensagem]) => {
             if (!validarCampoBloco(bloco, name, mensagem)) valido = false;
         });
     });
 
-    if (blocosCartao.length > 0) {
-        const preferenciais = Array.from(blocosCartao).filter((b) => b.querySelector('input[type="radio"]').checked);
+    if (blocosCartaoPreenchidos.length > 0) {
+        const preferenciais = blocosCartaoPreenchidos.filter((b) => b.querySelector('input[type="radio"]').checked);
         if (preferenciais.length !== 1) {
             mostrarToast('Marque exatamente um cartão como preferencial.', 'erro');
             valido = false;
@@ -214,7 +213,13 @@ function coletarEnderecos() {
 }
 
 function coletarCartoes() {
-    const blocos = document.querySelectorAll('.bloco-cartao');
+    const blocos = Array.from(document.querySelectorAll('.bloco-cartao')).filter((bloco) =>
+        [['numeroCartao'], ['bandeiraCartao'], ['nomeCartao'], ['cvv']].some(([name]) => {
+            const campo = bloco.querySelector(`[name="${name}"]`);
+            return campo && campo.value.toString().trim();
+        })
+    );
+
     const cartoes = [];
 
     blocos.forEach((bloco) => {
