@@ -141,7 +141,48 @@ describe('Cadastro cliente', () => {
         });
 
         cy.get('button[type="submit"]').click();
-        cy.contains('É necessário informar ao menos um endereço de entrega').should('be.visible');
+        cy.contains('É necessário ao menos um endereço de cobrança').should('be.visible');
+
+        cy.wait(30);
+    })
+
+    it('RN0022 - Cadastro de endereço de entrega', ()=>{
+        cy.get('input[name="nome"]').type('Sophia Natália Gonçalves');
+        cy.wait(30);
+        cy.get('input[id="data-nascimento"]').type('2008-02-21');
+        cy.wait(30);
+        cy.get('input[id="cpf"]').type('20331447045');
+        cy.wait(30);
+        cy.get('select[id="genero"]').select('Mulher');
+        cy.wait(30);
+        cy.get('input[id="telefone"]').type('998983988');
+        cy.wait(30);
+        cy.get('input[id="email"]').type('angla4894@uorak.com');
+        cy.wait(30);
+        cy.get('input[id="senha"]').type('NovaSenha1!');
+        cy.wait(30);
+        cy.get('input[id="confirmar-senha"]').type('NovaSenha1!');
+        cy.wait(30);
+
+        // endereço
+        cy.get('.blocos-endereco .bloco-endereco').eq(0).within(() => {
+            cy.get('input[name="tipoResidencia"], input[id="tipo_residencia"]').type('Casa');
+            cy.wait(30);
+            cy.get('input[name="tipoLogradouro"]').type('Rua');
+            cy.wait(30);
+            cy.get('input[name="cep"]').type('58059772').blur();
+            cy.wait(30);
+            cy.get('input[name="numero"]').type('502');
+            cy.wait(30);
+            cy.get('input[name="nomeEndereco"]').type('Trabalho');
+            cy.wait(30);
+            cy.get('input[name="complemento"]').type('Complemento');
+            cy.wait(30);
+            cy.get('select[name="tipoEndereco"]').select('Cobrança');
+        });
+
+        cy.get('button[type="submit"]').click();
+        cy.contains('É necessário ao menos um endereço de entrega').should('be.visible');
 
         cy.wait(30);
     })
