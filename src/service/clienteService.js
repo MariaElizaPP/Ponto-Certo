@@ -75,10 +75,9 @@ class UserService {
             throw { status: 400, mensagem: 'É necessário informar ao menos um endereço de entrega' };
         }
 
-        if (!cartoes || cartoes.length === 0) {
-            throw { status: 400, mensagem: 'É necessário informar ao menos um cartão de crédito' };
-        }
-        for (const cartao of cartoes) {
+        const listaCartoes = cartoes || [];
+
+        for (const cartao of listaCartoes) {
             if (!cartao.numeroCartao) throw { status: 400, mensagem: "O numero do cartão é obrigatório" };
             if (!this.validarLuhn(cartao.numeroCartao)) throw { status: 400, mensagem: "O numero do cartão está inválido." };
             if (!cartao.bandeiraCartao) throw { status: 400, mensagem: "A bandeira do cartão é obrigatório" };
@@ -87,7 +86,7 @@ class UserService {
         }
 
         const preferencial = cartoes.filter(c => c.preferencial === true);
-        if (preferencial.length !== 1) {
+        if (cartoes.length > 0 && preferencial.length !== 1) {
             throw { status: 400, mensagem: 'Deve haver apenas um cartão marcado como preferencial' };
 
         }
