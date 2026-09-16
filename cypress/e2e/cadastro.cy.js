@@ -44,23 +44,13 @@ describe('Cadastro cliente', () => {
 
         // --- Segundo endereço (bloco clonado, sempre o último) ---
         cy.get('.blocos-endereco .bloco-endereco').last().within(() => {
-            cy.get('input[name="tipoResidencia"], input[id^="tipo_residencia"]').type('Casa');
+            cy.get('input[name="tipoResidencia"], input[id="tipo_residencia"]').type('Casa');
             cy.wait(30);
             cy.get('input[name="tipoLogradouro"]').type('Rua');
             cy.wait(30);
-            cy.get('input[name="logradouro"]').type('Rua Moacir Barbosa Tribone');
+            cy.get('input[name="cep"]').type('78132734').blur();
             cy.wait(30);
-            cy.get('input[name="cidade"]').type('Mogi das Cruzes');
-            cy.wait(30);
-            cy.get('input[name="pais"]').type('Brasil');
-            cy.wait(30);
-            cy.get('input[name="estado"]').type('SP');
-            cy.wait(30);
-            cy.get('input[name="bairro"]').type('Jardim Natal');
-            cy.wait(30);
-            cy.get('input[name="cep"]').type('58059772').blur();
-            cy.wait(30);
-            cy.get('input[name="numero"]').type('502');
+            cy.get('input[name="numero"]').type('505');
             cy.wait(30);
             cy.get('input[name="nomeEndereco"]').type('Trabalho');
             cy.wait(30);

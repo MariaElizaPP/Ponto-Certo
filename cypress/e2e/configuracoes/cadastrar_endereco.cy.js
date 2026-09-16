@@ -11,24 +11,26 @@ describe('Cadastrar endereço', () => {
 
     it('Cadastro de endereço', () => {
         
-        cy.get('input[name="tipo-residencia"]').type('Casa');
+        cy.get('input[id="tipo-residencia"]').type('Casa');
         cy.wait(1000);
-        cy.get('input[name="tipo-logradouro"]').type('Rua');
+        cy.get('input[id="tipo-logradouro"]').type('Rua');
         cy.wait(1000);
-        cy.get('input[name="cep"]').type('58059772').blur();
+        cy.get('input[id="cep"]').type('58059772').blur();
         cy.wait(1000);
-        cy.get('input[name="numero"]').type('502');
+        cy.get('input[id="numero"]').type('502');
         cy.wait(1000);
-        cy.get('input[name="nome-endereco"]').type('Trabalho');
+        cy.get('input[id="nome-endereco"]').type('Trabalho');
         cy.wait(1000);
-        cy.get('input[name="complemento"]').type('Complemento');
+        cy.get('input[id="complemento"]').type('Complemento');
         cy.wait(1000);
-        cy.get('select[name="tipoEndereco"]').select('Cobrança');
+        cy.get('select[id="tipo-endereco"]').select('Cobrança');
         cy.wait(1000);
 
         cy.get('button.cadastrar').click();
 
         cy.contains('Endereço cadastrado com sucesso!').should('be.visible');
+
+        cy.get('button.btn-tema-sucesso.botao-voltar').click();
     })
 
   
