@@ -4,11 +4,11 @@ function apenasNumeros(valor) {
 
 function validarFormatoCep(cep, bloco) {
     if (cep.length !== 8) {
-        mostrarErro(bloco, 'cep', 'O CEP deve conter 8 dígitos');
+        mostrarErroCep(bloco, 'cep', 'O CEP deve conter 8 dígitos');
         return false;
     }
     if (/^(\d)\1{7}$/.test(cep)) {
-        mostrarErro(bloco, 'cep', 'Insira um CEP válido');
+        mostrarErroCep(bloco, 'cep', 'Insira um CEP válido');
         return false;
     }
     return true;
@@ -18,7 +18,7 @@ function buscaCep(bloco) {
     const campoCep = bloco.querySelector('[name="cep"]');
     const cep = apenasNumeros(campoCep.value);
 
-    limparErros(bloco);
+    limparErrosCep(bloco);
 
     if (cep === "") return;
     if (!validarFormatoCep(cep, bloco)) return;
@@ -37,9 +37,9 @@ function buscaCep(bloco) {
             bloco.querySelector('[name="estado"]').value = endereco.state;
             bloco.querySelector('[name="pais"]').value = "Brasil";
         } else if (req.status === 404) {
-            mostrarErro(bloco, 'cep', 'CEP não encontrado');
+            mostrarErroCep(bloco, 'cep', 'CEP não encontrado');
         } else if (req.status === 400) {
-            mostrarErro(bloco, 'cep', 'Insira um CEP válido');
+            mostrarErroCep(bloco, 'cep', 'Insira um CEP válido');
         }
     };
 }
