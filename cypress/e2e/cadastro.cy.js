@@ -12,7 +12,7 @@ describe('Cadastro cliente', () => {
         cy.wait(30);
         cy.get('select[id="genero"]').select('Mulher');
         cy.wait(30);
-        cy.get('input[id="telefone"]').type('998983988');
+        cy.get('input[id="telefone"]').type('11998983988');
         cy.wait(30);
         cy.get('input[id="email"]').type('angla4894@uorak.com');
         cy.wait(30);
@@ -23,18 +23,12 @@ describe('Cadastro cliente', () => {
 
         // --- Primeiro endereço (bloco original, sempre index 0) ---
         cy.get('.blocos-endereco .bloco-endereco').eq(0).within(() => {
-            cy.get('input[name="tipoResidencia"], input[id="tipo_residencia"]').type('Casa');
-            cy.wait(30);
+            cy.get('input[name="tipoResidencia"]').type('Casa');
             cy.get('input[name="tipoLogradouro"]').type('Rua');
-            cy.wait(30);
             cy.get('input[name="cep"]').type('58059772').blur();
-            cy.wait(30);
             cy.get('input[name="numero"]').type('502');
-            cy.wait(30);
             cy.get('input[name="nomeEndereco"]').type('Trabalho');
-            cy.wait(30);
             cy.get('input[name="complemento"]').type('Complemento');
-            cy.wait(30);
             cy.get('select[name="tipoEndereco"]').select('Cobrança');
         });
         cy.wait(30);
@@ -44,18 +38,12 @@ describe('Cadastro cliente', () => {
 
         // --- Segundo endereço (bloco clonado, sempre o último) ---
         cy.get('.blocos-endereco .bloco-endereco').last().within(() => {
-            cy.get('input[name="tipoResidencia"], input[id="tipo_residencia"]').type('Casa');
-            cy.wait(30);
+            cy.get('input[name="tipoResidencia"]').type('Casa');
             cy.get('input[name="tipoLogradouro"]').type('Rua');
-            cy.wait(30);
             cy.get('input[name="cep"]').type('78132734').blur();
-            cy.wait(30);
             cy.get('input[name="numero"]').type('505');
-            cy.wait(30);
             cy.get('input[name="nomeEndereco"]').type('Trabalho');
-            cy.wait(30);
             cy.get('input[name="complemento"]').type('Complemento');
-            cy.wait(30);
             cy.get('select[name="tipoEndereco"]').select('Entrega');
         });
         cy.wait(30);
@@ -70,7 +58,7 @@ describe('Cadastro cliente', () => {
         cy.wait(30);
         cy.get('input[name="cvv"]').type('364');
         cy.wait(30);
-        cy.get('input[type="radio"]').click();
+        cy.get('.bloco-cartao').first().find('input[type="radio"]').click();
         cy.wait(30);
 
         cy.get('button[type="submit"]').click();
