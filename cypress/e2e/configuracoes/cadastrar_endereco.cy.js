@@ -15,7 +15,7 @@ describe('Cadastrar endereço', () => {
         cy.wait(1000);
         cy.get('input[id="tipo-logradouro"]').type('Rua');
         cy.wait(1000);
-        cy.get('input[id="cep"]').type('58059772').blur();
+        cy.get('input[id="cep"]').type('08850330').blur();
         cy.wait(1000);
         cy.get('input[id="numero"]').type('502');
         cy.wait(1000);

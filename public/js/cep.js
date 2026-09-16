@@ -44,7 +44,7 @@ function buscaCep(bloco) {
     };
 }
 
-function mostrarErro(bloco, name, mensagem) {
+function mostrarErroCep(bloco, name, mensagem) {
     const campo = bloco.querySelector(`[name="${name}"]`);
     if (campo) campo.classList.add('erro');
     const container = campo ? campo.closest('.campo, .campo-pequeno, .campo-largo') : null;
@@ -52,7 +52,7 @@ function mostrarErro(bloco, name, mensagem) {
     if (erroSpan) erroSpan.textContent = mensagem;
 }
 
-function limparErros(bloco) {
+function limparErrosCep(bloco) {
     bloco.querySelectorAll('.placeholder').forEach(campo => campo.classList.remove('erro'));
     bloco.querySelectorAll('.erro-msg').forEach(span => span.textContent = '');
 }
