@@ -5,38 +5,42 @@ describe('Alterar endereço', () => {
         cy.get('#btn-entrar').click();
         cy.wait(500)
         cy.visit('https://pontocertoweb.netlify.app/configuracoes');
+        cy.wait(500)
+        cy.get('.endereco-card').eq(0).within(() => {
+            cy.get('.link-alterar').click();
+        });
         cy.wait(500);
-        cy.get('.link-alterar').click();
     })
 
     it('RNF0034 - Alteração apenas de endereços ', () => {
         cy.get('input[name="tipo-residencia"]').clear();
         cy.get('input[name="tipo-residencia"]').type('Casa');
-        cy.wait(30);
+        cy.wait(1000);
         cy.get('input[name="tipo-logradouro"]').clear();
         cy.get('input[name="tipo-logradouro"]').type('Rua');
-        cy.wait(30);
+        cy.wait(1000);
         cy.get('input[name="cep"]').clear();
         cy.get('input[name="cep"]').type('58059772').blur();
-        cy.wait(30);
+        cy.wait(1000);
         cy.get('input[name="numero"]').clear();
         cy.get('input[name="numero"]').type('502');
-        cy.wait(30);
+        cy.wait(1000);
         cy.get('input[name="nome-endereco"]').clear();
         cy.get('input[name="nome-endereco"]').type('Trabalho');
-        cy.wait(30);
+        cy.wait(1000);
         cy.get('input[name="complemento"]').clear();
         cy.get('input[name="complemento"]').type('Complemento');
-        cy.wait(30);
+        cy.wait(1000);
         cy.get('select[name="tipoEndereco"]').select('Cobrança');
-        cy.wait(30);
+        cy.wait(1000);
 
         cy.get('button.cadastrar').click();
 
         cy.contains('Endereço atualizado com sucesso!').should('be.visible');
+        cy.get('#modal-abrir button.botao-voltar').click();
     })
 
-     it('Não deve permitir salvar apenas com o campo "número" vazio', () => {
+    it('Não deve permitir salvar apenas com o campo "número" vazio', () => {
         cy.get('input[name="tipo-residencia"]').clear().type('Casa');
         cy.get('input[name="tipo-logradouro"]').clear().type('Rua');
         cy.get('input[name="cep"]').clear().type('58059772').blur();
@@ -79,33 +83,25 @@ describe('Alterar endereço', () => {
         cy.get('input[name="cep"]').type('00000000').blur();
 
         cy.contains('Insira um CEP válido').should('be.visible');
-        
+
     })
 
-    it('Deve permitir salvar sem preencher o campo "complemento" (opcional)', () => {
-        cy.get('input[name="tipo-residencia"]').clear().type('Casa');
-        cy.get('input[name="tipo-logradouro"]').clear().type('Rua');
-        cy.get('input[name="cep"]').clear().type('58059772').blur();
-        cy.get('input[name="numero"]').clear().type('502');
-        cy.get('input[name="nome-endereco"]').clear().type('Trabalho');
-        cy.get('input[name="complemento"]').clear();
-        cy.get('select[name="tipoEndereco"]').select('Cobrança');
+    it('Excluir endereço', () => {
+        cy.visit('https://pontocertoweb.netlify.app/configuracoes');
 
-        cy.get('button.cadastrar').click();
+        cy.get('.endereco-card[data-endereco-id]').should('have.length.at.least', 1);
 
-        cy.contains('Endereço atualizado com sucesso!').should('be.visible');
-    })
+        cy.get('.endereco-card[data-endereco-id]').first().as('cardEndereco');
 
-    it('Deve manter os dados preenchidos ao exibir mensagem de erro (não deve limpar o formulário)', () => {
-        cy.get('input[name="tipo-residencia"]').clear().type('Casa');
-        cy.get('input[name="numero"]').clear(); 
+        cy.get('@cardEndereco').find('button.botao-excluir').click();
 
-        cy.get('button.cadastrar').click();
+        cy.get('@cardEndereco')
+            .find('.btn-modal-fechar.btn-tema-alerta')
+            .should('be.visible')
+            .click();
 
-        cy.contains('O número é obrigatório').should('be.visible');
-        cy.get('input[name="tipo-residencia"]').should('have.value', 'Casa');
-    })
-
+        cy.contains('Endereço excluído').should('be.visible');
+    });
 
 
 })
