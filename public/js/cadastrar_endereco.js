@@ -15,7 +15,7 @@ document.getElementById('cep').addEventListener('input', function (e) {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-    if (!clienteId || !enderecoId) {
+    if (!clienteId) {
         window.location.href = 'login.html';
         return;
     }

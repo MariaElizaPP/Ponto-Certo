@@ -6,10 +6,7 @@ describe('Cadastrar endereço', () => {
         cy.wait(500)
         cy.visit('https://pontocertoweb.netlify.app/configuracoes');
         cy.wait(500)
-        cy.get('.endereco-card').eq(0).within(() => {
-            cy.get('.link-alterar').click();
-        });
-        cy.wait(500);
+        cy.get('.cadastrar-endereco').click()
     })
 
     it('Cadastro de endereço', () => {
@@ -32,7 +29,6 @@ describe('Cadastrar endereço', () => {
         cy.get('button.cadastrar').click();
 
         cy.contains('Endereço cadastrado com sucesso!').should('be.visible');
-        cy.get('#modal-abrir button.botao-voltar').click();
     })
 
   
