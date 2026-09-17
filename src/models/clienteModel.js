@@ -208,7 +208,7 @@ class ClienteModel {
         return linhas;
     }
 
-    /*async deletarCliente(clienteId) {
+    async deletarCliente(clienteId) {
         const conexao = await pool.getConnection();
 
         try {
@@ -232,7 +232,7 @@ class ClienteModel {
             conexao.release();
         }
 
-    }*/
+    }
 
         async listarTodos(filtros = {}) {
         let sql = `SELECT cli_id, cli_cpf, cli_nome, cli_email, cli_telefone, cli_dataNasc, cli_genero, cli_ativo

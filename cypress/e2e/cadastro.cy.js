@@ -4,17 +4,17 @@ describe('Cadastro cliente', () => {
     })
 
     it('RF0021 - Cadastrar cliente', () => {
-        cy.get('input[name="nome"]').type('André Cardoso');
+        cy.get('input[name="nome"]').type('André Henrique');
         cy.wait(30);
         cy.get('input[id="data-nascimento"]').type('2008-02-21');
         cy.wait(30);
-        cy.get('input[id="cpf"]').type('33575452849');
+        cy.get('input[id="cpf"]').type('88575452849');
         cy.wait(30);
         cy.get('select[id="genero"]').select('Homem');
         cy.wait(30);
-        cy.get('input[id="telefone"]').type('81998987987');
+        cy.get('input[id="telefone"]').type('81008987987');
         cy.wait(30);
-        cy.get('input[id="email"]').type('cardoso@gmail.com.br');
+        cy.get('input[id="email"]').type('car23doso@gmail.com.br');
         cy.wait(30);
         cy.get('input[id="senha"]').type('NovaSenha1!');
         cy.wait(30);
@@ -53,12 +53,12 @@ describe('Cadastro cliente', () => {
     })
 
     it('RF0026 / RF0027 - Cadastrar cliente com múltiplos endereços e múltiplos cartões', () => {
-        cy.get('input[name="nome"]').type('Daniel Antonio Silveira');
+        cy.get('input[name="nome"]').type('Daniel Teste1');
         cy.get('input[id="data-nascimento"]').type('2008-02-21');
-        cy.get('input[id="cpf"]').type('55221743744');
+        cy.get('input[id="cpf"]').type('55721743744');
         cy.get('select[id="genero"]').select('Homem');
-        cy.get('input[id="telefone"]').type('54989567004');
-        cy.get('input[id="email"]').type('dasilveira@gmail.com.br');
+        cy.get('input[id="telefone"]').type('74989567004');
+        cy.get('input[id="email"]').type('das@gmail.com.br');
         cy.get('input[id="senha"]').type('NovaSenha1!');
         cy.get('input[id="confirmar-senha"]').type('NovaSenha1!');
 

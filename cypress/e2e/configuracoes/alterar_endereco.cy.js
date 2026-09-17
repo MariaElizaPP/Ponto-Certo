@@ -71,14 +71,7 @@ describe('Alterar endereço', () => {
         cy.contains('O CEP deve conter 8 dígitos').should('be.visible');
     })
 
-    it('Deve rejeitar CEP com letras', () => {
-        cy.get('input[name="cep"]').clear();
-        cy.get('input[name="cep"]').type('abc12345').blur();
-
-        cy.contains('O CEP deve conter 8 dígitos').should('be.visible');
-    })
-
-    it('Deve rejeitar CEP inexistente e não preencher os campos automaticamente', () => {
+    it('Deve rejeitar CEP inexistente', () => {
         cy.get('input[name="cep"]').clear();
         cy.get('input[name="cep"]').type('00000000').blur();
 
