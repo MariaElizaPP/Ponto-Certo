@@ -13,12 +13,22 @@ describe('Alterar Cliente', () => {
     })
 
    it('RF0023 - Cliente inativo não consegue logar', () => {
-       cy.get('label.status-produto[data-modal="modal-abrir-2"] .slider-status').click();
-       cy.get('.btn-modal-fechar.btn-tema-alerta[data-modal="modal-abrir-2"]').click();
+       cy.get('label.status-produto[data-modal="modal-abrir-4"] .slider-status').click();
+       cy.get('.btn-modal-fechar.btn-tema-alerta[data-modal="modal-abrir-4"]').click();
        cy.visit('https://pontocertoweb.netlify.app/login');
        cy.wait(500);
        cy.get('#btn-entrar').click();
        cy.contains('Cliente inativado pelo administrador.').should('be.visible');
+    });
+
+   it('Ativar cliente', () => {
+       cy.get('label.status-produto[data-modal="modal-abrir-4"] .slider-status').click();
+       cy.get('.btn-modal-fechar.btn-tema-alerta[data-modal="modal-abrir-4"]').click();
+       cy.contains('Cliente ativado').should('be.visible');
+       cy.visit('https://pontocertoweb.netlify.app/login');
+       cy.wait(500);
+       cy.get('#btn-entrar').click();
+       
     });
 
     
