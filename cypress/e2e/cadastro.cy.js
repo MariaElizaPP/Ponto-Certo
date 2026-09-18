@@ -4,24 +4,24 @@ describe('Cadastro cliente', () => {
     })
 
     it('RF0021 - Cadastrar cliente', () => {
-        cy.get('input[name="nome"]').type('André Henrique');
+        cy.get('input[name="nome"]').type('Pedro Henrique');
         cy.wait(30);
         cy.get('input[id="data-nascimento"]').type('2008-02-21');
         cy.wait(30);
-        cy.get('input[id="cpf"]').type('88575452849');
+        cy.get('input[id="cpf"]').type('88577852849');
         cy.wait(30);
         cy.get('select[id="genero"]').select('Homem');
         cy.wait(30);
-        cy.get('input[id="telefone"]').type('81008987987');
+        cy.get('input[id="telefone"]').type('8109987987');
         cy.wait(30);
-        cy.get('input[id="email"]').type('car23doso@gmail.com.br');
+        cy.get('input[id="email"]').type('sodro123@gmail.com.br');
         cy.wait(30);
         cy.get('input[id="senha"]').type('NovaSenha1!');
         cy.wait(30);
         cy.get('input[id="confirmar-senha"]').type('NovaSenha1!');
         cy.wait(30);
 
-        // --- Primeiro endereço (bloco original, sempre index 0) ---
+        
         cy.get('.blocos-endereco .bloco-endereco').eq(0).within(() => {
             cy.get('input[name="tipoResidencia"]').type('Casa');
             cy.get('input[name="tipoLogradouro"]').type('Rua');
@@ -33,10 +33,10 @@ describe('Cadastro cliente', () => {
         });
         cy.wait(30);
 
-        // --- Adiciona o segundo bloco de endereço ---
+        
         cy.get('#btn-add-endereco').click();
 
-        // --- Segundo endereço (bloco clonado, sempre o último) ---
+       
         cy.get('.blocos-endereco .bloco-endereco').last().within(() => {
             cy.get('input[name="tipoResidencia"]').type('Casa');
             cy.get('input[name="tipoLogradouro"]').type('Rua');
@@ -121,8 +121,6 @@ describe('Cadastro cliente', () => {
     it('RNF0031 - RNF0032 - Confirmação de senha', () => {
         cy.get('input[id="senha"]').type('SenhaForte1!');
         cy.wait(30);
-        //cy.get('input[id="confirmar-senha"]').type('OutroForte1!');
-        //cy.wait(30);
         cy.get('button[type="submit"]').click();
         cy.contains('A confirmação da senha é obrigatória').should('be.visible');
     })
@@ -145,7 +143,7 @@ describe('Cadastro cliente', () => {
         cy.get('input[id="confirmar-senha"]').type('NovaSenha1!');
         cy.wait(30);
 
-        // endereço
+        
         cy.get('.blocos-endereco .bloco-endereco').eq(0).within(() => {
             cy.get('input[name="tipoResidencia"], input[id="tipo_residencia"]').type('Casa');
             cy.wait(30);
@@ -186,7 +184,6 @@ describe('Cadastro cliente', () => {
         cy.get('input[id="confirmar-senha"]').type('NovaSenha1!');
         cy.wait(30);
 
-        // endereço
         cy.get('.blocos-endereco .bloco-endereco').eq(0).within(() => {
             cy.get('input[name="tipoResidencia"], input[id="tipo_residencia"]').type('Casa');
             cy.wait(30);
