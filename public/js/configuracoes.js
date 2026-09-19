@@ -1,6 +1,9 @@
 const clienteId = localStorage.getItem('clienteId');
 const GENERO_LABEL = { H: 'Masculino', M: 'Feminino', N: 'Prefiro não informar', O: 'Outros' };
 
+let enderecoCardTemplate = null;
+let cartaoListaTemplate = null;
+
 function formatarTelefone(telefone) {
     if (!telefone) return '';
     const numeros = telefone.replace(/\D/g, '');
@@ -85,61 +88,84 @@ function preencherPerfil(dados) {
 
 function preencherEnderecos(enderecos) {
     const container = document.querySelector('.coluna-endereco');
-    const cardModelo = document.querySelector('.endereco-card').cloneNode(true); // guarda antes de remover
-
+ 
+    if (!enderecoCardTemplate) {
+        const original = container.querySelector('.endereco-card');
+        if (original) {
+            enderecoCardTemplate = original.cloneNode(true);
+        }
+    }
+ 
+    if (!enderecoCardTemplate) {
+        container.querySelectorAll('.endereco-card').forEach(el => el.remove());
+        return;
+    }
+ 
     container.querySelectorAll('.endereco-card').forEach(el => el.remove());
-
+ 
     enderecos.forEach((endereco, index) => {
-        const card = cardModelo.cloneNode(true);
-
+        const card = enderecoCardTemplate.cloneNode(true);
+ 
         card.querySelector('.linha-cep').textContent = endereco.end_nomeEndereco;
         card.querySelector('.linha-nome').textContent = montarEnderecoCompleto(endereco);
-
+ 
         card.dataset.enderecoId = endereco.end_id;
-
+ 
         const modal = card.querySelector('dialog');
         const novoIdModal = `modal-endereco-${index}`;
         modal.id = novoIdModal;
         card.querySelectorAll('[data-modal]').forEach(el => {
             el.dataset.modal = novoIdModal;
         });
-
+ 
         const linkAlterar = card.querySelector('.link-alterar');
         if(linkAlterar){
             linkAlterar.href = `/pagamento/alterar_endereco.html?enderecoId=${endereco.end_id}`;
         }
-
+ 
         container.appendChild(card);
     });
 }
-
+ 
 function preencherCartoes(cartoes) {
     const container = document.querySelector('.coluna-cartoes');
-    const listaModelo = document.querySelector('.lista-cartoes').cloneNode(true); 
-
-    container.querySelectorAll('.lista-cartoes').forEach(el => el.remove()); 
-
+ 
+    if (!cartaoListaTemplate) {
+        const original = container.querySelector('.lista-cartoes');
+        if (original) {
+            cartaoListaTemplate = original.cloneNode(true);
+        }
+    }
+ 
+    if (!cartaoListaTemplate) {
+        container.querySelectorAll('.lista-cartoes').forEach(el => el.remove());
+        return;
+    }
+ 
+    container.querySelectorAll('.lista-cartoes').forEach(el => el.remove());
+ 
     cartoes.forEach((cartao, index) => {
-        const lista = listaModelo.cloneNode(true);
+        const lista = cartaoListaTemplate.cloneNode(true);
         const card = lista.querySelector('.cartoes-card');
-
+ 
          card.dataset.cartaoId = cartao.car_id;
-
+ 
         card.querySelector('.linha-cartao').textContent = cartao.bdr_nome ?? '';
         card.querySelectorAll('.linha-nome')[0].textContent = cartao.car_nomeImpresso ?? '';
         card.querySelectorAll('.linha-nome')[1].textContent = `${cartao.car_numero.slice(0, 4)} **** **** ****`;
-
+ 
         const principal = card.querySelector('.cartao-principal');
         if (principal) principal.style.display = cartao.car_preferencial ? '' : 'none';
-
+ 
         const modal = card.querySelector('dialog');
         const novoIdModal = `modal-cartao-${index}`;
         modal.id = novoIdModal;
         card.querySelectorAll('[data-modal]').forEach(el => el.dataset.modal = novoIdModal);
-
+ 
         container.appendChild(lista);
     });
 }
+ 
 
 document.addEventListener('click', function (e) {
 

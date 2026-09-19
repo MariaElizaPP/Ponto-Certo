@@ -53,12 +53,12 @@ describe('Cadastro cliente', () => {
     })
 
     it('RF0026 / RF0027 - Cadastrar cliente com múltiplos endereços e múltiplos cartões', () => {
-        cy.get('input[name="nome"]').type('Daniel Teste1');
+        cy.get('input[name="nome"]').type('Daniel Cardoso');
         cy.get('input[id="data-nascimento"]').type('2008-02-21');
         cy.get('input[id="cpf"]').type('55721743744');
         cy.get('select[id="genero"]').select('Homem');
         cy.get('input[id="telefone"]').type('74989567004');
-        cy.get('input[id="email"]').type('das@gmail.com.br');
+        cy.get('input[id="email"]').type('dani12caro@gmail.com.br');
         cy.get('input[id="senha"]').type('NovaSenha1!');
         cy.get('input[id="confirmar-senha"]').type('NovaSenha1!');
 
