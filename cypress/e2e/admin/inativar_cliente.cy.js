@@ -1,4 +1,4 @@
-describe('Alterar Cliente', () => {
+describe('Inativar Cliente', () => {
     beforeEach(() => {
         cy.visit('https://pontocertoweb.netlify.app/admin/login'); 
         cy.wait(500);
@@ -30,6 +30,7 @@ describe('Alterar Cliente', () => {
        cy.get('#btn-entrar').click();
        
     });
+    
 
     
 

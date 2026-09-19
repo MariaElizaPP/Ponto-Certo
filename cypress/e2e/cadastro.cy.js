@@ -184,6 +184,7 @@ describe('Cadastro cliente', () => {
         cy.get('input[id="confirmar-senha"]').type('NovaSenha1!');
         cy.wait(30);
 
+        
         cy.get('.blocos-endereco .bloco-endereco').eq(0).within(() => {
             cy.get('input[name="tipoResidencia"], input[id="tipo_residencia"]').type('Casa');
             cy.wait(30);

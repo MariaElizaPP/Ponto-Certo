@@ -10,11 +10,11 @@ describe('Alterar senha', () => {
 
   it('Cadastrar cartão de crédito', () => {
     cy.visit('https://pontocertoweb.netlify.app/pagamento/cadastrar_cartao')
-    cy.get('#numero-cartao').type('5270464940954449');
+    cy.get('#numero-cartao').type('5311228655609766');
     cy.wait(1000);
     cy.get('#bandeira').select('mastercard');
     cy.wait(1000);
-    cy.get('#nome-cartao').type('Sophia N');
+    cy.get('#nome-cartao').type('Daniel N');
     cy.wait(1000);
     cy.get('#cvv').type('374');
     cy.wait(1000);
