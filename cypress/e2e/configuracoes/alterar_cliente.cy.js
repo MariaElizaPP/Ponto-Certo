@@ -19,7 +19,7 @@ describe('Alterar Cliente', () =>{
         cy.get('select[id ="genero"]').select('Mulher');
         cy.wait(30);
         cy.get('input[id="telefone"]').clear();
-        cy.get('input[id ="telefone"]').type('992776988');
+        cy.get('input[id ="telefone"]').type('11992776988');
         cy.wait(30);
 
         cy.get('button.cadastrar').click();
