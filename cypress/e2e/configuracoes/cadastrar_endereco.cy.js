@@ -31,6 +31,8 @@ describe('Cadastrar endereço', () => {
         cy.contains('Endereço cadastrado com sucesso!').should('be.visible');
 
         cy.get('button.btn-tema-sucesso.botao-voltar').click();
+
+        cy.reload();
     })
 
   

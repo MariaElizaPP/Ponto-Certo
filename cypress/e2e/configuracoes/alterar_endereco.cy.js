@@ -29,7 +29,7 @@ describe('Alterar endereço', () => {
         cy.get('input[name="nome-endereco"]').type('Trabalho');
         cy.wait(1000);
         cy.get('input[name="complemento"]').clear();
-        cy.get('input[name="complemento"]').type('Complemento');
+        cy.get('input[name="complemento"]').type('Casa 4');
         cy.wait(1000);
         cy.get('select[name="tipoEndereco"]').select('Cobrança');
         cy.wait(1000);
@@ -38,6 +38,7 @@ describe('Alterar endereço', () => {
 
         cy.contains('Endereço atualizado com sucesso!').should('be.visible');
         cy.get('#modal-abrir button.botao-voltar').click();
+        cy.reload();
     })
 
     it('Não deve permitir salvar apenas com o campo "número" vazio', () => {
