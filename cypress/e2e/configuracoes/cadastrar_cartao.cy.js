@@ -1,4 +1,4 @@
-describe('Alterar senha', () => {
+describe('Cartão de crédito', () => {
   beforeEach(() => {
     cy.visit('https://pontocertoweb.netlify.app/login')
     cy.wait(500);

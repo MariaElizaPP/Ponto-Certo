@@ -1,25 +1,18 @@
 describe('Cadastro cliente', () => {
     beforeEach(() => {
         cy.visit('https://pontocertoweb.netlify.app/cadastro_cliente');
+        cy.reload(true);
     })
 
     it('RF0021 - Cadastrar cliente', () => {
-        cy.get('input[name="nome"]').type('Pedro Henrique');
-        cy.wait(30);
+        cy.get('input[name="nome"]').type('Rafaela Rita Rafaela Pinto');
         cy.get('input[id="data-nascimento"]').type('2008-02-21');
-        cy.wait(30);
-        cy.get('input[id="cpf"]').type('88577852849');
-        cy.wait(30);
-        cy.get('select[id="genero"]').select('Homem');
-        cy.wait(30);
-        cy.get('input[id="telefone"]').type('8109987987');
-        cy.wait(30);
-        cy.get('input[id="email"]').type('sodro123@gmail.com.br');
-        cy.wait(30);
+        cy.get('input[id="cpf"]').type('54367416577');
+        cy.get('select[id="genero"]').select('Mulher');
+        cy.get('input[id="telefone"]').type('8599987987');
+        cy.get('input[id="email"]').type('rafarrp@gmail.com.br');
         cy.get('input[id="senha"]').type('NovaSenha1!');
-        cy.wait(30);
         cy.get('input[id="confirmar-senha"]').type('NovaSenha1!');
-        cy.wait(30);
 
         
         cy.get('.blocos-endereco .bloco-endereco').eq(0).within(() => {
@@ -31,7 +24,6 @@ describe('Cadastro cliente', () => {
             cy.get('input[name="complemento"]').type('Complemento');
             cy.get('select[name="tipoEndereco"]').select('Cobrança');
         });
-        cy.wait(30);
 
         
         cy.get('#btn-add-endereco').click();
@@ -46,19 +38,18 @@ describe('Cadastro cliente', () => {
             cy.get('input[name="complemento"]').type('Complemento');
             cy.get('select[name="tipoEndereco"]').select('Entrega');
         });
-        cy.wait(30);
 
         cy.get('button[type="submit"]').click();
         cy.contains('Cliente cadastrado com sucesso!').should('be.visible');
     })
 
     it('RF0026 / RF0027 - Cadastrar cliente com múltiplos endereços e múltiplos cartões', () => {
-        cy.get('input[name="nome"]').type('Daniel Cardoso');
+        cy.get('input[name="nome"]').type('Lara Joana Clarice Sales');
         cy.get('input[id="data-nascimento"]').type('2008-02-21');
-        cy.get('input[id="cpf"]').type('55721743744');
-        cy.get('select[id="genero"]').select('Homem');
-        cy.get('input[id="telefone"]').type('74989567004');
-        cy.get('input[id="email"]').type('dani12caro@gmail.com.br');
+        cy.get('input[id="cpf"]').type('43592512110');
+        cy.get('select[id="genero"]').select('Mulher');
+        cy.get('input[id="telefone"]').type('83989567004');
+        cy.get('input[id="email"]').type('larajoa@gmail.com.br');
         cy.get('input[id="senha"]').type('NovaSenha1!');
         cy.get('input[id="confirmar-senha"]').type('NovaSenha1!');
 
