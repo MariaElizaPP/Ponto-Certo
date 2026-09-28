@@ -50,6 +50,16 @@ class CarrinhoService {
         return { mensagem: 'Item adicionado ao carrinho com sucesso' };
     }
 
+    async mostrarCarrinho(cliId){
+        if(!cliId) throw {status: 400, message: 'O id do cliente é obrigatório'};
+
+        const carrinhoModel = new CarrinhoModel();
+
+        const carrinho = await carrinhoModel.mostrarCarrinho(cliId);
+
+        return carrinho;
+    }
+
 }
 
 module.exports = { CarrinhoService };
