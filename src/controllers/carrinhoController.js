@@ -18,4 +18,18 @@ async function adicionarItem(req, res) {
     }
 }
 
-module.exports = {adicionarItem};
+async function mostrarCarrinho(req, res) {
+    try {
+        const service = new CarrinhoService();
+
+        const resultado = await service.mostrarCarrinho(req.params.cliId);
+        return res.status(200).json(resultado);
+    } catch (error) {
+        console.log(error);
+        const status = error.status || 500;
+        const mensagem = error.mensagem || 'Erro ao mostrar o carrinho';
+        return res.status(status).json({ mensagem });
+    }
+}
+
+module.exports = {adicionarItem, mostrarCarrinho};
