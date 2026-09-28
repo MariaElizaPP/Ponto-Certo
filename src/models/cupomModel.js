@@ -1,19 +1,22 @@
 const pool = require('../config/database');
 
-class CupomModel{
-    async buscarParaUso(codigos) {
+class CupomModel {
+
+    async buscarPorCodigos(codigos, cliId) {
         if (codigos.length === 0) return [];
 
         const marcadores = codigos.map(() => '?').join(',');
         const [linhas] = await pool.execute(
-            `SELECT * FROM cupom WHERE cpm_codigo IN (${marcadores}) FOR UPDATE`,
+            `SELECT * FROM cupom WHERE cpm_codigo IN (${marcadores})`,
             codigos
         );
         return linhas;
     }
 
-    async usado(cpmId){
-        const [[linha]] = await pool.execute(
+    async Usado(conexao, cpmId) {
+        await conexao.execute(`SELECT cpm_id FROM cupom WHERE cpm_id = ? FOR UPDATE`, [cpmId]);
+
+        const [[linha]] = await conexao.execute(
             `SELECT 1 AS usado
                FROM pagamento_cupom pcp
                JOIN pedidos p ON p.ped_id = pcp.pcp_ped_id
@@ -26,10 +29,10 @@ class CupomModel{
         return !!linha;
     }
 
-    async criarCupomTroca(conn, cliId, pedId, valor) {
+    async criarCupomTroca(conexao, cliId, pedId, valor) {
         const codigo = `TROCA-${pedId}-${Date.now().toString(36).toUpperCase()}`;
 
-        await conn.execute(
+        await conexao.execute(
             `INSERT INTO cupom (cpm_codigo, cpm_valor, cpm_tipoCupom, cpm_cli_id)
              VALUES (?, ?, 'T', ?)`,
             [codigo, valor.toFixed(2), cliId]
@@ -39,4 +42,4 @@ class CupomModel{
     }
 }
 
-module.exports = {CupomModel};
+module.exports = { CupomModel };

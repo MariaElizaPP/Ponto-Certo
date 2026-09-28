@@ -76,6 +76,10 @@ class PedidoModel{
         return status.stp_id;
     }
 
+     async limparCarrinho(conexao, crrId) {
+        await conexao.execute(`DELETE FROM item_carrinho WHERE itm_crr_id = ?`, [crrId]);
+    }
+
 }
 
 module.exports = {PedidoModel}
