@@ -67,6 +67,11 @@ class EnderecoModel {
         const [linhas] = await pool.execute(`DELETE FROM endereco WHERE end_id=? AND end_cli_id=?`, [id, cliId]);
         return linhas.affectedRows > 0;
     }
+
+    async listarEnderecosEntrega(cliId){
+        const [linhas] = await pool.execute(`SELECT * FROM endereco WHERE end_cli_id = ? AND end_tipoEndereco = 'E'`, [cliId]);
+        return linhas;
+    }
 }
 
 module.exports = { EnderecoModel };

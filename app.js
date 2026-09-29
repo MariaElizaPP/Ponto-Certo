@@ -6,6 +6,7 @@ const cartaoRoutes = require('./src/routes/cartaoRoutes');
 const produtoRoutes = require('./src/routes/produtoRoutes');
 const carrinhoRoutes = require('./src/routes/carrinhoRoutes');
 const freteRoutes = require('./src/routes/freteRoutes');
+const pagamentoRoutes = require('./src/routes/pedidoRoutes');
 
 const app = express();
 app.use(express.json());
@@ -22,5 +23,6 @@ app.use('/api', cartaoRoutes);
 app.use('/api', produtoRoutes);
 app.use('/api', carrinhoRoutes);
 app.use('/api', freteRoutes);
+app.use('/api', pedidoRoutes);
 
 module.exports = app;
