@@ -13,7 +13,7 @@ class CupomModel {
         return linhas;
     }
 
-    async Usado(conexao, cpmId) {
+    async usado(conexao, cpmId) {
         await conexao.execute(`SELECT cpm_id FROM cupom WHERE cpm_id = ? FOR UPDATE`, [cpmId]);
 
         const [[linha]] = await conexao.execute(

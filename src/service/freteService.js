@@ -1,4 +1,4 @@
-const enderecoModel = require('../models/enderecoModel');
+const { EnderecoModel } = require('../models/enderecoModel');
 
 class FreteService {
     calcularFrete(estado, totalItens) {
@@ -48,6 +48,8 @@ class FreteService {
         if (!enderecoId || !itens || itens.length === 0) {
             return res.status(400).json({ erro: 'Endereço e itens são obrigatórios.' });
         }
+
+        const enderecoModel = new EnderecoModel();
 
         const endereco = await enderecoModel.buscarId(enderecoId, cliId);
         

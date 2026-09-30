@@ -1,18 +1,58 @@
 const pool = require('../config/database');
+const { CupomModel } = require('./cupomModel');
 
-class PedidoModel{
-   async finalizarPedido(cliId, statusId, enderecoId, valorFrete, itens, valorPagamento) {
+
+class PedidoModel {
+    async finalizarPedido(cliId, enderecoId, valorFrete, itens, valorTotal, cuponsComputados, cartoesComputados, aprovado, troco) {
         const conexao = await pool.getConnection();
+        const cupomModel = new CupomModel();
 
         try {
             await conexao.beginTransaction();
 
-            const pedId = await this.criarPedido(conexao, cliId, statusId, enderecoId, valorFrete);
+            const alteracoes = await this.conciliarEstoqueCarrinho(conexao, itens);
+            if (alteracoes.length > 0) {
+                await conexao.commit();
+                return { alteracoes };
+            }
+
+            for (const c of cuponsComputados) {
+                if (await cupomModel.usado(conexao, c.cpm_id)) {
+                    throw { status: 400, mensagem: `Cupom ${c.cpm_codigo} já foi utilizado.` };
+                }
+            }
+
+            const statusProcessando = await this.buscarStatusId('EM PROCESSAMENTO');
+            const pedId = await this.criarPedido(conexao, cliId, statusProcessando, enderecoId, valorFrete, valorTotal);
+
             await this.inserirItens(conexao, pedId, itens);
-            await this.inserirPagamento(conexao, pedId, valorPagamento);
+            await this.inserirPagamento(conexao, pedId, valorTotal);
+
+            for (const c of cartoesComputados) {
+                await this.inserirPagamentoCartao(conexao, pedId, c.carId, c.valor);
+            }
+            for (const c of cuponsComputados) {
+                await this.inserirPagamentoCupom(conexao, pedId, c.cpm_id, c.aplicado);
+            }
+
+            let cupomTroca = null;
+
+            if (aprovado) {
+                await this.atualizarStatus(conexao, pedId, await this.buscarStatusId('APROVADA'));
+                await this.baixarEstoque(conexao, itens);
+
+                if (troco.greaterThan(0)) {
+                    cupomTroca = await cupomModel.criarCupomTroca(conexao, cliId, pedId, troco); // RN0036
+                }
+
+                await this.limparCarrinho(conexao, itens[0].crr_id);
+            } else {
+                await this.atualizarStatus(conexao, pedId, await this.buscarStatusId('REPROVADA'));
+            }
 
             await conexao.commit();
-            return pedId;
+            return { pedId, cupomTroca };
+
         } catch (error) {
             await conexao.rollback();
             console.log(error);
@@ -22,11 +62,12 @@ class PedidoModel{
         }
     }
 
-    async criarPedido(conexao, cliId, statusId, enderecoId, valorFrete) {
+
+    async criarPedido(conexao, cliId, statusId, enderecoId, valorFrete, totalPedido) {
         const [resultado] = await conexao.execute(
-            `INSERT INTO pedidos (ped_cli_id, ped_stp_id, ped_end_id, ped_valorFrete)
-             VALUES (?, ?, ?, ?)`,
-            [cliId, statusId, enderecoId, valorFrete.toFixed(2)]
+            `INSERT INTO pedidos (ped_cli_id, ped_stp_id, ped_end_id, ped_valorFrete, ped_totalPedido)
+             VALUES (?, ?, ?, ?, ?)`,
+            [cliId, statusId, enderecoId, valorFrete.toFixed(2), totalPedido.toFixed(2)]
         );
         return resultado.insertId;
     }
@@ -76,10 +117,67 @@ class PedidoModel{
         return status.stp_id;
     }
 
-     async limparCarrinho(conexao, crrId) {
+    async conciliarEstoqueCarrinho(conexao, itens) {
+        const alteracoes = [];
+        const ordenados = [...itens].sort((a, b) => a.itm_vpr_id - b.itm_vpr_id);
+
+        for (const item of ordenados) {
+            const [[estoque]] = await conexao.execute(
+                `SELECT est_quantidade FROM estoque WHERE est_vpr_id = ? FOR UPDATE`,
+                [item.itm_vpr_id]
+            );
+            const disponivel = estoque ? estoque.est_quantidade : 0;
+            if (disponivel >= item.itm_quantidade) continue;
+
+            if (disponivel <= 0) {
+                await conexao.execute(
+                    `DELETE FROM item_carrinho WHERE itm_crr_id = ? AND itm_vpr_id = ?`,
+                    [item.crr_id, item.itm_vpr_id]
+                );
+            } else {
+                await conexao.execute(
+                    `UPDATE item_carrinho SET itm_quantidade = ? WHERE itm_crr_id = ? AND itm_vpr_id = ?`,
+                    [disponivel, item.crr_id, item.itm_vpr_id]
+                );
+            }
+
+            alteracoes.push({
+                itm_vpr_id: item.itm_vpr_id,
+                prd_nome: item.prd_nome,
+                tipo: disponivel <= 0 ? 'REMOVIDO' : 'QUANTIDADE_AJUSTADA',
+                quantidadeAnterior: item.itm_quantidade,
+                quantidadeAtual: Math.max(disponivel, 0)
+            });
+        }
+        return alteracoes;
+    }
+
+    async baixarEstoque(conexao, itens) {
+        for (const item of itens) {
+            await conexao.execute(
+                `UPDATE estoque SET est_quantidade = est_quantidade - ? WHERE est_vpr_id = ?`,
+                [item.itm_quantidade, item.itm_vpr_id]
+            );
+        }
+    }
+
+    async limparCarrinho(conexao, crrId) {
         await conexao.execute(`DELETE FROM item_carrinho WHERE itm_crr_id = ?`, [crrId]);
+    }
+
+    async historico(cliId) {
+        const [resultado] = await pool.execute(`SELECT p.ped_id, p.ped_realizadoEm, p.ped_totalPedido, i.itm_id, i.itm_quantidade, i.itm_precoUnitario, v.vpr_imgUrl, pr.prd_nome, sp.stp_status
+            FROM pedidos p
+            JOIN item_pedido i on i.itm_ped_id = p.ped_id
+            JOIN variacao_produto v on v.vpr_id = i.itm_vpr_id
+            JOIN produtos pr on v.vpr_prd_id = pr.prd_id
+            JOIN status_pedidos sp on p.ped_stp_id = sp.stp_id
+            WHERE p.ped_cli_id = ?;`,
+            [cliId]);
+
+        return resultado;
     }
 
 }
 
-module.exports = {PedidoModel}
+module.exports = { PedidoModel }
