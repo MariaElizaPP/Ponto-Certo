@@ -15,19 +15,20 @@ class ProdutoService {
         const detalhesProduto = await produtoModel.detalhesProduto(id);
 
         return {
-            detalhes: {
-                id: detalhesProduto[0].prd_id,
-                nome: detalhesProduto[0].prd_nome,
-                preco: detalhesProduto[0].prd_preco,
-                descricao: detalhesProduto[0].prd_descricao,
-                variacoes: detalhesProduto.map(detalhesProduto => ({
-                    id: detalhesProduto.vpr_id,
-                    cor: detalhesProduto.vpr_cor,
-                    tamanho: detalhesProduto.vpr_tamanho,
-                    sku: detalhesProduto.vpr_sku,
-                    imagemUrl: detalhesProduto.vpr_imagemUrl
-                }))
-            }
+
+            id: detalhesProduto[0].prd_id,
+            nome: detalhesProduto[0].prd_nome,
+            preco: detalhesProduto[0].prd_preco,
+            descricao: detalhesProduto[0].prd_descricao,
+            imagemProduto: detalhesProduto[0].prd_imgUrl,
+            variacoes: detalhesProduto.map(detalhesProduto => ({
+                id: detalhesProduto.vpr_id,
+                cor: detalhesProduto.vpr_cor,
+                tamanho: detalhesProduto.vpr_tamanho,
+                sku: detalhesProduto.vpr_sku,
+                imagemUrl: detalhesProduto.vpr_imgUrl
+            }))
+
         };
     }
 }

@@ -1,4 +1,4 @@
-const { PedidoService } = require('../service/pagamentoService');
+const { PedidoService } = require('../service/pedidoService');
 
 async function listarDadosPagamento(req, res) {
 
@@ -46,4 +46,24 @@ async function finalizarPedido(req, res) {
     }
 }
 
-module.exports = { listarDadosPagamento, finalizarPedido }
+async function historico(req, res) {
+    try {
+        const service = new PedidoService();
+        const { cliId } = req.params;
+ 
+        const resultado = await service.historico( cliId );
+ 
+        return res.status(200).json(resultado);
+ 
+    } catch (error) {
+        console.error(error);
+ 
+        if (error.status) {
+            return res.status(error.status).json({mensagem: error.mensagem, alteracoes: error.alteracoes});
+        }
+ 
+        return res.status(500).json({ mensagem: 'Erro ao listar o histórico.' });
+    }
+}
+
+module.exports = { listarDadosPagamento, finalizarPedido, historico }

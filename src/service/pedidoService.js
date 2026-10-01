@@ -3,7 +3,7 @@ const { CartaoModel } = require('../models/cartaoModel');
 const { CarrinhoModel } = require('../models/carrinhoModel');
 const { PedidoModel } = require('../models/pedidoModel');
 const { CupomModel } = require('../models/cupomModel');
-const freteService = require('./freteService');
+const { FreteService } = require('./freteService');
 const Decimal = require('decimal.js');
 
 const MINIMO_POR_CARTAO = new Decimal(10);
@@ -64,6 +64,7 @@ class PedidoService {
         }
 
         // frete e total
+        const freteService = new FreteService()
         const frete = await freteService.calcular(cliId, enderecoId, carrinho);
 
         const subtotal = carrinho.reduce(
@@ -177,6 +178,36 @@ class PedidoService {
             prazoDias: frete.prazoDias,
             cupomTrocaGerado: resultado.cupomTroca
         };
+    }
+
+    async historico(cliId) {
+        if (!cliId) {
+            throw { status: 400, mensagem: 'O id do cliente é obrigatório.' };
+        }
+
+        const model = new PedidoModel();
+        const historicoPedidos = await model.historico(cliId);
+
+        const grupos = Map.groupBy(historicoPedidos, linha => linha.ped_id);
+
+        return Array.from(grupos, ([pedId, linhas]) => ({
+            id: pedId,
+            finalizadoEm: linhas[0].ped_realizadoEm,
+            totalPedido: linhas[0].ped_totalPedido,
+            status: linhas[0].stp_status,
+            itens: linhas.map(l => ({
+                itemId: l.itm_id,
+                quantidade: l.itm_quantidade,
+                precoUnitario: l.itm_precoUnitario,
+                imagemUrl: l.vpr_imgUrl,
+                nomeProduto: l.prd_nome
+            }))
+        }));
+
+
+
+
+
     }
 }
 

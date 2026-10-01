@@ -57,7 +57,7 @@ class ProdutoModel {
         const conexao = await pool.getConnection();
 
         try{
-            const [linha]= await conexao.execute(`SELECT p.prd_id, p.prd_nome, p.prd_preco, p.prd_descricao, vp.vpr_id, vp.vpr_cor, vp.vpr_tamanho, vp.vpr_sku, vp.vpr_imgUrl FROM produtos p JOIN variacao_produto vp ON vp.vpr_prd_id = p.prd_id WHERE p.prd_id = ? `, [id]);
+            const [linha]= await conexao.execute(`SELECT p.prd_id, p.prd_nome, p.prd_preco, p.prd_descricao, p.prd_imgUrl, vp.vpr_id, vp.vpr_cor, vp.vpr_tamanho, vp.vpr_sku, vp.vpr_imgUrl FROM produtos p JOIN variacao_produto vp ON vp.vpr_prd_id = p.prd_id WHERE p.prd_id = ? `, [id]);
         
             return linha;
             
