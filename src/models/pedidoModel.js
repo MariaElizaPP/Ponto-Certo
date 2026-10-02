@@ -178,6 +178,70 @@ class PedidoModel {
         return resultado;
     }
 
+    async buscarPedido(cliId, pedId) {
+    const [[pedido]] = await pool.execute(
+        `SELECT p.ped_id, sp.stp_status
+         FROM pedidos p
+         JOIN status_pedidos sp ON p.ped_stp_id = sp.stp_id
+         WHERE p.ped_id = ? AND p.ped_cli_id = ?`,
+        [pedId, cliId]
+    );
+    return pedido;
+}
+
+async mudarStatus(pedId, novoStatus) {
+    const novoId = await this.buscarStatusId(novoStatus);
+
+    await pool.execute(
+        `UPDATE pedidos SET ped_stp_id = ? WHERE ped_id = ?`,
+        [novoId, pedId]
+    );
+}
+
+async cancelarPedido(pedId) {
+    const conexao = await pool.getConnection();
+
+    try {
+        await conexao.beginTransaction();
+
+        const [[pedido]] = await conexao.execute(
+            `SELECT sp.stp_status
+             FROM pedidos p
+             JOIN status_pedidos sp ON p.ped_stp_id = sp.stp_id
+             WHERE p.ped_id = ? FOR UPDATE`,
+            [pedId]
+        );
+
+        if (!pedido || !['EM PROCESSAMENTO', 'APROVADA'].includes(pedido.stp_status)) {
+            throw { status: 409, mensagem: 'O status do pedido mudou. Atualize a página.' };
+        }
+
+        const canceladoId = await this.buscarStatusId('CANCELADO');
+        await conexao.execute(`UPDATE pedidos SET ped_stp_id = ? WHERE ped_id = ?`, [canceladoId, pedId]);
+
+        // o estoque só foi baixado quando a compra foi aprovada, então só devolve nesse caso
+        if (pedido.stp_status === 'APROVADA') {
+            const [itens] = await conexao.execute(
+                `SELECT itm_vpr_id, itm_quantidade FROM item_pedido WHERE itm_ped_id = ?`, [pedId]
+            );
+            for (const item of itens) {
+                await conexao.execute(
+                    `UPDATE estoque SET est_quantidade = est_quantidade + ? WHERE est_vpr_id = ?`,
+                    [item.itm_quantidade, item.itm_vpr_id]
+                );
+            }
+        }
+
+        await conexao.commit();
+    } catch (error) {
+        await conexao.rollback();
+        console.log(error);
+        throw error;
+    } finally {
+        conexao.release();
+    }
+}
+
 }
 
 module.exports = { PedidoModel }

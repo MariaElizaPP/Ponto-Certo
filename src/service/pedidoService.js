@@ -9,6 +9,12 @@ const Decimal = require('decimal.js');
 const MINIMO_POR_CARTAO = new Decimal(10);
 const CARTOES_RECUSADOS = [4, 7]; // RN0037 - simulado
 
+const TRANSICOES = {
+    cancelar: {de: ['EM PROCESSAMENTO', 'APROVADA'], para: 'CANCELADO',erro:'Este pedido não pode mais ser cancelado'},
+    confirmarEntrega: {de: ['ENTREGUE'], para: 'FINALIZADO',erro: 'Só é possível confirmar pedidos entregues'},
+    solicitarTroca: {de: ['FINALIZADO'], para: 'TROCA SOLICITADA', erro: 'A troca só pode ser solicitada em pedidos finalizados'}
+}
+
 class PedidoService {
     async listarDadosPagamento(cliId) {
 
@@ -204,11 +210,43 @@ class PedidoService {
             }))
         }));
 
-
-
-
-
     }
+    async atualizarPedido(cliId, pedId, acao) {
+    if (!cliId || !pedId) {
+        throw { status: 400, mensagem: 'Cliente e pedido são obrigatórios.' };
+    }
+
+    const regra = TRANSICOES[acao];
+
+    if (!regra) {
+        throw { status: 404, mensagem: 'Ação inválida' };
+    }
+
+    const model = new PedidoModel();
+    const pedido = await model.buscarPedido(cliId, pedId);
+
+    if (!pedido) {
+        throw { status: 404, mensagem: 'Pedido não encontrado' };
+    }
+
+    if (!regra.de.includes(pedido.stp_status)) {
+        throw { status: 400, mensagem: regra.erro };
+    }
+
+   let atualizou;
+
+    if (acao === 'cancelar') {
+        atualizou = await model.cancelarPedido(pedId);
+    } else {
+        atualizou = await model.mudarStatus(pedId, regra.de, regra.para);
+    }
+
+    if (!atualizou) {
+        throw { status: 409, mensagem: 'O status do pedido mudou' };
+    }
+
+    return { mensagem: 'Pedido atualizado com sucesso' };
+}
 }
 
 module.exports = { PedidoService }
