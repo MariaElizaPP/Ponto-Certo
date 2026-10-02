@@ -32,4 +32,34 @@ async function mostrarCarrinho(req, res) {
     }
 }
 
-module.exports = {adicionarItem, mostrarCarrinho};
+async function atualizarQuantidade(req, res) {
+    try {
+        const { cliId, vprId, quantidade } = req.body;
+
+        const service = new CarrinhoService();
+        const resultado = await service.atualizarQuantidade(cliId, vprId, quantidade);
+
+        return res.status(200).json(resultado);
+    } catch (erro) {
+        console.error(erro);
+        const status = erro.status || 500;
+        return res.status(status).json({ mensagem: erro.mensagem || 'Erro ao atualizar quantidade.' });
+    }
+}
+
+async function deletarItem(req, res) {
+    try {
+        const { cliId, vprId } = req.body;
+
+        const service = new CarrinhoService();
+        const resultado = await service.deletarItem(cliId, vprId);
+
+        return res.status(200).json(resultado);
+    } catch (erro) {
+        console.error(erro);
+        const status = erro.status || 500;
+        return res.status(status).json({ mensagem: erro.mensagem || 'Erro ao deletar o item.' });
+    }
+}
+
+module.exports = {adicionarItem, mostrarCarrinho, atualizarQuantidade, deletarItem};
