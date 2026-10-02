@@ -66,4 +66,24 @@ async function historico(req, res) {
     }
 }
 
-module.exports = { listarDadosPagamento, finalizarPedido, historico }
+async function atualizarPedido(req, res) {
+    try {
+        const service = new PedidoService();
+        const { pedId, acao } = req.params;
+        const { cliId } = req.body;
+
+        const resultado = await service.atualizarPedido(cliId, pedId, acao);
+
+        return res.status(200).json(resultado);
+    } catch (error) {
+        console.error(error);
+
+        if (error.status) {
+            return res.status(error.status).json({ mensagem: error.mensagem });
+        }
+
+        return res.status(500).json({ mensagem: 'Erro ao atualizar o pedido.' });
+    }
+}
+
+module.exports = { listarDadosPagamento, finalizarPedido, historico, atualizarPedido}
