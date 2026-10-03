@@ -9,6 +9,7 @@ const freteRoutes = require('./src/routes/freteRoutes');
 const pedidoRoutes = require('./src/routes/pedidoRoutes');
 const categoriaRoutes = require('./src/routes/categoriaRoutes');
 const marcasRoutes = require('./src/routes/marcasRoutes');
+const cupomRoutes = require('./src/routes/cupomRoutes');
 
 const app = express();
 app.use(express.json());
@@ -28,5 +29,6 @@ app.use('/api', freteRoutes);
 app.use('/api', pedidoRoutes);
 app.use('/api', categoriaRoutes);
 app.use('/api', marcasRoutes);
+app.use('/api', cupomRoutes);
 
 module.exports = app;
