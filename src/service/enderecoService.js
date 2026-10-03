@@ -102,6 +102,11 @@ class EnderecoService {
 
         return model.deletar(cliId, id);
     }
+
+    async listarEnderecosEntrega(cliId){
+        if(!cliId) throw {status: 400, mensagem: 'O cliente é obrigatório'};
+        return model.listarEnderecosEntrega(cliId);
+    }
 }
 
 module.exports = { EnderecoService };

@@ -20,17 +20,19 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
+    font-family: "Montserrat";
 }
 
 .carrinho {
   display: flex;
   gap: 32px;
-  padding: 40px;
   align-items: flex-start;
-   max-width: 1200px;  
-  margin: 40px auto;   
-  padding: 0 20px;  
+  width: 100%;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 40px 20px;      
+  min-height: 400px;     
+  box-sizing: border-box;
 }
 
 .botao-voltar{
@@ -44,14 +46,21 @@
 /*listagem de produtos*/
 
 .tabela-container {
+  min-height: 300px;
   border: 1px solid #dedfe1; 
   border-radius: 12px;       
   overflow: hidden;         
   margin-top: 12px;
 }
 
+.carrinho > form {
+  flex: 0 0 350px;
+}
+
+
 
 .tabela-carrinho {
+  width: 100%;
   border-collapse: collapse;
 }
 
@@ -156,6 +165,15 @@
   overflow: hidden;
   margin-top: 12px;
   width: 350px;
+}
+
+.resumo-compra,
+.frete-card {
+  width: 100%;
+}
+
+.carrinho-lateral {       
+  flex: 0 0 350px;
 }
 
 .cabecalho-resumo {
@@ -292,6 +310,11 @@
 
 }
 
+.coluna-tabela {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
 .modal-abrir[open] {
   display: flex;
 }
@@ -344,8 +367,8 @@
   background-color: var(--alerta-amarelo-hover);
 }
 
-.modal-abrir dialog::backdrop{
-  background-color: rgba(115, 24, 24, 0);
+.modal-abrir::backdrop{
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .icone-alerta{
@@ -386,4 +409,11 @@
 
 .toast.erro {
     background-color: #c62828;
+}
+
+.mensagem-vazio{
+  color: var(--neutro-80);
+  font-size: 16px;
+  text-align: center;
+  padding: 40px 0; 
 }

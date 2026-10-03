@@ -45,7 +45,8 @@ class FreteService {
 
     //pagamento
     async calcular(cliId, enderecoId, itens) {
-        if (!enderecoId || !itens || itens.length === 0) {
+        if(!enderecoId) return res.status(400).json({ erro: 'Escolha um endereço' });
+        if (!itens || itens.length === 0) {
             return res.status(400).json({ erro: 'Endereço e itens são obrigatórios.' });
         }
 
