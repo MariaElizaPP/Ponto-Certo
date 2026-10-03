@@ -353,8 +353,9 @@ dialog h3{
 }
 
 dialog dialog::backdrop{
-  background-color: rgba(115, 24, 24, 0);
+  background-color: rgba(0, 0, 0, 0.5);
 }
+
 
 .botoes-modais{
   align-items: center;
@@ -398,3 +399,29 @@ dialog dialog::backdrop{
   background-color: rgba(255, 253, 231, 1);
 }
 
+.toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    padding: 14px 20px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+    
+}
+
+.toast.mostrar {
+    opacity: 1;
+}
+
+.toast.sucesso {
+    background-color: #2e7d32;
+}
+
+.toast.erro {
+    background-color: #c62828;
+}

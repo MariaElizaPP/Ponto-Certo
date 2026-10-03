@@ -7,5 +7,6 @@ router.post('/cadastrarEndereco', enderecoController.cadastrar);
 router.put('/alterarEndereco/:id', enderecoController.alterar);
 router.get('/buscarEndereco/:clienteId/:id', enderecoController.buscarPorId);
 router.delete('/deletarEndereco/:clienteId/:id', enderecoController.deletar);
+router.get('/listarEnderecosEntrega/:cliId', enderecoController.listarEnderecosEntrega)
 
 module.exports = router;

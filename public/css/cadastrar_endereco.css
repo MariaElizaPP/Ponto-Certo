@@ -261,7 +261,7 @@ input{
 }
 
 .modal-abrir dialog::backdrop{
-  background-color: rgba(115, 24, 24, 0);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 

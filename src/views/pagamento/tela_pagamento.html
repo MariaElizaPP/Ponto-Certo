@@ -50,35 +50,7 @@
             <a href="/pagamento/cadastro_endereco.html" class="link-adicionar-endereco">Adicionar outro endereço</a>
           </div>
 
-          <div class="linha-enderecos">
-            <label class="item-endereco">
-                <input type="radio" name="endereco-selecionado" class="checkbox-endereco">
-                
-                <div class="informacao-endereco">
-                    <p class="linha-nome">CEP</p>
-                    <p class="linha-nome">Rua João Augustinho 768, Ap. 35; Bl. A Jardim Lima, Bela Vista, SP, 08888-888, Brasil</p>
-                </div>
-
-                <div class="acoes-endereco">
-                    <a href="/pagamento/alterar_endereco.html" class="link-alterar">Alterar endereço</a>
-                    
-                    
-                </div>
-            </label>
-            <label class="item-endereco">
-                <input type="radio" name="endereco-selecionado" class="checkbox-endereco">
-                
-                <div class="informacao-endereco">
-                    <p class="linha-nome">CEP</p>
-                    <p class="linha-nome">Rua João Augustinho 768, Ap. 35; Bl. A Jardim Lima, Bela Vista, SP, 08888-888, Brasil</p>
-                </div>
-
-                <div class="acoes-endereco">
-                    <a href="/pagamento/alterar_endereco.html" class="link-alterar">Alterar endereço</a>
-                   
-                </div>
-            </label>
-          </div>
+          <div class="linha-enderecos" id="lista-enderecos"></div>
         </div>
 
         <div class="pagamento-card">
@@ -101,40 +73,8 @@
                 </label>
             </div>
 
-            <div class="container-cartao">
-                <label class="item-cartao">
-                    <input type="checkbox" name="cartao-selecionado" class="checkbox-cartao" />
-                    
-                    <div class="informacao-cartao">
-                    <p class="linha-nome"><strong>[Bandeira do cartão]</strong> | [Nome impresso no cartão]</p>
-                    <p class="linha-nome">5195 **** **** ****</p>  
-                    </div>
+            <div id="lista-cartoes"></div>
 
-                </label>
-
-                <div class="input-cartao">
-                    <h4 class="input-titulo escondido">Valor a pagar no cartão</h4>
-                    <input type="number" class="valor-cartao escondido" placeholder="Ex. 29.99" min="10" step="0.01">
-                </div>
-            </div>
-
-                 <div class="container-cartao">
-                    <label class="item-cartao">
-                        <input type="checkbox" name="cartao-selecionado" class="checkbox-cartao" />
-                        
-                        <div class="informacao-cartao">
-                        <p class="linha-nome"><strong>[Bandeira do cartão]</strong> | [Nome impresso no cartão]</p>
-                        <p class="linha-nome">5195 **** **** ****</p>  
-                        </div>
-
-                    </label>
-                    <div class="input-cartao">
-                        <h4 class="input-titulo escondido">Valor a pagar no cartão</h4>
-                        <input type="number" class="valor-cartao escondido" placeholder="Ex. 29.99" min="10" step="0.01">
-                    </div>
-                   
-                </div>
-                
             </div>
         </div>
 
@@ -149,13 +89,13 @@
         
         <div class="linha-resumo">
             <span>Subtotal</span>
-            <span class="subtotal-pagamento">R$25</span>
+            <span class="subtotal-pagamento">R$0,00</span>
         </div>
 
 
         <div class="linha-resumo">
             <span>Frete</span>
-            <span class="frete-pagamento">R$10</span>
+            <span class="frete-pagamento">---</span>
         </div>
 
         
@@ -183,11 +123,11 @@
 
         <div class="linha-resumo linha-total">
             <span>Total</span>
-            <span class="valor-total">R$35</span>
+            <span class="valor-total" id="valor-total">R$0,00</span>
         </div>
 
         <span id="mensagem-erro-cartoes" class="mensagem-erro-cartoes"></span>
-        <button type="button" class="btn-modal-abrir" data-modal="modal-abrir">Finalizar Compra</button>
+        <button type="button" class="btn-modal-abrir" id="botao-finalizar">Finalizar Compra</button>
         <dialog id="modal-abrir" class="modal-abrir">
             <img class="icone-sucesso" src="/public/images/sucesso-modal.svg" alt="sucesso-modal">
             <h3>Sucesso</h3>
@@ -200,9 +140,12 @@
     </div>
 
   </main>
+
+    <div id="toast" class="toast"></div>
+
     <script src="/public/js/cupom.js"></script>
     <script src="/public/js/botao_voltar.js"></script>
-    <script src="/public/js/selecionar_cartao.js"></script>
     <script src="/public/js/modal.js"></script>
+    <script src="/public/js/telaPagamento.js"></script>
  </body>
 </html>
