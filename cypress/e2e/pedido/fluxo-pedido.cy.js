@@ -80,4 +80,24 @@ describe('Fluxo pagamento', () => {
 
     });
 
+
+    it('Pedido finalizado e resgistado com status EM PROCESSAMENTO', () => {
+
+        cy.get('.linha-enderecos').eq(0).within(() => {
+            cy.get('input[type="radio"]').check()
+        })
+
+        cy.get('#lista-cartoes').eq(0).within(() => {
+            cy.get('input[type="checkbox"]').check()
+        })
+
+        cy.get('.btn-modal-abrir').click();
+
+        cy.contains('Compra realizada com sucesso!').should('be.visible');
+
+        cy.visit('https://pontocertoweb.netlify.app/historico');
+
+
+    });
+
 })
