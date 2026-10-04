@@ -58,7 +58,30 @@ class CupomModel {
         );
 
         return linhas[0] || null;
+
+        
+    }
+
+    async listarPorCliente(cliId) {
+    const [linhas] = await pool.execute(
+        `SELECT c.cpm_codigo, c.cpm_valor, c.cpm_tipoCupom
+           FROM cupom c
+          WHERE c.cpm_cli_id = ?
+            AND NOT EXISTS (
+                SELECT 1
+                  FROM pagamento_cupom pcp
+                  JOIN pedidos p ON p.ped_id = pcp.pcp_ped_id
+                  JOIN status_pedidos sp ON sp.stp_id = p.ped_stp_id
+                 WHERE pcp.pcp_cpm_id = c.cpm_id
+                   AND sp.stp_status != 'REPROVADA'
+            )
+          ORDER BY c.cpm_id DESC`,
+        [cliId]
+    );
+    return linhas;
     }
 }
+
+
 
 module.exports = { CupomModel };

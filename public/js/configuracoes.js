@@ -3,6 +3,7 @@ const GENERO_LABEL = { H: 'Masculino', M: 'Feminino', N: 'Prefiro não informar'
 
 let enderecoCardTemplate = null;
 let cartaoListaTemplate = null;
+let cupomItemTemplate = null;
 
 function formatarTelefone(telefone) {
     if (!telefone) return '';
@@ -56,23 +57,26 @@ window.addEventListener('pageshow', function (event) {
 
 async function carregarConfiguracoes() {
     try {
-        const [dadosRes, cartoesRes, enderecosRes] = await Promise.all([
+        const [dadosRes, cartoesRes, enderecosRes, cuponsRes] = await Promise.all([
             fetch(`http://localhost:3000/api/dadosCadastrais/${clienteId}`),
             fetch(`http://localhost:3000/api/listarCartoes/${clienteId}`),
-            fetch(`http://localhost:3000/api/listarEnderecos/${clienteId}`)
+            fetch(`http://localhost:3000/api/listarEnderecos/${clienteId}`),
+            fetch(`http://localhost:3000/api/listarCupons/${clienteId}`)
         ]);
 
-        if (!dadosRes.ok || !cartoesRes.ok || !enderecosRes.ok) {
+        if (!dadosRes.ok || !cartoesRes.ok || !enderecosRes.ok || !cuponsRes.ok) {
             exibirErroServidor("Erro ao carregar os dados da conta");
         }
 
         const dados = await dadosRes.json();
         const cartoes = await cartoesRes.json();
         const enderecos = await enderecosRes.json();
+        const cupons = await cuponsRes.json();
 
         preencherPerfil(dados);
         preencherEnderecos(enderecos);
         preencherCartoes(cartoes);
+        preencherCupons(cupons);
     } catch (error) {
         console.log(error);
         exibirErroServidor("Não foi possível carregar as configurações da conta.");
@@ -127,44 +131,42 @@ function preencherEnderecos(enderecos) {
     });
 }
  
-function preencherCartoes(cartoes) {
-    const container = document.querySelector('.coluna-cartoes');
- 
-    if (!cartaoListaTemplate) {
-        const original = container.querySelector('.lista-cartoes');
+function preencherCupons(cupons) {
+    const container = document.querySelector('.lista-cupons');
+
+    if (!cupomItemTemplate) {
+        const original = container.querySelector('.item-cupom');
         if (original) {
-            cartaoListaTemplate = original.cloneNode(true);
+            cupomItemTemplate = original.cloneNode(true);
         }
     }
- 
-    if (!cartaoListaTemplate) {
-        container.querySelectorAll('.lista-cartoes').forEach(el => el.remove());
+
+    if (!cupomItemTemplate) {
+        container.querySelectorAll('.item-cupom').forEach(el => el.remove());
         return;
     }
- 
-    container.querySelectorAll('.lista-cartoes').forEach(el => el.remove());
- 
-    cartoes.forEach((cartao, index) => {
-        const lista = cartaoListaTemplate.cloneNode(true);
-        const card = lista.querySelector('.cartoes-card');
- 
-         card.dataset.cartaoId = cartao.car_id;
- 
-        card.querySelector('.linha-cartao').textContent = cartao.bdr_nome ?? '';
-        card.querySelectorAll('.linha-nome')[0].textContent = cartao.car_nomeImpresso ?? '';
-        card.querySelectorAll('.linha-nome')[1].textContent = `${cartao.car_numero.slice(0, 4)} **** **** ****`;
- 
-        const principal = card.querySelector('.cartao-principal');
-        if (principal) principal.style.display = cartao.car_preferencial ? '' : 'none';
- 
-        const modal = card.querySelector('dialog');
-        const novoIdModal = `modal-cartao-${index}`;
-        modal.id = novoIdModal;
-        card.querySelectorAll('[data-modal]').forEach(el => el.dataset.modal = novoIdModal);
- 
-        container.appendChild(lista);
+
+    container.querySelectorAll('.item-cupom').forEach(el => el.remove());
+
+    cupons.forEach(cupom => {
+        const item = cupomItemTemplate.cloneNode(true);
+        const [codigo, valor] = item.querySelectorAll('.valores-cupom .cupom-valor');
+
+        if (codigo) {
+            codigo.textContent = cupom.codigo;
+        }
+        
+        if (valor) {
+            valor.textContent = Number(cupom.valor).toLocaleString('pt-BR', { 
+                style: 'currency', 
+                currency: 'BRL' 
+            });
+        }
+
+        container.appendChild(item);
     });
 }
+
  
 
 document.addEventListener('click', function (e) {
@@ -290,3 +292,5 @@ function mostrarToast(mensagem, tipo = 'erro') {
 function exibirErroServidor(mensagem) {
     mostrarToast(mensagem, 'erro');
 }
+
+
