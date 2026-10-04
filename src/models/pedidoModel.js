@@ -38,7 +38,7 @@ class PedidoModel {
             let cupomTroca = null;
 
             if (aprovado) {
-                await this.atualizarStatus(conexao, pedId, await this.buscarStatusId('APROVADA'));
+               // await this.atualizarStatus(conexao, pedId, await this.buscarStatusId('APROVADO'));
                 await this.baixarEstoque(conexao, itens);
 
                 if (troco.greaterThan(0)) {

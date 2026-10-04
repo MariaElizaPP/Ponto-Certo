@@ -54,4 +54,6 @@ async function definirPreferencial(req, res) {
 }
 
 
+
+
 module.exports = { cadastrar, deletar, listar, definirPreferencial }
