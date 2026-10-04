@@ -7,4 +7,5 @@ router.post('/finalizar', pedidoController.finalizarPedido);
 router.get('/historico/:cliId', pedidoController.historico);
 router.patch('/pedido/:pedId/:acao', pedidoController.atualizarPedido);
 
+
 module.exports = router;

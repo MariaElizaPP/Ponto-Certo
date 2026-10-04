@@ -100,4 +100,24 @@ describe('Fluxo pagamento', () => {
 
     });
 
+    it('Cupom maior que o valor da compra gera cupom de troca com a diferença ', () =>{
+
+        cy.get('.linha-enderecos').eq(0).within(() => {
+            cy.get('input[type="radio"]').check()
+        })
+
+        cy.get('#btn-abrir-cupom').click();
+        cy.get('.campo-cupom').type('QUEROKIT');
+        cy.get('#botao-aplicar').click();
+
+        cy.get('.btn-modal-abrir').click();
+
+         cy.contains('Compra realizada com sucesso!').should('be.visible');
+
+          cy.visit('https://pontocertoweb.netlify.app/configuracoes');   // confira a URL
+          cy.get('.item-cupom .cupom-valor').first().should('contain', 'TROCA-')   
+
+        
+    })
+
 })

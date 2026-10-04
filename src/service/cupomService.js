@@ -23,6 +23,19 @@ class CupomService {
         };
     }
 
+    async listar(cliId) {
+        if (!cliId) throw { status: 400, mensagem: 'O id do cliente é obrigatório.' };
+
+        const model = new CupomModel();
+        const cupons = await model.listarPorCliente(Number(cliId));
+
+        return cupons.map(c => ({
+            codigo: c.cpm_codigo,
+            tipo: c.cpm_tipoCupom === 'T' ? 'troca' : 'promocional',
+            valor: Number(c.cpm_valor)
+        }));
+    }
+
 }
 
 
