@@ -35,19 +35,19 @@ describe('Fluxo pagamento', () => {
 
     it('Pagamento com dois cartões', () => {
 
-        cy.get('.checkbox-pagamento').check()
 
         cy.get('.linha-enderecos').eq(0).within(() => {
             cy.get('input[type="radio"]').check()
         })
 
+    
+        cy.get('.checkbox-pagamento').check()
+        
         cy.get('#lista-cartoes input[type="checkbox"]').eq(0).check()
-        cy.get('lista-cartoes input[type = "text"]').eq(0).type('50')
+        cy.get('.valor-cartao').eq(0).type(10.80)
 
         cy.get('#lista-cartoes input[type="checkbox"]').eq(1).check()
-        cy.get('lista-cartoes input[type = "text"]').eq(1).type('50')
-
-        cy.get('#botao-finalizar').click();
+        cy.get('.valor-cartao').eq(1).type(14)
 
         cy.get('.btn-modal-abrir').click();
 
@@ -62,12 +62,15 @@ describe('Fluxo pagamento', () => {
             cy.get('input[type="radio"]').check()
         })
 
-        cy.get('#lista-cartoes').eq(0).within(() => {
-            cy.get('input[type="checkbox"]').check()
-        })
+        cy.get('.checkbox-pagamento').check()
+        cy.get('#lista-cartoes input[type="checkbox"]').eq(0).check()
+        cy.get('.valor-cartao').eq(0).type(9.90)
+
+        cy.get('#lista-cartoes input[type="checkbox"]').eq(1).check()
+        cy.get('.valor-cartao').eq(1).type(9.90)
 
         cy.get('#btn-abrir-cupom').click();
-        cy.get('.campo-cupom').type('SUPER12');
+        cy.get('.campo-cupom').type('BEMVINDO5');
         cy.get('#botao-aplicar').click();
 
         cy.get('.btn-modal-abrir').click();
