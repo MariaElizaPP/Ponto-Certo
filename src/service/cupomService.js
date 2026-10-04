@@ -3,20 +3,19 @@ const { CupomModel } = require('../models/cupomModel');
 class CupomService {
 
     async validar(codigo, cliId) {
-        if (!codigo) return { status: 400, mensagem: 'Cupom obrigatório.' };
+        if (!codigo) throw { status: 400, mensagem: 'Cupom obrigatório.' };
 
         const model = new CupomModel();
         const cupom = await model.buscarParaValidacao(codigo);
 
         if (!cupom || (cupom.cpm_cli_id != null && cupom.cpm_cli_id !== cliId)) {
-            return { status: 404, mensagem: 'Cupom não encontrado.' };
+            throw { status: 404, mensagem: 'Cupom não encontrado.' };
         }
         if (cupom.usado) {
-            return { status: 400, mensagem: 'Esse cupom já foi utilizado.' };
+            throw { status: 400, mensagem: 'Esse cupom já foi utilizado.' };
         }
 
         return {
-
             codigo: cupom.cpm_codigo,
             tipo: cupom.cpm_tipoCupom === 'T' ? 'troca' : 'promocional',
             valor: Number(cupom.cpm_valor)
