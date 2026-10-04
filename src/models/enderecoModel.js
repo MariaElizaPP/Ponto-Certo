@@ -31,7 +31,7 @@ class EnderecoModel {
         
         const [linhas] = await pool.execute(`INSERT INTO endereco (end_tipoEndereco, end_tipoResidencia, end_tipoLogradouro, end_logradouro ,
             end_numero, end_bairro, end_cep, end_cidade, end_estado, end_pais,
-            end_complemento, end_nomeEndereco, end_cli_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [
+            end_complemento, end_nomeEndereco, end_cli_id, end_noPerfil) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [
             dados.tipoEndereco,
             dados.tipoResidencia,
             dados.tipoLogradouro,
@@ -45,7 +45,7 @@ class EnderecoModel {
             dados.complemento || null,
             dados.nomeEndereco,
             dados.cliId,
-
+            dados.noPerfil
         ]);
 
         return linhas[0];
@@ -59,7 +59,7 @@ class EnderecoModel {
     }
 
     async listar(cliId) {
-        const [linhas] = await pool.execute(`SELECT * FROM endereco WHERE end_cli_id = ?`, [cliId]);
+        const [linhas] = await pool.execute(`SELECT * FROM endereco WHERE end_cli_id = ? AND end_noPerfil = 1`, [cliId]);
         return linhas;
     }
 
@@ -69,7 +69,20 @@ class EnderecoModel {
     }
 
     async listarEnderecosEntrega(cliId){
-        const [linhas] = await pool.execute(`SELECT * FROM endereco WHERE end_cli_id = ? AND end_tipoEndereco = 'E'`, [cliId]);
+        const [linhas] = await pool.execute(`SELECT e.*
+           FROM endereco e
+          WHERE e.end_cli_id = ?
+            AND e.end_tipoEndereco = 'E'
+            AND (
+                  e.end_noPerfil = 1
+                  OR NOT EXISTS (
+                       SELECT 1
+                         FROM pedidos p
+                         JOIN status_pedidos sp ON sp.stp_id = p.ped_stp_id
+                        WHERE p.ped_end_id = e.end_id
+                          AND sp.stp_status != 'REPROVADA'
+                  )
+                )`, [cliId]);
         return linhas;
     }
 }

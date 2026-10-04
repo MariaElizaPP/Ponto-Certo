@@ -26,6 +26,9 @@ document.querySelector('.cadastrar').addEventListener('click', async function (e
     const bandeira = document.getElementById('bandeira').value;
     const nome = document.getElementById('nome-cartao').value.trim();
     const cvv = document.getElementById('cvv').value;
+    const checkbox = document.getElementById('salvar-perfil');
+
+    const noPerfil = checkbox ? checkbox.checked : true;
 
     limparErros();
 
@@ -67,7 +70,8 @@ document.querySelector('.cadastrar').addEventListener('click', async function (e
                 numeroCartao: apenasNumeros(numero),
                 bandeiraCartao: bandeira,
                 nomeCartao: nome,
-                cvv: cvv
+                cvv: cvv,
+                noPerfil
             })
         });
 

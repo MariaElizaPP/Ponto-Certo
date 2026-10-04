@@ -40,6 +40,19 @@ async function listar(req, res) {
     }
 }
 
+async function listarCartoesPagamento(req, res) {
+    try{
+        const service = new CartaoService();
+        const cartoes = await service.listarCartoesPagamento(req.params.clienteId);
+
+        return res.status(200).json(cartoes);
+    }catch(error){
+        console.error(error);
+        if (error.status) return res.status(error.status).json({ mensagem: error.mensagem });
+        return res.status(500).json({ mensagem: 'Erro ao listar os endereços.' });
+    }
+}
+
 async function definirPreferencial(req, res) {
     try{
         const service = new CartaoService();
@@ -54,4 +67,4 @@ async function definirPreferencial(req, res) {
 }
 
 
-module.exports = { cadastrar, deletar, listar, definirPreferencial }
+module.exports = { cadastrar, deletar, listar, definirPreferencial, listarCartoesPagamento }

@@ -18,7 +18,7 @@ class CartaoService {
         return soma % 10 === 0;
     }
     async cadastrarCartao(dados) {
-        const { cliId, bandeiraCartao, numeroCartao, nomeCartao, cvv, preferencial } = dados;
+        const { cliId, bandeiraCartao, numeroCartao, nomeCartao, cvv, preferencial, noPerfil } = dados;
 
         if (!cliId) throw { status: 400, mensagem: "O id do cliente é obrigatório" };
         if (!numeroCartao) throw { status: 400, mensagem: "O numero do cartão é obrigatório" };
@@ -43,6 +43,15 @@ class CartaoService {
         const cartoes = await model.listarCartoes(cliId);
 
         return cartoes;
+    }
+
+    async listarCartoesPagamento(cliId) {
+        if (!cliId) throw { status: 400, mensagem: "É necessário informar o cliente vinculado ao cartão" };
+        const model = new CartaoModel();
+        const cartoes = await model.listarCartoesPagamento(cliId);
+
+        return cartoes;
+
     }
 
     async deletar(cliId, id) {
@@ -77,7 +86,7 @@ class CartaoService {
 
     }
 
-    
+
 
 
 }

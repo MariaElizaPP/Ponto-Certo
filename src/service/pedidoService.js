@@ -26,7 +26,7 @@ class PedidoService {
         const enderecosEntrega = await enderecoModel.listarEnderecosEntrega(cliId);
 
         const cartaoModel = new CartaoModel();
-        const cartoes = await cartaoModel.listarCartoes(cliId);
+        const cartoes = await cartaoModel.listarCartoesPagamento(cliId);
 
         const carrinhoModel = new CarrinhoModel();
         const carrinho = await carrinhoModel.mostrarCarrinho(cliId);
