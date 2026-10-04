@@ -3,7 +3,13 @@ const clienteId = localStorage.getItem('clienteId');
 let carrinho = [];
 let subtotalCentavos = 0;
 let freteCentavos = 0;
-let cuponsUsados = []; // cada item: { codigo, valor } (o cupom.js chama adicionarCupomAplicado / removerCupomAplicado)
+let cuponsUsados = []; 
+
+window.addEventListener('pageshow', function (e) {
+    if (e.persisted) {
+        carregarDadosPagamento();
+    }
+});
 
 document.addEventListener('DOMContentLoaded', function () {
     carregarDadosPagamento();
@@ -14,7 +20,6 @@ document.getElementById('botao-finalizar').addEventListener('click', function ()
 });
 
 document.getElementById('multiplos-cartoes').addEventListener('change', function () {
-    // ao trocar o modo, limpa as seleções para não misturar os dois comportamentos
     document.querySelectorAll('.checkbox-cartao').forEach(function (checkbox) {
         checkbox.checked = false;
     });
@@ -41,7 +46,7 @@ async function carregarDadosPagamento() {
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/api/listarDadosPedido/${clienteId}`);
+        const response = await fetch(`http://localhost:3000/api/listarDadosPedido/${clienteId}`, {cache: 'no-store'});
 
         if (!response.ok) {
             throw new Error('Erro ao carregar dados do pagamento');
@@ -139,7 +144,6 @@ function atualizarResumo() {
     document.querySelector('.valor-total').textContent = formatarMoeda(resumo.restanteCentavos);
 }
 
-// chamadas pelo cupom.js quando um cupom é aplicado ou removido
 function adicionarCupomAplicado(codigo, valor) {
     const jaAplicado = cuponsUsados.some(function (cupom) {
         return cupom.codigo === codigo;
@@ -226,7 +230,6 @@ function renderizarCartoes(cartoes) {
 function selecionarCartao(checkbox) {
     const multiplos = document.getElementById('multiplos-cartoes').checked;
 
-    // sem "mais de um cartão", só um pode ficar marcado
     if (!multiplos && checkbox.checked) {
         document.querySelectorAll('.checkbox-cartao').forEach(function (outro) {
             if (outro !== checkbox) {
@@ -258,7 +261,6 @@ function atualizarCamposValorCartao() {
 }
 
 function montarCartoesPagamento(restanteCentavos) {
-    // cupons cobrindo tudo: nenhum cartão é enviado
     if (restanteCentavos === 0) {
         return [];
     }
@@ -339,7 +341,6 @@ async function finalizarCompra() {
     botao.disabled = true;
 
     try {
-        // cliId e enderecoId vão como número: o service compara cpm_cli_id !== cliId
         const response = await fetch('http://localhost:3000/api/finalizar', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -356,7 +357,6 @@ async function finalizarCompra() {
         if (!response.ok) {
             exibirErroServidor(resultado.mensagem || 'Erro ao finalizar o pedido.');
 
-            // 409: o estoque mudou e o carrinho foi ajustado, então recarrega os valores
             if (response.status === 409) {
                 carregarDadosPagamento();
             }

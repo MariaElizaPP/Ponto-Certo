@@ -39,7 +39,7 @@ class EnderecoService {
     }
 
     async cadastrarEndereco(dados) {
-        const { cliId, tipoResidencia, cep, tipoLogradouro, cidade, pais, estado, bairro, logradouro, nomeEndereco, numero, tipoEndereco } = dados
+        const { tipoResidencia, cep, tipoLogradouro, cidade, pais, estado, bairro, logradouro, nomeEndereco, numero, tipoEndereco, noPerfil } = dados
 
         if (!tipoResidencia) throw { status: 400, mensagem: "Tipo de residência é obrigatório" };
         if (!cep) throw { status: 400, mensagem: "O CEP é obrigatório" };
@@ -52,6 +52,10 @@ class EnderecoService {
         if (!nomeEndereco) throw { status: 400, mensagem: "O nome do endereço é obrigatório" };
         if (!numero) throw { status: 400, mensagem: "O número é obrigatório" };
         if (!tipoEndereco) throw { status: 400, mensagem: "O tipo de endereço é obrigatório" };
+
+        if (cep && cep.length !== 8) {
+            throw { status: 400, mensagem: "O CEP deve ter 8 dígitos" };
+        }
 
         if (!(tipoEndereco === 'C' || tipoEndereco === 'E')) {
             throw { status: 400, mensagem: 'É necessário definir se o endereço é de cobrança ou de entrega' }
@@ -69,7 +73,8 @@ class EnderecoService {
             logradouro,
             nomeEndereco,
             numero,
-            tipoEndereco
+            tipoEndereco,
+            noPerfil
         });
 
     }
@@ -103,8 +108,8 @@ class EnderecoService {
         return model.deletar(cliId, id);
     }
 
-    async listarEnderecosEntrega(cliId){
-        if(!cliId) throw {status: 400, mensagem: 'O cliente é obrigatório'};
+    async listarEnderecosEntrega(cliId) {
+        if (!cliId) throw { status: 400, mensagem: 'O cliente é obrigatório' };
         return model.listarEnderecosEntrega(cliId);
     }
 }

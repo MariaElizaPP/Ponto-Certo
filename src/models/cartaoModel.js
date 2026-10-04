@@ -14,14 +14,15 @@ class CartaoModel {
                     [dados.cliId]
                 );
             }
-            const [resultado] = await conexao.execute(`INSERT INTO cartao (car_cli_id, car_bdr_id, car_numero, car_nomeImpresso, car_cvv, car_preferencial)
-         VALUES (?, ?, ?, ?, ?, ?)`, [
+            const [resultado] = await conexao.execute(`INSERT INTO cartao (car_cli_id, car_bdr_id, car_numero, car_nomeImpresso, car_cvv, car_preferencial, car_noPerfil)
+         VALUES (?, ?, ?, ?, ?, ?, ?)`, [
                 dados.cliId,
                 dados.bandeiraCartao,
                 dados.numeroCartao,
                 dados.nomeCartao,
                 dados.cvv,
-                dados.preferencial || false
+                dados.preferencial || false,
+                dados.noPerfil
             ]);
 
             await conexao.commit();
@@ -40,7 +41,28 @@ class CartaoModel {
         const [linhas] = await pool.execute(`SELECT c.*, b.bdr_nome 
         FROM cartao AS c
         INNER JOIN bandeira as b ON c.car_bdr_id = b.bdr_id
-        WHERE c.car_cli_id = ?`, [cliId]);
+        WHERE c.car_cli_id = ? AND c.car_noPerfil = 1`, [cliId]);
+        return linhas;
+    }
+
+    async listarCartoesPagamento(cliId) {
+        const [linhas] = await pool.execute(`SELECT c.car_id, c.car_nomeImpresso, c.car_preferencial, c.car_noPerfil,
+                LEFT(c.car_numero, 4) AS car_numero,
+                b.bdr_nome
+           FROM cartao c
+           INNER JOIN bandeira b ON c.car_bdr_id = b.bdr_id
+          WHERE c.car_cli_id = ?
+            AND (
+                  c.car_noPerfil = 1
+                  OR NOT EXISTS (
+                       SELECT 1
+                         FROM pagamento_cartao pc
+                         JOIN pedidos p ON p.ped_id = pc.pca_ped_id
+                         JOIN status_pedidos sp ON sp.stp_id = p.ped_stp_id
+                        WHERE pc.pca_car_id = c.car_id
+                          AND sp.stp_status != 'REPROVADA'
+                  )
+                )`, [cliId]);
         return linhas;
     }
 
