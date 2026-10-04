@@ -115,7 +115,9 @@ describe('Fluxo pagamento', () => {
          cy.contains('Compra realizada com sucesso!').should('be.visible');
 
           cy.visit('https://pontocertoweb.netlify.app/configuracoes');   // confira a URL
-          cy.get('.item-cupom .cupom-valor').first().should('contain', 'TROCA-')   
+          cy.get('.valores-cupom .cupom-valor', { timeout: 10000 })
+          .first()
+          .should('contain', 'TROCA-');
 
         
     })

@@ -167,7 +167,44 @@ function preencherCupons(cupons) {
     });
 }
 
+function preencherCartoes(cartoes) {
+    const container = document.querySelector('.coluna-cartoes');
  
+    if (!cartaoListaTemplate) {
+        const original = container.querySelector('.lista-cartoes');
+        if (original) {
+            cartaoListaTemplate = original.cloneNode(true);
+        }
+    }
+ 
+    if (!cartaoListaTemplate) {
+        container.querySelectorAll('.lista-cartoes').forEach(el => el.remove());
+        return;
+    }
+ 
+    container.querySelectorAll('.lista-cartoes').forEach(el => el.remove());
+ 
+    cartoes.forEach((cartao, index) => {
+        const lista = cartaoListaTemplate.cloneNode(true);
+        const card = lista.querySelector('.cartoes-card');
+ 
+         card.dataset.cartaoId = cartao.car_id;
+ 
+        card.querySelector('.linha-cartao').textContent = cartao.bdr_nome ?? '';
+        card.querySelectorAll('.linha-nome')[0].textContent = cartao.car_nomeImpresso ?? '';
+        card.querySelectorAll('.linha-nome')[1].textContent = `${cartao.car_numero.slice(0, 4)} **** **** ****`;
+ 
+        const principal = card.querySelector('.cartao-principal');
+        if (principal) principal.style.display = cartao.car_preferencial ? '' : 'none';
+ 
+        const modal = card.querySelector('dialog');
+        const novoIdModal = `modal-cartao-${index}`;
+        modal.id = novoIdModal;
+        card.querySelectorAll('[data-modal]').forEach(el => el.dataset.modal = novoIdModal);
+ 
+        container.appendChild(lista);
+    });
+}
 
 document.addEventListener('click', function (e) {
 
