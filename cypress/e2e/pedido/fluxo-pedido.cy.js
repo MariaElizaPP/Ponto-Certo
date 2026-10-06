@@ -98,6 +98,7 @@ describe('Fluxo pagamento', () => {
         cy.get('.btn-modal-abrir').click();
 
         cy.contains('Compra realizada com sucesso!').should('be.visible');
+        cy.wait(1000);
 
         cy.visit('https://pontocertoweb.netlify.app/historico');
 
