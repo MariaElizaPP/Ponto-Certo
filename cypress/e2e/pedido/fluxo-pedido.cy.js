@@ -9,6 +9,10 @@ describe('Fluxo pagamento', () => {
         cy.get('.card-produto').eq(0).within(() => {
             cy.get('img[alt="detalhes"]').click()
         });
+        cy.get('#seletor-cor-atual').click();
+        cy.get('#seletor-cor-lista').invoke('css', 'display', 'flex')
+        cy.get('.seletor-cor-item').first().click()
+        cy.get('#seletor-cor-lista').invoke('css', 'display', 'none')
         cy.get('.adicionar').click();
         cy.get('.btn-modal-abrir').click();
         cy.get('.btn-modal-fechar').click();
@@ -127,7 +131,7 @@ describe('Fluxo pagamento', () => {
         cy.get('.link-adicionar-endereco').click();
 
         
-       cy.get('input[id="tipo-residencia"]').type('Casa de Mainha');
+       cy.get('input[id="tipo-residencia"]').type('Apartamento');
         cy.wait(1000);
         cy.get('input[id="tipo-logradouro"]').type('Rua');
         cy.wait(1000);
@@ -135,7 +139,7 @@ describe('Fluxo pagamento', () => {
         cy.wait(1000);
         cy.get('input[id="numero"]').type('512');
         cy.wait(1000);
-        cy.get('input[id="nome-endereco"]').type('Casa 77');
+        cy.get('input[id="nome-endereco"]').type('Casa da Mãe');
         cy.wait(1000);
         cy.get('input[id="complemento"]').type('Complemento');
         cy.wait(1000);
