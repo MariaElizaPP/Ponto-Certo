@@ -32,6 +32,8 @@ describe('Fluxo carrinho', () => {
         cy.get('.input-cep').type('08850330').blur();
         cy.get('.botao-consultar-frete').click();
 
+        cy.wait(2000);
+
         cy.get('.valor-frete', { timeout: 10000 }).should('not.have.text', 'R$ 0,00')
     })
 
