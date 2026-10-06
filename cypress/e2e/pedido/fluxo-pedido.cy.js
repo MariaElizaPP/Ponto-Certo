@@ -157,7 +157,7 @@ describe('Fluxo pagamento', () => {
         cy.get('.linha-enderecos').last().within(() => {
             cy.get('input[type="radio"]').check()
         })
-
+        
         cy.get('.link-adicionar-pagamento').click();
 
         cy.get('#numero-cartao').type('5240990802212507');
