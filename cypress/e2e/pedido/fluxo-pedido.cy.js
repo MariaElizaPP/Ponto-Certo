@@ -34,7 +34,7 @@ describe('Fluxo pagamento', () => {
         cy.get('.btn-modal-abrir').click();
 
         cy.contains('Compra realizada com sucesso!').should('be.visible');
-
+        cy.pause()
     });
 
     it('Pagamento com dois cartões', () => {
@@ -56,7 +56,7 @@ describe('Fluxo pagamento', () => {
         cy.get('.btn-modal-abrir').click();
 
         cy.contains('Compra realizada com sucesso!').should('be.visible');
-
+        cy.pause()
     });
 
 
@@ -80,30 +80,12 @@ describe('Fluxo pagamento', () => {
         cy.get('.btn-modal-abrir').click();
 
         cy.contains('Compra realizada com sucesso!').should('be.visible');
-
-
-    });
-
-
-    it('Pedido finalizado e resgistado com status EM PROCESSAMENTO', () => {
-
-        cy.get('.linha-enderecos').eq(0).within(() => {
-            cy.get('input[type="radio"]').check()
-        })
-
-        cy.get('#lista-cartoes').eq(0).within(() => {
-            cy.get('input[type="checkbox"]').check()
-        })
-
-        cy.get('.btn-modal-abrir').click();
-
-        cy.contains('Compra realizada com sucesso!').should('be.visible');
-        cy.wait(1000);
-
-        cy.visit('https://pontocertoweb.netlify.app/historico');
-
+        cy.pause()
 
     });
+
+
+    
 
     it('Cupom maior que o valor da compra gera cupom de troca com a diferença ', () =>{
 
@@ -124,7 +106,7 @@ describe('Fluxo pagamento', () => {
           .first()
           .should('contain', 'TROCA-');
 
-        
+        cy.pause()
     })
 
     it('Uma compra com novo endereço e novo cartão cadastrados durante o processo, incorporados ao perfil do cliente', () =>{
@@ -185,7 +167,27 @@ describe('Fluxo pagamento', () => {
 
         cy.contains('Compra realizada com sucesso!').should('be.visible');
 
-        
+        cy.pause()
     })
+
+    it('Pedido finalizado e resgistado com status EM PROCESSAMENTO', () => {
+
+        cy.get('.linha-enderecos').eq(0).within(() => {
+            cy.get('input[type="radio"]').check()
+        })
+
+        cy.get('#lista-cartoes').eq(0).within(() => {
+            cy.get('input[type="checkbox"]').check()
+        })
+
+        cy.get('.btn-modal-abrir').click();
+
+        cy.contains('Compra realizada com sucesso!').should('be.visible');
+        cy.wait(1000);
+
+        cy.visit('https://pontocertoweb.netlify.app/historico');
+
+
+    });
 
 })
