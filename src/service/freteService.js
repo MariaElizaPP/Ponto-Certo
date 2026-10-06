@@ -45,9 +45,9 @@ class FreteService {
 
     //pagamento
     async calcular(cliId, enderecoId, itens) {
-        if(!enderecoId) return res.status(400).json({ erro: 'Escolha um endereço' });
+        if(!enderecoId) throw { status: 404, mensagem: 'Endereço obrigatórios.' };
         if (!itens || itens.length === 0) {
-            return res.status(400).json({ erro: 'Endereço e itens são obrigatórios.' });
+            throw { status: 404, mensagem: 'Itens são obrigatórios.' };
         }
 
         const enderecoModel = new EnderecoModel();

@@ -126,36 +126,32 @@ describe('Fluxo pagamento', () => {
 
         cy.get('.link-adicionar-endereco').click();
 
-        cy.get('input[name="tipo-residencia"]').clear();
-        cy.get('input[name="tipo-residencia"]').type('Casa');
-        cy.wait(1000);
-        cy.get('input[name="tipo-logradouro"]').clear();
-        cy.get('input[name="tipo-logradouro"]').type('Rua');
-        cy.wait(1000);
-        cy.get('input[name="cep"]').clear();
-        cy.get('input[name="cep"]').type('58059772').blur();
-        cy.wait(1000);
-        cy.get('input[name="numero"]').clear();
-        cy.get('input[name="numero"]').type('505');
-        cy.wait(1000);
-        cy.get('input[name="nome-endereco"]').clear();
-        cy.get('input[name="nome-endereco"]').type('Casa do Pai');
-        cy.wait(1000);
-        cy.get('input[name="complemento"]').clear();
-        cy.get('input[name="complemento"]').type('Casa 2');
-        cy.wait(1000);
         
-        cy.get('button.cadastrar').click();
+       cy.get('input[id="tipo-residencia"]').type('Casa de Mainha');
+        cy.wait(1000);
+        cy.get('input[id="tipo-logradouro"]').type('Rua');
+        cy.wait(1000);
+        cy.get('input[id="cep"]').type('08850330').blur();
+        cy.wait(1000);
+        cy.get('input[id="numero"]').type('512');
+        cy.wait(1000);
+        cy.get('input[id="nome-endereco"]').type('Casa 77');
+        cy.wait(1000);
+        cy.get('input[id="complemento"]').type('Complemento');
+        cy.wait(1000);
+        cy.get('select[id="tipo-endereco"]').select('Entrega');
+        cy.wait(1000);
 
+        cy.get('button.cadastrar').click();
+        
+        
         cy.contains('Endereço cadastrado com sucesso!').should('be.visible');
 
-        cy.get('.btn-modal-fechar').click();
+        cy.get('button.btn-tema-sucesso.botao-voltar').click();
         
         cy.get('.linha-enderecos').last().within(() => {
             cy.get('input[type="radio"]').check()
         })
-
-        cy.get('#modal-abrir button.botao-voltar').click();
 
         cy.get('.link-adicionar-pagamento').click();
 
@@ -163,7 +159,7 @@ describe('Fluxo pagamento', () => {
         cy.wait(1000);
         cy.get('#bandeira').select('mastercard');
         cy.wait(1000);
-        cy.get('#nome-cartao').type('Daniel N');
+        cy.get('#nome-cartao').type('Daniela Nome');
         cy.wait(1000);
         cy.get('#cvv').type('175');
         cy.wait(1000);
@@ -172,7 +168,7 @@ describe('Fluxo pagamento', () => {
 
         cy.contains('Cartão adicionado com sucesso!').should('be.visible');
 
-        cy.get('.btn-modal-fechar').click();
+        cy.get('button.btn-tema-sucesso.botao-voltar').click();
 
        
         cy.get('#lista-cartoes').last().within(() => {

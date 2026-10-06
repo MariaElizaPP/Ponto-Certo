@@ -13,7 +13,7 @@ class PedidoModel {
             const alteracoes = await this.conciliarEstoqueCarrinho(conexao, itens);
             if (alteracoes.length > 0) {
                 await conexao.commit();
-                return { alteracoes };
+                return { conflito: true, alteracoes };
             }
 
             for (const c of cuponsComputados) {

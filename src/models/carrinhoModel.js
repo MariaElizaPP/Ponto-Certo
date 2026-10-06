@@ -56,7 +56,7 @@ class CarrinhoModel {
     async deletarItem(vprId, crrId) {
         await pool.execute(
             `DELETE from item_carrinho WHERE itm_crr_id = ? AND itm_vpr_id = ?`,
-            [vprId, crrId]
+            [crrId, vprId]
         );
     }
 
@@ -64,7 +64,7 @@ class CarrinhoModel {
         const [resultado] = await pool.execute(`SELECT c.crr_id, i.itm_vpr_id, i.itm_precoUnitario, i.itm_quantidade, p.prd_nome, v.vpr_imgUrl from carrinho c 
             JOIN item_carrinho i on i.itm_crr_id = c.crr_id 
             JOIN variacao_produto v on v.vpr_id = i.itm_vpr_id
-            JOIN produtos p on p.prd_id = v.vpr_id WHERE c.crr_cli_id = ?`,
+            JOIN produtos p on p.prd_id = v.vpr_prd_id WHERE c.crr_cli_id = ?`,
         [cliId]);
 
         return resultado;
