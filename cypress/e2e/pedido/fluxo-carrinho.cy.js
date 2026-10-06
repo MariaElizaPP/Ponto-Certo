@@ -36,4 +36,7 @@ describe('Fluxo carrinho', () =>{
 
         cy.get('.produto-linha').should('not.exist')
     })
+
+   
+
 })

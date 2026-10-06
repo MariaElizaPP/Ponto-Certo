@@ -110,15 +110,17 @@ document.querySelector('.btn-modal-abrir').addEventListener('click', async () =>
             })
         });
 
+        const resultado = await res.json();
+
         if (!res.ok) {
-            throw new Error(`Erro ${res.status} ao adicionar ao carrinho`);
+            throw resultado;
         }
 
         document.getElementById('modal-abrir').showModal();
 
     } catch (erro) {
         console.error('Erro ao adicionar ao carrinho:', erro);
-        exibirErroServidor('Erro ao adicionar ao carrinho');
+        exibirErroServidor(erro.mensagem || 'Erro ao atualizar quantidade.');
     }
 });
 
