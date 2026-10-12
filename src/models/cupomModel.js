@@ -29,6 +29,7 @@ class CupomModel {
         return !!linha;
     }
 
+    //esse é para o cupom de troco (troca: diferença no cupom de troco pago na telad e pagamento)
     async criarCupomTroca(conexao, cliId, pedId, valor) {
         const codigo = `TROCA-${pedId}-${Date.now().toString(36).toUpperCase()}`;
 
@@ -39,6 +40,19 @@ class CupomModel {
         );
 
         return { codigo, valor: valor.toNumber() };
+    }
+
+    //cupom gerado atraves de troca solicitada
+    async trocaAprovarCupom(conexao, cliId, itmId, valor){
+        const codigo = `TROCA-${itmId}-${Date.now().toString(36).toUpperCase()}`;
+
+        await conexao.execute(
+            `INSERT INTO cupom (cpm_codigo, cpm_valor, cpm_tipoCupom, cpm_cli_id)
+             VALUES (?, ?, 'T', ?)`,
+            [codigo, valor.toFixed(2), cliId]
+        );
+
+        return { codigo, valor };
     }
 
     async buscarParaValidacao(codigo) {

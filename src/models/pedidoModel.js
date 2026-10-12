@@ -38,7 +38,7 @@ class PedidoModel {
             let cupomTroca = null;
 
             if (aprovado) {
-               // await this.atualizarStatus(conexao, pedId, await this.buscarStatusId('APROVADO'));
+                await this.atualizarStatus(conexao, pedId, await this.buscarStatusId('APROVADO'));
                 await this.baixarEstoque(conexao, itens);
 
                 if (troco.greaterThan(0)) {
@@ -117,6 +117,14 @@ class PedidoModel {
         return status.stp_id;
     }
 
+    async verificarStatusId(id) {
+        const [[status]] = await pool.execute(
+            `SELECT stp_id FROM status_pedidos WHERE stp_id = ?`, [id]
+        );
+        if (!status) throw new Error(`Status "${id}" não cadastrado em status_pedidos.`);
+        return status.stp_id;
+    }
+
     async conciliarEstoqueCarrinho(conexao, itens) {
         const alteracoes = [];
         const ordenados = [...itens].sort((a, b) => a.itm_vpr_id - b.itm_vpr_id);
@@ -177,6 +185,7 @@ class PedidoModel {
 
         return resultado;
     }
+    //antigo
 
     async buscarPedido(cliId, pedId) {
         const [[pedido]] = await pool.execute(
@@ -188,13 +197,23 @@ class PedidoModel {
         );
         return pedido;
     }
-
-    async mudarStatus(pedId, novoStatus) {
-        const novoId = await this.buscarStatusId(novoStatus);
-
+    /*
+        //novo
+        async buscarPedido(pedId) {
+            const [[pedido]] = await pool.execute(
+                `SELECT p.ped_id, sp.stp_status
+             FROM pedidos p
+             JOIN status_pedidos sp ON p.ped_stp_id = sp.stp_id
+             WHERE p.ped_id = ?`,
+                [pedId]
+            );
+            return pedido;
+        }
+    */
+    async mudarStatus(pedId, statusId) {
         await pool.execute(
             `UPDATE pedidos SET ped_stp_id = ? WHERE ped_id = ?`,
-            [novoId, pedId]
+            [statusId, pedId]
         );
     }
 
