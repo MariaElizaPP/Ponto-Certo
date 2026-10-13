@@ -270,6 +270,23 @@ class PedidoService {
         return { mensagem: 'Pedido atualizado com sucesso' };
     }
 
+    async cancelarPedido(pedId){
+        if (!pedId) {
+            throw { status: 400, mensagem: 'O ID do pedido é obrigatório.' };
+        }
+
+        const model = new PedidoModel();
+        await model.cancelarPedido(pedId);
+
+        return { mensagem: 'Pedido cancelado com sucesso' };
+    }
+
+    async listarPedidos(){
+        const model = new PedidoModel();
+
+        return await model.listarPedidos();
+    }
+
 
 }
 
