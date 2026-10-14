@@ -10,11 +10,7 @@ class PedidoModel {
         try {
             await conexao.beginTransaction();
 
-            const alteracoes = await this.conciliarEstoqueCarrinho(conexao, itens);
-            if (alteracoes.length > 0) {
-                await conexao.commit();
-                return { conflito: true, alteracoes };
-            }
+            const crrId = await this.validarCarrinhoAtivo(conexao, itens);   // substitui a conciliação
 
             for (const c of cuponsComputados) {
                 if (await cupomModel.usado(conexao, c.cpm_id)) {
@@ -45,9 +41,13 @@ class PedidoModel {
                     cupomTroca = await cupomModel.criarCupomTroca(conexao, cliId, pedId, troco); // RN0036
                 }
 
-                await this.limparCarrinho(conexao, itens[0].crr_id);
+                await this.limparCarrinho(conexao, crrId);
             } else {
                 await this.atualizarStatus(conexao, pedId, await this.buscarStatusId('REPROVADA'));
+
+                // RN0028: item de compra não aprovada é desbloqueado e mantido em estoque
+                await this.liberarBloqueio(conexao, itens);
+                await this.expirarItensCarrinho(conexao, crrId);
             }
 
             await conexao.commit();
@@ -60,6 +60,49 @@ class PedidoModel {
         } finally {
             conexao.release();
         }
+    }
+
+    async validarCarrinhoAtivo(conexao, itens) {
+        if (!itens || itens.length === 0) {
+            throw { status: 400, mensagem: 'O carrinho está vazio.' };
+        }
+
+        const crrId = itens[0].crr_id;
+
+        const [[carrinho]] = await conexao.execute(
+            `SELECT crr_expiraEm > NOW() AS ativo FROM carrinho WHERE crr_id = ? FOR UPDATE`,
+            [crrId]
+        );
+        const [[expirados]] = await conexao.execute(
+            `SELECT COUNT(*) AS total FROM item_carrinho WHERE itm_crr_id = ? AND itm_expirado = 1`,
+            [crrId]
+        );
+
+        if (!carrinho || !carrinho.ativo || expirados.total > 0) {
+            throw {
+                status: 409,
+                mensagem: 'O prazo do carrinho expirou. Atualize o carrinho e adicione os itens novamente.'
+            };
+        }
+
+        return crrId;
+    }
+
+    async liberarBloqueio(conexao, itens) {
+        const ordenados = [...itens].sort((a, b) => a.itm_vpr_id - b.itm_vpr_id);
+        for (const item of ordenados) {
+            await conexao.execute(
+                `UPDATE estoque SET est_bloqueado = GREATEST(est_bloqueado - ?, 0) WHERE est_vpr_id = ?`,
+                [item.itm_quantidade, item.itm_vpr_id]
+            );
+        }
+    }
+
+    async expirarItensCarrinho(conexao, crrId) {
+        await conexao.execute(`UPDATE item_carrinho SET itm_expirado = 1 WHERE itm_crr_id = ?`, [crrId]);
+        await conexao.execute(
+            `UPDATE carrinho SET crr_expiraEm = NULL, crr_avisadoEm = NULL WHERE crr_id = ?`, [crrId]
+        );
     }
 
 
@@ -125,7 +168,7 @@ class PedidoModel {
         return status.stp_id;
     }
 
-    async conciliarEstoqueCarrinho(conexao, itens) {
+    /*async conciliarEstoqueCarrinho(conexao, itens) {
         const alteracoes = [];
         const ordenados = [...itens].sort((a, b) => a.itm_vpr_id - b.itm_vpr_id);
 
@@ -158,19 +201,26 @@ class PedidoModel {
             });
         }
         return alteracoes;
-    }
+    }*/
 
     async baixarEstoque(conexao, itens) {
-        for (const item of itens) {
+        const ordenados = [...itens].sort((a, b) => a.itm_vpr_id - b.itm_vpr_id);
+        for (const item of ordenados) {
             await conexao.execute(
-                `UPDATE estoque SET est_quantidade = est_quantidade - ? WHERE est_vpr_id = ?`,
-                [item.itm_quantidade, item.itm_vpr_id]
+                `UPDATE estoque
+                SET est_quantidade = est_quantidade - ?,
+                    est_bloqueado = GREATEST(est_bloqueado - ?, 0)
+                WHERE est_vpr_id = ?`,
+                [item.itm_quantidade, item.itm_quantidade, item.itm_vpr_id]
             );
         }
     }
 
     async limparCarrinho(conexao, crrId) {
         await conexao.execute(`DELETE FROM item_carrinho WHERE itm_crr_id = ?`, [crrId]);
+        await conexao.execute(
+            `UPDATE carrinho SET crr_expiraEm = NULL, crr_avisadoEm = NULL WHERE crr_id = ?`, [crrId]
+        );
     }
 
     async historico(cliId) {
@@ -261,7 +311,7 @@ class PedidoModel {
         }
     }
 
-    async listarPedidos(){
+    async listarPedidos() {
         const [resultado] = await pool.execute(
             `SELECT 
                 p.ped_id, c.cli_nome, DATE_FORMAT(p.ped_realizadoEm, '%d/%m/%Y') as data, p.ped_totalPedido, s.stp_status, e.end_estado

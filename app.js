@@ -33,4 +33,5 @@ app.use('/api', marcasRoutes);
 app.use('/api', cupomRoutes);
 app.use('/api', trocaRoutes);
 
+
 module.exports = app;
