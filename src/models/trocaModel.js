@@ -1,5 +1,6 @@
 const pool = require('../config/database');
 const { CupomModel } = require('../models/cupomModel');
+const { NotificacaoModel } = require('./notificacaoModel');
 
 class TrocaModel {
 
@@ -92,6 +93,7 @@ class TrocaModel {
     async aprovarTroca(trocaId, statusAprovadoId, statusPendenteId) {
         const conexao = await pool.getConnection();
         const cupomModel = new CupomModel();
+        const notificacaoModel = new NotificacaoModel();
         try {
             await conexao.beginTransaction();
 
@@ -106,12 +108,18 @@ class TrocaModel {
             FOR UPDATE
         `, [trocaId, statusPendenteId]);
 
+
             if (!troca) {
                 throw { status: 404, mensagem: 'Solicitação não encontrada ou já processada.' };
             }
-        
+
             await this.aprovar(conexao, trocaId, statusAprovadoId);
             await cupomModel.trocaAprovarCupom(conexao, troca.ped_cli_id, troca.str_itm_id, Number(troca.valor));
+
+            const valorFormatado = Number(troca.valor).toFixed(2).replace('.', ',');
+            const mensagem = `Sua solicitação de troca foi autorizada. Um cupom de troca de R$ ${valorFormatado} foi disponibilizado para você.`;
+            await notificacaoModel.criar(conexao, troca.ped_cli_id, mensagem.slice(0, 255));
+
 
             await conexao.commit();
         } catch (error) {

@@ -1,22 +1,7 @@
 const pool = require('../config/database');
-/*const parametros = require('../util/parametros');*/
+const { NotificacaoModel } = require('./notificacaoModel');
 
 class CarrinhoModel {
-
-    /* loucura 
-    async buscarTempoBloqueioMin() {
-        return parametros.carrinhoTempoBloqueioMin;
-    }*/
-
-    /**antigo 
-
-
-    async buscarEstoquePorVariacao(vprId) {
-        const [linhas] = await pool.execute(`SELECT est_quantidade FROM estoque WHERE est_vpr_id = ?`, [vprId]);
-
-        return linhas[0];
-    }
-    */
 
     async buscarPrecoVariacao(vprId) {
         const [linhas] = await pool.execute(
@@ -176,6 +161,7 @@ class CarrinhoModel {
     }
 
     async avisarExpiracaoProxima(minutosAviso) {
+        const notificacaoModel = new NotificacaoModel();
         const conexao = await pool.getConnection();
         try {
             await conexao.beginTransaction();
@@ -189,10 +175,11 @@ class CarrinhoModel {
             `, [minutosAviso]);
 
             for (const c of carrinhos) {
-                await conexao.execute(
+                await notificacaoModel.criar(conexao, c.crr_cli_id, `Os itens do seu carrinho serão removidos em até ${minutosAviso} minutos. Finalize sua compra!`)
+                /*await conexao.execute(
                     `INSERT INTO notificacao (ntf_cli_id, ntf_mensagem) VALUES (?, ?)`,
                     [c.crr_cli_id, `Os itens do seu carrinho serão removidos em até ${minutosAviso} minutos. Finalize sua compra!`]
-                );
+                );*/
                 await conexao.execute(
                     `UPDATE carrinho SET crr_avisadoEm = NOW() WHERE crr_id = ?`, [c.crr_id]
                 );

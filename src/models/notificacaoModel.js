@@ -16,12 +16,12 @@ class NotificacaoModel {
         );
     }
 
-     async criar(cliId, mensagem) {   
-        await pool.execute(
+    async criar(conexao, cliId, mensagem) {
+        await conexao.execute(
             `INSERT INTO notificacao (ntf_cli_id, ntf_mensagem) VALUES (?, ?)`, [cliId, mensagem]
         );
     }
 
-}  
+}
 
 module.exports = { NotificacaoModel };
