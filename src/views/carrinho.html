@@ -54,6 +54,7 @@
           </tbody>
         </table>
       </div>
+      <section id="removidos" class="secao-removidos" hidden></section>
     </div>
     <form action="pagamento/tela_pagamento.html">
       <div class="coluna-resumo">
@@ -61,6 +62,7 @@
 
           <div class="cabecalho-resumo">
             <span class="titulo-resumo">Resumo da Compra</span>
+            <span id="contagem" class="contagem"></span>
           </div>
 
           <div class="linha-resumo">
@@ -78,8 +80,7 @@
             <span class="valor-total">R$0,00</span>
           </div>
 
-          <button class="botao-continuar">Continuar</button>
-        </div>
+          <button class="botao-continuar" id="btn-comprar">Continuar</button>
 
         <div class="frete-card">
           <span class="titulo-frete">Consultar Frete</span>

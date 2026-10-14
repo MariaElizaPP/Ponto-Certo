@@ -2,6 +2,7 @@ const clienteId = localStorage.getItem('clienteId');
 
 let itensCarrinho = [];
 let freteAtual = 0;
+let intervaloContagem;
 
 document.addEventListener('DOMContentLoaded', async () => {
     if (!clienteId) {
@@ -16,12 +17,55 @@ async function carregarCarrinho() {
         const res = await fetch(`http://localhost:3000/api/carrinho/${clienteId}`);
         if (!res.ok) throw new Error(`Erro ${res.status} ao carregar o carrinho`);
 
-        itensCarrinho = await res.json();
+        const r = await res.json();
+        console.log('Resposta do carrinho:', r); // pode remover depois
+
+        itensCarrinho = r.itens || [];
         renderizarItens(itensCarrinho);
+        renderizarRemovidos(r.removidos || [], r.tempoLimiteMinutos);
+
+        const btnComprar = document.getElementById('btn-comprar');
+        if (btnComprar) btnComprar.disabled = !r.podeComprar;
+
+        iniciarContagem(r.expiraEmMs, r.agoraMs);
+
     } catch (erro) {
         console.error('Falha ao carregar o carrinho:', erro);
+        exibirErroServidor('Falha ao carregar o carrinho');
+
     }
 }
+
+
+function iniciarContagem(expiraEmMs, agoraMs) {
+    clearInterval(intervaloContagem);
+    const elemento = document.getElementById('contagem');
+    if (!elemento) return;
+
+    if (!expiraEmMs) {
+        elemento.textContent = '';
+        return;
+    }
+
+    const deslocamento = agoraMs - Date.now(); // compensa o relógio do cliente
+    const expiraEmLocal = expiraEmMs - deslocamento;
+
+    const atualizar = () => {
+        const restante = Math.max(Math.floor((expiraEmLocal - Date.now()) / 1000), 0);
+        const min = String(Math.floor(restante / 60)).padStart(2, '0');
+        const seg = String(restante % 60).padStart(2, '0');
+        elemento.textContent = `Tempo restante: ${min}:${seg}`;
+
+        if (restante === 0) {
+            clearInterval(intervaloContagem);
+            setTimeout(carregarCarrinho, 1000); // itens passam a aparecer em "removidos"
+        }
+    };
+
+    atualizar(); // mostra já o valor correto, sem esperar 1s
+    intervaloContagem = setInterval(atualizar, 1000);
+}
+
 
 function renderizarItens(lista) {
     const corpoTabela = document.querySelector('.tabela-carrinho tbody');
@@ -75,6 +119,32 @@ function renderizarItens(lista) {
     atualizarResumo();
 }
 
+function renderizarRemovidos(lista, tempoLimiteMinutos) {
+    const secao = document.getElementById('removidos');
+    if (!secao) return;
+
+    if (!lista || lista.length === 0) {
+        secao.hidden = true;
+        secao.innerHTML = '';
+        return;
+    }
+
+    const itensHtml = lista.map(produto => `
+        <li class="item-removido">
+          <img src="${produto.vpr_imgUrl}" alt="${produto.prd_nome}">
+          <span class="nome-produto-carrinho">${produto.prd_nome}</span>
+          <span class="quantidade-removido">Qtd: ${produto.itm_quantidade}</span>
+        </li>
+    `).join('');
+
+    secao.innerHTML = `
+        <h3>Itens removidos</h3>
+        <p>Estes itens foram removidos do carrinho porque ficaram mais de ${tempoLimiteMinutos} minutos sem a compra ser finalizada.</p>
+        <ul class="lista-removidos">${itensHtml}</ul>
+    `;
+    secao.hidden = false;
+}
+
 document.addEventListener('click', async (evento) => {
     const linha = evento.target.closest('.produto-linha');
     if (!linha) return;
@@ -102,7 +172,7 @@ async function alterarQuantidade(linha, quantidadeEl, totalProdutoEl, precoUnita
     const quantidadeAtual = parseInt(quantidadeEl.textContent);
     const novaQuantidade = quantidadeAtual + delta;
 
-    if (novaQuantidade < 1) return; 
+    if (novaQuantidade < 1) return;
 
     try {
         const res = await fetch('http://localhost:3000/api/itens', {
@@ -134,7 +204,7 @@ async function removerItem(linha, vprId) {
         const res = await fetch('http://localhost:3000/api/deletarItem', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ cliId: Number(clienteId), vprId }) 
+            body: JSON.stringify({ cliId: Number(clienteId), vprId })
         });
 
         if (!res.ok) throw new Error(`Erro ${res.status} ao remover item`);
@@ -212,6 +282,33 @@ async function consultarFrete() {
     } catch (erro) {
         console.error('Falha ao consultar frete:', erro);
         exibirErroServidor('Falha ao consultar frete');
+    }
+}
+
+let verificandoNotificacoes = false;
+
+async function verificarNotificacoes() {
+    if (verificandoNotificacoes) return; // evita sobreposição entre execuções
+    verificandoNotificacoes = true;
+
+    try {
+        const res = await fetch(`${API_URL}/api/notificacoes?cliId=${clienteId}`);
+        if (!res.ok) return;
+
+        const lista = await res.json();
+
+        for (const n of lista) {
+            mostrarToast(n.ntf_mensagem, 'aviso');
+
+            await fetch(`${API_URL}/api/notificacoes/${n.ntf_id}/lida?cliId=${clienteId}`, { method: 'PATCH' });
+
+            // espera o toast sumir antes de mostrar o próximo
+            await new Promise(r => setTimeout(r, 3200));
+        }
+    } catch (erro) {
+        console.error('Falha ao verificar notificações:', erro);
+    } finally {
+        verificandoNotificacoes = false;
     }
 }
 

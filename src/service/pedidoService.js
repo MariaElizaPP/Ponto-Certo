@@ -247,6 +247,47 @@ class PedidoService {
 
         return { mensagem: 'Pedido atualizado com sucesso' };
     }
+
+    async atualizarStatus(pedId, cliId, statusId) {
+        if (!pedId) {
+            throw { status: 400, mensagem: 'O ID do pedido é obrigatório.' };
+        }
+
+        const model = new PedidoModel();
+        const pedido = await model.buscarPedido(cliId, pedId);
+
+        if (!pedido) {
+            throw { status: 404, mensagem: 'Pedido não encontrado' };
+        }
+
+        const statusPedido = await model.verificarStatusId(statusId);
+        if (!statusPedido) {
+            throw { status: 404, mensagem: 'Status do pedido não encontrado' };
+        }
+
+        await model.mudarStatus(pedId, statusId);
+        
+        return { mensagem: 'Pedido atualizado com sucesso' };
+    }
+
+    async cancelarPedido(pedId){
+        if (!pedId) {
+            throw { status: 400, mensagem: 'O ID do pedido é obrigatório.' };
+        }
+
+        const model = new PedidoModel();
+        await model.cancelarPedido(pedId);
+
+        return { mensagem: 'Pedido cancelado com sucesso' };
+    }
+
+    async listarPedidos(){
+        const model = new PedidoModel();
+
+        return await model.listarPedidos();
+    }
+
+
 }
 
 module.exports = { PedidoService }
