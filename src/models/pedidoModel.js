@@ -314,9 +314,11 @@ class PedidoModel {
     async listarPedidos() {
         const [resultado] = await pool.execute(
             `SELECT 
-                p.ped_id, c.cli_nome, DATE_FORMAT(p.ped_realizadoEm, '%d/%m/%Y') as data, p.ped_totalPedido, s.stp_status, e.end_estado
-            FROM
-                pedidos p
+                p.ped_id, p.ped_cli_id, p.ped_stp_id, c.cli_nome,
+                DATE_FORMAT(p.ped_realizadoEm, '%d/%m/%Y') as data,
+                p.ped_totalPedido, s.stp_status, e.end_estado
+            FROM 
+            pedidos p
             JOIN cliente c on p.ped_cli_id = c.cli_id
             JOIN status_pedidos s on p.ped_stp_id = s.stp_id
             JOIN endereco e on e.end_id = p.ped_end_id
@@ -325,6 +327,13 @@ class PedidoModel {
         );
         return resultado;
     }
+
+    async listarStatus() {
+    const [linhas] = await pool.execute(
+        `SELECT stp_id, stp_status FROM status_pedidos ORDER BY stp_id`
+    );
+    return linhas;
+}
 
 }
 

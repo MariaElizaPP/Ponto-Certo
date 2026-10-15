@@ -287,6 +287,11 @@ class PedidoService {
         return await model.listarPedidos();
     }
 
+    async listarStatus() {
+        const model = new PedidoModel();
+        return await model.listarStatus();
+    }
+
 
 }
 
