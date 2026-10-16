@@ -206,7 +206,9 @@ class PedidoService {
                 quantidade: l.itm_quantidade,
                 precoUnitario: l.itm_precoUnitario,
                 imagemUrl: l.vpr_imgUrl,
-                nomeProduto: l.prd_nome
+                nomeProduto: l.prd_nome,
+                qtdEmTroca: Number(l.qtd_emTroca),
+                qtdTrocada: Number(l.qtd_trocada)
             }))
         }));
 
@@ -285,6 +287,15 @@ class PedidoService {
         const model = new PedidoModel();
 
         return await model.listarPedidos();
+    }
+
+    async confirmarEntrega(pedId){
+        if(!pedId) throw {status: 400, mensagem: "O id do pedido é obrigatório"}
+        const model = new PedidoModel();
+
+        const finalizadoId = model.buscarStatusId('FINALIZADO');
+
+        return await model.mudarStatus(pedId, finalizadoId);
     }
 
 

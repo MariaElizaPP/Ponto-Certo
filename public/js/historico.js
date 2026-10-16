@@ -1,24 +1,34 @@
+const API = 'http://localhost:3000/api';
+const clienteId = localStorage.getItem('clienteId');
 
 const STATUS_PEDIDO = {
     'EM PROCESSAMENTO': { texto: 'Em processamento', tag: 'tag-processamento', rodape: 'rodape-em-transito', acao: 'cancelar' },
     'APROVADA': { texto: 'Aprovada', tag: 'tag-processamento', rodape: 'rodape-em-transito', acao: 'cancelar' },
     'REPROVADA': { texto: 'Reprovada', tag: 'tag-negado', rodape: 'rodape-negado', acao: '' },
+    'EM TRANSPORTE': { texto: 'Em transporte', tag: 'tag-transito', rodape: 'rodape-em-transito', acao: '' },
     'EM TRANSITO': { texto: 'Em trânsito', tag: 'tag-transito', rodape: 'rodape-em-transito', acao: '' },
-    'ENTREGUE': { texto: 'Entregue', tag: 'tag-entregue', rodape: 'rodape-entregue', acao: 'confirmar' },
-    'FINALIZADO': { texto: 'Finalizado', tag: 'tag-finalizado', rodape: 'rodape-finalizado', acao: 'trocar' },
-    'TROCA SOLICITADA': { texto: 'Aguardando Aprovação', tag: 'tag-aguardando', rodape: 'rodape-troca-solicitada', acao: 'solicitada' },
-    'TROCA APROVADA': { texto: 'Troca aprovada', tag: 'tag-finalizado', rodape: 'rodape-troca-aprovada', acao: '' },
-    'TROCA NEGADA': { texto: 'Troca negada', tag: 'tag-negado', rodape: 'rodape-negado', acao: 'solicitada' }
+    'ENTREGUE': { texto: 'Entregue', tag: 'tag-entregue', rodape: 'rodape-entregue', acao: 'trocar' },
+    'CANCELADO': { texto: 'Cancelado', tag: 'tag-negado', rodape: 'rodape-negado', acao: '' }
 };
-
 
 const ACOES_PEDIDO = {
-    cancelar: { rota: 'cancelar', sucesso: 'Pedido cancelado com sucesso.' },
-    confirmar: { rota: 'confirmarEntrega', sucesso: 'Entrega confirmada com sucesso.' },
-    trocar: { rota: 'solicitarTroca', sucesso: 'Troca solicitada com sucesso.' }
-};
+    cancelar: {
+        sucesso: 'Pedido cancelado com sucesso.',
+        requisicao: (pedId) => ({
+            url: `${API}/cancelarPedido/${pedId}`,
+            metodo: 'PATCH'
+        })
+    },
 
-const clienteId = localStorage.getItem('clienteId');
+    trocar: {
+        sucesso: 'Troca solicitada com sucesso.',
+        requisicao: (pedId, itens) => ({
+            url: `${API}/solicitar`,
+            metodo: 'POST',
+            corpo: { cliId: Number(clienteId), pedidoId: Number(pedId), itens }
+        })
+    }
+};
 
 let listaPedidos = [];
 
@@ -35,19 +45,40 @@ document.getElementById('botao-busca').addEventListener('click', function () {
 });
 
 document.addEventListener('click', function (e) {
-    const botaoConfirmar = e.target.closest('.btn-tema-alerta[data-acao]');
+    const botao = e.target.closest('button[data-acao]');
 
-    if (!botaoConfirmar) {
+    if (!botao) {
         return;
     }
 
-    executarAcao(botaoConfirmar.dataset.acao, botaoConfirmar.dataset.pedId);
+    const { acao, pedId } = botao.dataset;
+    let dados;
+
+    if (acao === 'trocar') {
+        const coleta = coletarItensTroca(botao.closest('dialog'));
+
+        if (coleta.erro) {
+            mostrarToast(coleta.erro, 'erro');
+            return;
+        }
+
+        dados = coleta.itens;
+    }
+
+    executarAcao(acao, pedId, dados);
+});
+
+document.addEventListener('input', function (e) {
+    if (!e.target.classList.contains('troca-qtd')) {
+        return;
+    }
+
+    e.target.closest('.item-troca').querySelector('.troca-check').checked = true;
 });
 
 async function carregarHistorico() {
-   
     try {
-        const response = await fetch(`http://localhost:3000/api/historico/${clienteId}`);
+        const response = await fetch(`${API}/historico/${clienteId}`);
 
         if (!response.ok) {
             throw new Error('Erro ao carregar histórico');
@@ -62,18 +93,20 @@ async function carregarHistorico() {
     }
 }
 
-async function executarAcao(acao, pedidoId) {
+async function executarAcao(acao, pedId, dados) {
     const config = ACOES_PEDIDO[acao];
 
     if (!config) {
         return;
     }
 
+    const { url, metodo, corpo } = config.requisicao(pedId, dados);
+
     try {
-        const response = await fetch(`http://localhost:3000/api/pedido/${pedidoId}/${config.rota}`, {
-            method: 'PATCH',
+        const response = await fetch(url, {
+            method: metodo,
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ cliId: clienteId })
+            body: corpo ? JSON.stringify(corpo) : undefined
         });
 
         const resultado = await response.json().catch(() => ({}));
@@ -128,50 +161,106 @@ function formatarData(data) {
     return `${dia} às ${hora}`;
 }
 
-function montarModalHtml(idModal, classeModal, titulo, texto, textoConfirmar, acao, pedidoId) {
+// Quantidade que ainda pode ser solicitada para troca
+// (trocas recusadas não entram na conta: o back-end já as exclui das somas)
+function quantidadeRestante(item) {
+    return item.quantidade - (item.qtdEmTroca || 0) - (item.qtdTrocada || 0);
+}
+
+function trocaItemHtml(item) {
+    const tags = [];
+
+    if (item.qtdEmTroca > 0) {
+        tags.push(`<span class="tag-aguardando">${item.qtdEmTroca} em troca</span>`);
+    }
+
+    if (item.qtdTrocada > 0) {
+        tags.push(`<span class="tag-finalizado">${item.qtdTrocada} trocada(s)</span>`);
+    }
+
+    return tags.length > 0 ? `<span class="troca-tags">${tags.join('')}</span>` : '';
+}
+
+function montarModalHtml(idModal, classeModal, titulo, texto, textoConfirmar, acao, pedId, conteudoExtra = '') {
     return `
         <dialog id="${idModal}" class="${classeModal}">
             <img class="icone-alerta" src="/public/images/modal-alerta.svg" alt="alerta-modal">
             <h3>${titulo}</h3>
             <span>${texto}</span>
+            ${conteudoExtra}
             <div class="botoes-modais">
                 <button class="btn-modal-cancelar" data-modal="${idModal}" type="button">Cancelar</button>
-                <button class="btn-modal-fechar btn-tema-alerta" data-modal="${idModal}" data-acao="${acao}" data-ped-id="${pedidoId}" type="button">${textoConfirmar}</button>
+                <button class="btn-modal-fechar btn-tema-alerta" data-modal="${idModal}" data-acao="${acao}" data-ped-id="${pedId}" type="button">${textoConfirmar}</button>
             </div>
         </dialog>
     `;
 }
 
-function montarAcaoHtml(pedidoId, acao) {
+function montarModalTrocaHtml(idModal, classeModal, titulo, texto, textoConfirmar, acao, pedId, conteudoExtra = '') {
+    return `
+        <dialog id="${idModal}" class="${classeModal}">
+            <img class="icone-troca" src="/public/images/historico-troca.svg" alt="alerta-modal">
+            <h3>${titulo}</h3>
+            <span>${texto}</span>
+            ${conteudoExtra}
+            <div class="botoes-modais">
+                <button class="btn-modal-cancelar btn-troca-cancelar" data-modal="${idModal}" type="button">Cancelar</button>
+                <button class="btn-modal-fechar btn-troca-solicitar" data-modal="${idModal}" data-acao="${acao}" data-ped-id="${pedId}" type="button">${textoConfirmar}</button>
+            </div>
+        </dialog>
+    `;
+}
+
+// Lista apenas os itens que ainda têm unidades disponíveis para troca
+function montarItensTrocaHtml(itens) {
+    const linhas = itens.map(item => {
+        const restante = quantidadeRestante(item);
+
+        return `
+            <label class="item-troca">
+                <input type="checkbox" class="troca-check" value="${item.itemId}">
+                <span>${item.nomeProduto}</span>
+                <input type="number" class="troca-qtd" min="1" max="${restante}" value="1">
+                <small>de ${restante} disponível(is)</small>
+            </label>
+        `;
+    }).join('');
+
+    return `<div class="itens-troca">${linhas}</div>`;
+}
+
+
+function montarAcaoHtml(pedido, acao) {
+    const pedId = pedido.id;
+
     if (acao === 'cancelar') {
-        const idModal = `modal-cancelar-${pedidoId}`;
+        const idModal = `modal-cancelar-${pedId}`;
 
         return `
             <button type="button" class="botao-cancelar" data-modal="${idModal}">Cancelar Compra</button>
-            ${montarModalHtml(idModal, 'modal-confirmar-entrega', 'Cancelar o seu pedido?', 'Você deseja cancelar o recebimento de seu pedido?', 'Confirmar', acao, pedidoId)}
-        `;
-    }
-
-    if (acao === 'confirmar') {
-        const idModal = `modal-confirmar-${pedidoId}`;
-
-        return `
-            <button type="button" class="botao-confirmar" data-modal="${idModal}">Confirmar</button>
-            ${montarModalHtml(idModal, 'modal-confirmar-entrega', 'Confirmar a entrega do pedido?', 'Você deseja confirmar o recebimento de seu pedido?', 'Confirmar', acao, pedidoId)}
+            ${montarModalHtml(idModal, 'modal-confirmar-entrega', 'Cancelar o seu pedido?', 'Você deseja cancelar o recebimento de seu pedido?', 'Confirmar', acao, pedId)}
         `;
     }
 
     if (acao === 'trocar') {
-        const idModal = `modal-trocar-${pedidoId}`;
+        const trocaveis = pedido.itens.filter(item => quantidadeRestante(item) > 0);
+
+        if (trocaveis.length === 0) {
+            return '<span class="linha-rodape">Troca solicitada</span>';
+        }
+
+        const idModal = `modal-trocar-${pedId}`;
 
         return `
             <button type="button" class="botao-trocar" data-modal="${idModal}">Trocar</button>
-            ${montarModalHtml(idModal, 'modal-solicitar-troca', 'Solicitar troca deste item?', 'Você deseja solicitar a troca deste produto? Essa ação enviará a solicitação para análise.', 'Solicitar troca', acao, pedidoId)}
+            ${montarModalTrocaHtml(
+                idModal, 'modal-solicitar-troca',
+                'Solicitar troca',
+                'Selecione os itens e a quantidade que deseja trocar. A solicitação será enviada para análise.',
+                'Solicitar troca', acao, pedId,
+                montarItensTrocaHtml(trocaveis)
+            )}
         `;
-    }
-
-    if (acao === 'solicitada') {
-        return '<span class="linha-rodape">Troca solicitada</span>';
     }
 
     return '';
@@ -194,7 +283,7 @@ function renderizarPedidos(pedidos) {
 
         const dataFormatada = formatarData(pedido.finalizadoEm);
         const totalFormatado = formatarMoeda(pedido.totalPedido);
-        const acaoHtml = montarAcaoHtml(pedido.id, status.acao);
+        const acaoHtml = montarAcaoHtml(pedido, status.acao);
 
         const itensHtml = pedido.itens.map(item => {
             const precoFormatado = formatarMoeda(item.precoUnitario);
@@ -204,6 +293,7 @@ function renderizarPedidos(pedidos) {
                 <div class="item-historico">
                     <span class="img-historico"><img src="${item.imagemUrl}" alt=""></span>
                     <span class="linha-nome">${item.nomeProduto}</span>
+                    <span class="linha-tags">${trocaItemHtml(item)}</span>
                     <span class="linha-valor">${precoFormatado}</span>
                     <div class="quantidade-historico"><span>${item.quantidade}</span></div>
                     <span class="linha-valor">${subtotalFormatado}</span>
@@ -231,6 +321,38 @@ function renderizarPedidos(pedidos) {
             </div>
         `;
     }).join('');
+}
+
+// Lê os itens marcados no modal e valida a quantidade de cada um
+function coletarItensTroca(modal) {
+    const itens = [];
+
+    for (const linha of modal.querySelectorAll('.item-troca')) {
+        const check = linha.querySelector('.troca-check');
+
+        if (!check.checked) {
+            continue;
+        }
+
+        const campo = linha.querySelector('.troca-qtd');
+        const quantidade = Number(campo.value);
+        const maximo = Number(campo.max);
+
+        if (!Number.isInteger(quantidade) || quantidade < 1 || quantidade > maximo) {
+            return {
+                itens: [],
+                erro: `Informe uma quantidade entre 1 e ${maximo} para cada item selecionado.`
+            };
+        }
+
+        itens.push({ itemId: Number(check.value), quantidade });
+    }
+
+    if (itens.length === 0) {
+        return { itens, erro: 'Selecione ao menos um item para trocar.' };
+    }
+
+    return { itens, erro: null };
 }
 
 function mostrarToast(mensagem, tipo = 'erro') {

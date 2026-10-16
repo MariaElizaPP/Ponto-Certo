@@ -34,7 +34,7 @@ class PedidoModel {
             let cupomTroca = null;
 
             if (aprovado) {
-                await this.atualizarStatus(conexao, pedId, await this.buscarStatusId('APROVADO'));
+                await this.atualizarStatus(conexao, pedId, await this.buscarStatusId('APROVADA'));
                 await this.baixarEstoque(conexao, itens);
 
                 if (troco.greaterThan(0)) {
@@ -224,18 +224,28 @@ class PedidoModel {
     }
 
     async historico(cliId) {
-        const [resultado] = await pool.execute(`SELECT p.ped_id, p.ped_realizadoEm, p.ped_totalPedido, i.itm_id, i.itm_quantidade, i.itm_precoUnitario, v.vpr_imgUrl, pr.prd_nome, sp.stp_status
+        const [resultado] = await pool.execute(`
+            SELECT p.ped_id, p.ped_realizadoEm, p.ped_totalPedido,
+                i.itm_id, i.itm_quantidade, i.itm_precoUnitario,
+                v.vpr_imgUrl, pr.prd_nome, sp.stp_status,
+                COALESCE(SUM(CASE WHEN st.stt_status = 'EM TROCA' THEN sl.str_quantidade END), 0) AS qtd_emTroca,
+                COALESCE(SUM(CASE WHEN st.stt_status = 'TROCADO'  THEN sl.str_quantidade END), 0) AS qtd_trocada
             FROM pedidos p
-            JOIN item_pedido i on i.itm_ped_id = p.ped_id
-            JOIN variacao_produto v on v.vpr_id = i.itm_vpr_id
-            JOIN produtos pr on v.vpr_prd_id = pr.prd_id
-            JOIN status_pedidos sp on p.ped_stp_id = sp.stp_id
-            WHERE p.ped_cli_id = ?;`,
+            JOIN item_pedido i ON i.itm_ped_id = p.ped_id
+            JOIN variacao_produto v ON v.vpr_id = i.itm_vpr_id
+            JOIN produtos pr ON pr.prd_id = v.vpr_prd_id
+            JOIN status_pedidos sp ON sp.stp_id = p.ped_stp_id
+            LEFT JOIN solicitacao_troca sl ON sl.str_itm_id = i.itm_id
+            LEFT JOIN status_troca st ON st.stt_id = sl.str_stt_id
+            WHERE p.ped_cli_id = ?
+            GROUP BY p.ped_id, p.ped_realizadoEm, p.ped_totalPedido,
+                    i.itm_id, i.itm_quantidade, i.itm_precoUnitario,
+                    v.vpr_imgUrl, pr.prd_nome, sp.stp_status
+            ORDER BY p.ped_realizadoEm DESC, i.itm_id;`,
             [cliId]);
 
         return resultado;
     }
-    //antigo
 
     async buscarPedido(cliId, pedId) {
         const [[pedido]] = await pool.execute(
@@ -247,19 +257,7 @@ class PedidoModel {
         );
         return pedido;
     }
-    /*
-        //novo
-        async buscarPedido(pedId) {
-            const [[pedido]] = await pool.execute(
-                `SELECT p.ped_id, sp.stp_status
-             FROM pedidos p
-             JOIN status_pedidos sp ON p.ped_stp_id = sp.stp_id
-             WHERE p.ped_id = ?`,
-                [pedId]
-            );
-            return pedido;
-        }
-    */
+   
     async mudarStatus(pedId, statusId) {
         await pool.execute(
             `UPDATE pedidos SET ped_stp_id = ? WHERE ped_id = ?`,
