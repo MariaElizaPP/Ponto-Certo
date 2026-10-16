@@ -1,146 +1,152 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ponto Certo</title>
-  <link rel="stylesheet" href= "/public/css/navbar/navbar.css">
-  <link rel="stylesheet" href= "/public/css/carrinho.css">
-  <link rel="stylesheet" href= "/public/css/pagamento.css">
-  
-    </head>
 
- <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ponto Certo</title>
+    <link rel="stylesheet" href="/public/css/navbar/navbar.css">
+    <link rel="stylesheet" href="/public/css/carrinho.css">
+    <link rel="stylesheet" href="/public/css/pagamento.css">
+
+</head>
+
+<body>
     <header>
-        <nav class= "navbar">
+        <nav class="navbar">
 
-        <a class="logo" href="/index.html">
-            <img src="/public/images/logo_ponto.svg" alt="Logo Ponto Certo">
+            <a class="logo" href="/index.html">
+                <img src="/public/images/logo_ponto.svg" alt="Logo Ponto Certo">
             </a>
 
 
-        <ul class="nav-list">
-            <li><a href="/index.html"> Página Inicial </a></li>
-            <li><a href="/historico.html"> Meus Pedidos</a></li>
-        </ul>
+            <ul class="nav-list">
+                <li><a href="/index.html"> Página Inicial </a></li>
+                <li><a href="/historico.html"> Meus Pedidos</a></li>
+            </ul>
 
-        <ul class="nav_icones">
-        <li><a href="/carrinho.html"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
-        <li><a href="/notificacao.html"> <img src="/public/images/notificacao.svg" alt="notificacao"></a></li>
-        <li><a href="/configuracoes.html"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
+            <ul class="nav_icones">
+                <li><a href="/carrinho.html"> <img src="/public/images/shopping-cart.svg" alt="carrinho"></a></li>
+                <li><a href="/notificacoes.html"> <img src="/public/images/notificacao.svg" alt="notificacao"></a></li>
+                <li><a href="/configuracoes.html"> <img src="/public/images/settings.svg" alt="configuracao"></a></li>
 
-      </ul>
-        
+            </ul>
+
         </nav>
     </header>
 
-  <main class="pagamento">
+    <main class="pagamento">
 
-    <div class="cabecalho-pagina">
-        <a class="botao-voltar" id="botao-voltar" ><img class="img-voltar" src="/public/images/voltar.svg" alt="voltar"></a>
-    </div>
-
-    <div class="conteudo-checkout">
-
-      <div class="coluna-esquerda">
-
-        <div class="endereco-card">
-
-          <div class="cabecalho-pagamento">
-           <span class="cabecalho-titulo">Escolha endereço de entrega</span>
-            <a href="/pagamento/enderecoPagamento.html" class="link-adicionar-endereco">Adicionar outro endereço</a>
-          </div>
-
-          <div class="linha-enderecos" id="lista-enderecos"></div>
+        <div class="cabecalho-pagina">
+            <a class="botao-voltar" id="botao-voltar"><img class="img-voltar" src="/public/images/voltar.svg"
+                    alt="voltar"></a>
         </div>
 
-        <div class="pagamento-card">
-            <div class="cabecalho-pagamento">
-                <span class="cabecalho-titulo">Formas de Pagamento</span>
-            </div>
+        <div class="conteudo-checkout">
 
-            <div class="conteudo-pagamento">
-               
-                <div class="subcabecalho-cartao">
-                <span class="titulo-pequeno">Cartão de crédito</span>
-                <a href="/pagamento/cartaoPagamento.html" class="link-adicionar-pagamento">Adicionar outro cartão</a>
+            <div class="coluna-esquerda">
+
+                <div class="endereco-card">
+
+                    <div class="cabecalho-pagamento">
+                        <span class="cabecalho-titulo">Escolha endereço de entrega</span>
+                        <a href="/pagamento/enderecoPagamento.html" class="link-adicionar-endereco">Adicionar outro
+                            endereço</a>
+                    </div>
+
+                    <div class="linha-enderecos" id="lista-enderecos"></div>
                 </div>
 
-                
-            <div class="linha-multiplos-cartoes">
-                <label class="opcao-checkbox">
-                    <input type="checkbox" name="multiplos-cartoes" id="multiplos-cartoes" class="checkbox-pagamento" />
-                    <span>Utilizar mais de um cartão?</span>
-                </label>
+                <div class="pagamento-card">
+                    <div class="cabecalho-pagamento">
+                        <span class="cabecalho-titulo">Formas de Pagamento</span>
+                    </div>
+
+                    <div class="conteudo-pagamento">
+
+                        <div class="subcabecalho-cartao">
+                            <span class="titulo-pequeno">Cartão de crédito</span>
+                            <a href="/pagamento/cartaoPagamento.html" class="link-adicionar-pagamento">Adicionar outro
+                                cartão</a>
+                        </div>
+
+
+                        <div class="linha-multiplos-cartoes">
+                            <label class="opcao-checkbox">
+                                <input type="checkbox" name="multiplos-cartoes" id="multiplos-cartoes"
+                                    class="checkbox-pagamento" />
+                                <span>Utilizar mais de um cartão?</span>
+                            </label>
+                        </div>
+
+                        <div id="lista-cartoes"></div>
+
+                    </div>
+                </div>
+
             </div>
 
-            <div id="lista-cartoes"></div>
+            <div class="resumo-card">
 
-            </div>
-        </div>
-
-      </div>
-
-      <div class="resumo-card">
-        
-        <div class="cabecalho-resumo">
-            <span class="cabecalho-titulo">Resumo do Pagamento</span>
-        </div>
-
-        
-        <div class="linha-resumo">
-            <span>Subtotal</span>
-            <span class="subtotal-pagamento">R$0,00</span>
-        </div>
+                <div class="cabecalho-resumo">
+                    <span class="cabecalho-titulo">Resumo do Pagamento</span>
+                </div>
 
 
-        <div class="linha-resumo">
-            <span>Frete</span>
-            <span class="frete-pagamento">---</span>
-        </div>
+                <div class="linha-resumo">
+                    <span>Subtotal</span>
+                    <span class="subtotal-pagamento">R$0,00</span>
+                </div>
 
-        
-        <div class="linha-resumo linha-cupom">
-            <span>Cupons</span>
-            <button type="button" id="btn-abrir-cupom" class="link-adicionar-cupom"> Adicionar cupom
-            </button>
-            
-        </div>
 
-        <div class="secao-cupom">
-            <div id="container-campo-cupom" class="container-cupom escondido">
-                <input type="text" placeholder="Insira o código do cupom" class="campo-cupom" />
-                <span id="mensagem-cupom" class="mensagem-cupom"></span>
-                <div class="botoes-cupom">
-                    <button type="button" id="botao-cancelar-cupom" class="botao-cancelar-cupom">
-                        Cancelar
+                <div class="linha-resumo">
+                    <span>Frete</span>
+                    <span class="frete-pagamento">---</span>
+                </div>
+
+
+                <div class="linha-resumo linha-cupom">
+                    <span>Cupons</span>
+                    <button type="button" id="btn-abrir-cupom" class="link-adicionar-cupom"> Adicionar cupom
                     </button>
-                    <button type="button" id="botao-aplicar" class="botao-padrao">Aplicar Cupom</button>
+
                 </div>
-                
+
+                <div class="secao-cupom">
+                    <div id="container-campo-cupom" class="container-cupom escondido">
+                        <input type="text" placeholder="Insira o código do cupom" class="campo-cupom" />
+                        <span id="mensagem-cupom" class="mensagem-cupom"></span>
+                        <div class="botoes-cupom">
+                            <button type="button" id="botao-cancelar-cupom" class="botao-cancelar-cupom">
+                                Cancelar
+                            </button>
+                            <button type="button" id="botao-aplicar" class="botao-padrao">Aplicar Cupom</button>
+                        </div>
+
+                    </div>
+                    <div id="lista-cupons-aplicados" class="lista-cupons-aplicados"></div>
+                </div>
+
+                <div class="linha-resumo linha-total">
+                    <span>Total</span>
+                    <span class="valor-total" id="valor-total">R$0,00</span>
+                </div>
+
+                <span id="mensagem-erro-cartoes" class="mensagem-erro-cartoes"></span>
+                <button type="button" class="btn-modal-abrir" id="botao-finalizar">Finalizar Compra</button>
+                <dialog id="modal-abrir" class="modal-abrir">
+                    <img class="icone-sucesso" src="/public/images/sucesso-modal.svg" alt="sucesso-modal">
+                    <h3>Sucesso</h3>
+                    <span>Compra realizada com sucesso!</span>
+                    <a href="/index.html"><button class="btn-modal-fechar btn-tema-sucesso"
+                            data-modal="modal-abrir">Voltar</button></a>
+                </dialog>
+
             </div>
-            <div id="lista-cupons-aplicados" class="lista-cupons-aplicados"></div>
+
         </div>
 
-        <div class="linha-resumo linha-total">
-            <span>Total</span>
-            <span class="valor-total" id="valor-total">R$0,00</span>
-        </div>
-
-        <span id="mensagem-erro-cartoes" class="mensagem-erro-cartoes"></span>
-        <button type="button" class="btn-modal-abrir" id="botao-finalizar">Finalizar Compra</button>
-        <dialog id="modal-abrir" class="modal-abrir">
-            <img class="icone-sucesso" src="/public/images/sucesso-modal.svg" alt="sucesso-modal">
-            <h3>Sucesso</h3>
-            <span>Compra realizada com sucesso!</span>
-            <a href="/index.html"><button class="btn-modal-fechar btn-tema-sucesso" data-modal="modal-abrir">Voltar</button></a>
-        </dialog>
-        
-    </div>
-
-    </div>
-
-  </main>
+    </main>
 
     <div id="toast" class="toast"></div>
 
@@ -148,5 +154,6 @@
     <script src="/public/js/botao_voltar.js"></script>
     <script src="/public/js/modal.js"></script>
     <script src="/public/js/telaPagamento.js"></script>
- </body>
+</body>
+
 </html>
