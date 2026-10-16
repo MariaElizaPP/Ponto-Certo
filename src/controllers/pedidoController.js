@@ -151,29 +151,15 @@ async function listarPedidos(req, res) {
     }
 }
 
-
-async function confirmarEntrega(req, res) {
+async function listarStatus(req, res) {
     try {
-
         const service = new PedidoService();
-
-        const {pedId} = req.body;
-
-        const resultado = await service.confirmarEntrega(pedId);
-
+        const resultado = await service.listarStatus();
         return res.status(200).json(resultado);
-
     } catch (error) {
         console.error(error);
-
-        if (error.status) {
-            return res.status(error.status).json({ mensagem: error.mensagem });
-        }
-
-        return res.status(500).json({ mensagem: 'Erro ao confirmar a entrega' });
-
+        return res.status(error.status || 500).json({ mensagem: error.mensagem || 'Erro ao carregar os status' });
     }
-
 }
 
-module.exports = { listarDadosPagamento, finalizarPedido, historico, atualizarStatus, cancelarPedido, listarPedidos, confirmarEntrega }
+module.exports = { listarDadosPagamento, finalizarPedido, historico, atualizarStatus, cancelarPedido, listarPedidos,listarStatus }

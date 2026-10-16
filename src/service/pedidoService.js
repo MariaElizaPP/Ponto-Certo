@@ -289,13 +289,9 @@ class PedidoService {
         return await model.listarPedidos();
     }
 
-    async confirmarEntrega(pedId){
-        if(!pedId) throw {status: 400, mensagem: "O id do pedido é obrigatório"}
+    async listarStatus() {
         const model = new PedidoModel();
-
-        const finalizadoId = model.buscarStatusId('FINALIZADO');
-
-        return await model.mudarStatus(pedId, finalizadoId);
+        return await model.listarStatus();
     }
 
 
