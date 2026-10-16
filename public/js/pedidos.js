@@ -1,8 +1,14 @@
 const PROXIMO_STATUS = {
-    'EM PROCESSAMENTO': 'APROVADO',
-    'APROVADO': 'EM TRANSPORTE',
-    'EM TRANSPORTE': 'ENTREGUE',
+    'APROVADO': ['EM TRANSPORTE', 'EM TRANSITO'],
+    'APROVADA': ['EM TRANSPORTE', 'EM TRANSITO'],
+    'EM TRANSPORTE': ['ENTREGUE'],
+    'EM TRANSITO': ['ENTREGUE'],
 };
+
+// compara os status sem acento, sem diferença de maiúscula e sem espaços nas pontas
+function normalizar(texto) {
+    return (texto || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toUpperCase();
+}
 
 //armazena a lista de pedidos
 let pedidos = [];
@@ -70,9 +76,8 @@ async function carregarPedidos() {
 async function alterarStatus(select) {
     // Obtém o ID do pedido e o ID do cliente armazenados no campo de seleção
     const { pedId, cliId } = select.dataset;
-    // Desabilita o campo temporariamente durante o processamento
-    select.disabled = true;
- 
+   
+
     try {
         // Envia uma requisição PATCH para atualizar o status do pedido
         const res = await fetch(`http://localhost:3000/api/pedido/${pedId}`, {
@@ -135,26 +140,22 @@ function linhaPedido(p) {
         Fluxo: linhaPedido() → recebe os dados de um pedido → monta a linha HTML com a data, cliente, estado, total, status e botão de detalhes → retorna a linha para ser exibida na tabela.
         */
 }
- function celulaStatus(p) {
-    const proximo = statusPedidos.find((s) => s.stp_status === PROXIMO_STATUS[p.stp_status]);
- 
+function celulaStatus(p) {
+    const candidatos = PROXIMO_STATUS[normalizar(p.stp_status)] || [];
+    const proximo = statusPedidos.find((s) => candidatos.includes(normalizar(s.stp_status)));
+
     // sem próximo status permitido: só mostra o texto
     if (!proximo) {
         return esc(formatarStatus(p.stp_status));
     }
- 
+
     // Cria um campo de seleção com o status atual já selecionado
     return `
         <select class="select-status" data-ped-id="${p.ped_id}" data-cli-id="${p.ped_cli_id}">
             <option value="${p.ped_stp_id}" selected>${esc(formatarStatus(p.stp_status))}</option>
             <option value="${proximo.stp_id}">${esc(formatarStatus(proximo.stp_status))}</option>
         </select>`;
-
-        /*
-        Fluxo: celulaStatus() → verifica o status atual do pedido → procura o próximo status permitido → se não houver, exibe apenas o status atual → se houver, cria um select com o status atual e a próxima opção permitida.
-        */
 }
-
 function formatarStatus(status) {
     const texto = (status || '').toLowerCase();
     return texto.charAt(0).toUpperCase() + texto.slice(1);

@@ -321,7 +321,7 @@ class PedidoModel {
             JOIN status_pedidos s on p.ped_stp_id = s.stp_id
             JOIN endereco e on e.end_id = p.ped_end_id
             ORDER BY
-                c.cli_nome DESC;`,
+                p.ped_realizadoEm DESC;`,
         );
         return resultado;
     }

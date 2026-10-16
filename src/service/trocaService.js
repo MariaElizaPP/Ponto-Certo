@@ -71,16 +71,17 @@ class TrocaService {
 
     }
 
+   
     async reprovar(trocaId) {
         if (!trocaId) {
             throw { status: 400, mensagem: "O id da solicitação de troca é obrigatório" };
         }
 
         const model = new TrocaModel();
+        const statusPendenteId = await model.buscarStatusId("EM TROCA");
+        const statusRecusadoId = await model.buscarStatusId("RECUSADO");
 
-        const statusId = await model.buscarStatusId("RECUSADO");
-
-        await model.reprovar(trocaId, statusId);
+        await model.reprovar(trocaId, statusRecusadoId, statusPendenteId);
 
         return { mensagem: "Troca reprovada com sucesso" };
     }
