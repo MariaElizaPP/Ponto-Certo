@@ -1,29 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
- 
+
 :root{
     --primary-color: #6D5960;
     --verde-100: #A3DC9A;
     --rosa-100: #FFBADD;
-    --rosa-60: #FFD6EB;
     --amarelo-100: #FFF489;
     --neutro-100: #212121;
     --neutro-80: #404040;
-    --neutro-60: #7E7E7E;
     --neutro-subcategoria: #414141;
     --alerta-vermelho: #D52525;
     --alerta-verde: #6C9F38;
-    --alerta-verde-hover: #5A862C;
     --alerta-amarelo: #E4CB31;
-    --alerta-amarelo-hover: #B8A42A;
-    font-family: "Montserrat";
+    --rosa-60: #FFD6EB;
 }
 
-
- 
 body {
   margin: 0;
   min-height: 100vh;
 }
+
 
 .barra-topo {
   display: flex;
@@ -33,12 +28,12 @@ body {
   box-sizing: border-box;
   padding: 24px 40px;
 }
- 
+
 .logo {
   width: 90px;
   height: auto;
 }
- 
+
 .botao-voltar {
   background-color: transparent;
   border: none;
@@ -52,16 +47,17 @@ body {
   display: block;
 }
 
+/* Conteúdo */
 .conteudo {
   display: flex;
   justify-content: center;
   padding: 0 40px 64px;
   box-sizing: border-box;
 }
- 
+
 .pagina-form {
   width: 100%;
-   max-width: 900px;
+  max-width: 900px;
 }
 
 .titulo {
@@ -71,7 +67,7 @@ body {
   font-family: "Raleway", sans-serif;
   margin: 0 0 20px 0;
 }
- 
+
 .titulo-dados {
   font-family: "Raleway", "Montserrat", sans-serif;
   font-size: 16px;
@@ -81,7 +77,7 @@ body {
   display: block;
 }
 
-
+/* Lista de notificações */
 .lista-notificacoes {
   list-style: none;
   margin: 0;
@@ -90,7 +86,7 @@ body {
   flex-direction: column;
   gap: 12px;
 }
- 
+
 .notificacao {
   position: relative;
   padding: 16px 48px 14px 24px;
@@ -105,7 +101,7 @@ body {
   background-color: var(--rosa-60);
   border-color: var(--rosa-100);
 }
- 
+
 .notificacao-titulo {
   margin: 0 0 8px 0;
   font-family: "Montserrat", sans-serif;
@@ -123,9 +119,129 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
- 
+
 .notificacao-data {
   font-family: "Montserrat", sans-serif;
   font-size: 11px;
   color: var(--neutro-60);
 }
+
+/* Indicador de não lida */
+.notificacao-ponto {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background-color: var(--verde-100);
+}
+
+/* Notificação lida */
+.notificacao.lida {
+  background-color: #fff;
+}
+
+.notificacao.lida .notificacao-ponto {
+  display: none;
+}
+
+.notificacao.lida .notificacao-titulo {
+  font-weight: 500;
+  color: var(--neutro-60);
+}
+
+/* Botões  */
+.botoes {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 60px;
+}
+
+.voltar {
+  background-color: #fff;
+  border: 1px solid #6D5960;
+  border-radius: 4px;
+  width: 300px;
+  height: 40px;
+  color: #6D5960;
+  font-family: "Montserrat", sans-serif;
+  cursor: pointer;
+}
+
+.voltar:hover {
+  background-color: var(--rosa-60);
+}
+
+.cadastrar {
+  border: none;
+  background-color: #FFC8E4;
+  border-radius: 4px;
+  width: 300px;
+  height: 40px;
+  color: #6D5960;
+  font-family: "Montserrat", sans-serif;
+  cursor: pointer;
+}
+
+.cadastrar:hover {
+  background-color: var(--rosa-100);
+}
+
+/* Texto das não lidas um pouco mais forte */
+.notificacao:not(.lida) .notificacao-texto {
+  color: var(--neutro-80);
+}
+
+/* Notificação aberta: mostra o texto completo */
+.notificacao.aberta .notificacao-texto {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+/* Estado vazio / carregando */
+.notificacao-vazia {
+  padding: 24px;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  color: var(--neutro-60);
+}
+
+.cadastrar:disabled {
+  opacity: 0.5;
+  cursor: default;
+  background-color: #fff;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.cadastrar{
+  background-color: var(--rosa-100);
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  border-radius: 12px;
+}
+
+/* Toast (mesmo do cadastro) */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 14px 20px;
+  border-radius: 8px;
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+.toast.mostrar { opacity: 1; }
+.toast.sucesso { background-color: #2e7d32; }
+.toast.erro { background-color: #c62828; }
+

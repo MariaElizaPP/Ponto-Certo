@@ -69,7 +69,7 @@ async function processarTroca(acao, trocaId) {
         if (!res.ok) {
             exibirErroServidor(resultado.mensagem);
         } else {
-            mostrarToast(resultado.mensagem);
+            mostrarToast(resultado.mensagem, 'sucesso');
         }
 
     } catch (error) {
@@ -116,7 +116,6 @@ function linhaTroca(t) {
     return `
         <tr>
             <td>${esc(t.cli_nome)}</td>
-            <td>${esc(t.ped_id)}</td>
             <td>${esc(t.prd_nome)}</td>
             <td>${esc(status.texto)}</td>
             ${acoes}

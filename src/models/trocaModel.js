@@ -88,7 +88,7 @@ class TrocaModel {
                 JOIN variacao_produto vp on itp.itm_vpr_id = vp.vpr_id
                 JOIN produtos pr on vp.vpr_prd_id = pr.prd_id
             ORDER BY
-                c.cli_nome DESC;
+                s.str_realizadoEm DESC;
         `)
 
         return resultado;

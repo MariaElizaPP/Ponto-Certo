@@ -133,7 +133,7 @@ function renderizarRemovidos(lista, tempoLimiteMinutos) {
         <li class="item-removido">
           <img src="${produto.vpr_imgUrl}" alt="${produto.prd_nome}">
           <span class="nome-produto-carrinho">${produto.prd_nome}</span>
-          <span class="quantidade-removido">Qtd: ${produto.itm_quantidade}</span>
+          <span class="quantidade-removido">Quantidade: ${produto.itm_quantidade}</span>
         </li>
     `).join('');
 
