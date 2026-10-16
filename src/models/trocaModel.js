@@ -32,6 +32,10 @@ class TrocaModel {
                 const jaSolicitada = await this.quantidadeJaSolicitada(conexao, item.itemId);
                 const disponivel = itemPedido.itm_quantidade - jaSolicitada;
 
+                if (disponivel <= 0) {
+                    throw { status: 409, mensagem: `O item ${item.itemId} não possui unidades disponíveis para troca.` };
+                }
+
                 if (item.quantidade > disponivel) {
                     throw {
                         status: 422,

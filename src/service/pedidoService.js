@@ -206,7 +206,9 @@ class PedidoService {
                 quantidade: l.itm_quantidade,
                 precoUnitario: l.itm_precoUnitario,
                 imagemUrl: l.vpr_imgUrl,
-                nomeProduto: l.prd_nome
+                nomeProduto: l.prd_nome,
+                qtdEmTroca: Number(l.qtd_emTroca),
+                qtdTrocada: Number(l.qtd_trocada)
             }))
         }));
 
