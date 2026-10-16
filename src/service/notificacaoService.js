@@ -1,6 +1,6 @@
 const { NotificacaoModel } = require('../models/notificacaoModel');
 
-class notificacaoService{
+class NotificacaoService{
     
     async listarNaoLidas(cliId){
         if (!cliId){
@@ -51,4 +51,4 @@ class notificacaoService{
     }
 }
 
-module.exports = {notificacaoService};
+module.exports = { NotificacaoService };

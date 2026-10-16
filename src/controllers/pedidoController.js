@@ -151,4 +151,16 @@ async function listarPedidos(req, res) {
     }
     
 }
-module.exports = { listarDadosPagamento, finalizarPedido, historico, atualizarStatus, cancelarPedido, listarPedidos }
+
+async function listarStatus(req, res) {
+    try {
+        const service = new PedidoService();
+        const resultado = await service.listarStatus();
+        return res.status(200).json(resultado);
+    } catch (error) {
+        console.error(error);
+        return res.status(error.status || 500).json({ mensagem: error.mensagem || 'Erro ao carregar os status' });
+    }
+}
+
+module.exports = { listarDadosPagamento, finalizarPedido, historico, atualizarStatus, cancelarPedido, listarPedidos,listarStatus }

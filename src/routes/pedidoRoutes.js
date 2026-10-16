@@ -8,5 +8,6 @@ router.get('/historico/:cliId', pedidoController.historico);
 router.patch('/pedido/:pedId/', pedidoController.atualizarStatus);
 router.patch('/cancelarPedido/:pedId/', pedidoController.cancelarPedido);
 router.get('/listarPedidos', pedidoController.listarPedidos);
+router.get('/statusPedidos', pedidoController.listarStatus);
 
 module.exports = router;

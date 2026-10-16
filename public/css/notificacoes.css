@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+ 
+:root{
+    --primary-color: #6D5960;
+    --verde-100: #A3DC9A;
+    --rosa-100: #FFBADD;
+    --rosa-60: #FFD6EB;
+    --amarelo-100: #FFF489;
+    --neutro-100: #212121;
+    --neutro-80: #404040;
+    --neutro-60: #7E7E7E;
+    --neutro-subcategoria: #414141;
+    --alerta-vermelho: #D52525;
+    --alerta-verde: #6C9F38;
+    --alerta-verde-hover: #5A862C;
+    --alerta-amarelo: #E4CB31;
+    --alerta-amarelo-hover: #B8A42A;
+    font-family: "Montserrat";
+}
+
+
+ 
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+.barra-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 24px 40px;
+}
+ 
+.logo {
+  width: 90px;
+  height: auto;
+}
+ 
+.botao-voltar {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.botao-voltar img {
+  height: 25px;
+  width: 25px;
+  display: block;
+}
+
+.conteudo {
+  display: flex;
+  justify-content: center;
+  padding: 0 40px 64px;
+  box-sizing: border-box;
+}
+ 
+.pagina-form {
+  width: 100%;
+   max-width: 900px;
+}
+
+.titulo {
+  color: #6D5960;
+  font-size: 30px;
+  font-weight: 700;
+  font-family: "Raleway", sans-serif;
+  margin: 0 0 20px 0;
+}
+ 
+.titulo-dados {
+  font-family: "Raleway", "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #6D5960;
+  margin: 0 0 16px 0;
+  display: block;
+}
+
+
+.lista-notificacoes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+ 
+.notificacao {
+  position: relative;
+  padding: 16px 48px 14px 24px;
+  background-color: #F8F8F8;
+  border: 1px solid #DFDFDF;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.notificacao:hover {
+  background-color: var(--rosa-60);
+  border-color: var(--rosa-100);
+}
+ 
+.notificacao-titulo {
+  margin: 0 0 8px 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #353535;
+}
+
+.notificacao-texto {
+  margin: 0 0 8px 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  color: var(--neutro-60);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+ 
+.notificacao-data {
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+  color: var(--neutro-60);
+}
