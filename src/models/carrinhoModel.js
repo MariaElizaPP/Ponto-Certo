@@ -169,7 +169,7 @@ class CarrinhoModel {
             const [carrinhos] = await conexao.execute(`
                 SELECT crr_id, crr_cli_id FROM carrinho
                 WHERE crr_expiraEm > NOW()
-                  AND crr_expiraEm <= NOW() + INTERVAL ? MINUTE
+                  AND crr_expiraEm <= NOW() + INTERVAL ? SECOND
                   AND crr_avisadoEm IS NULL
                 FOR UPDATE
             `, [minutosAviso]);

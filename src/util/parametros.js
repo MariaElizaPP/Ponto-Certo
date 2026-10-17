@@ -5,6 +5,10 @@ if (!Number.isFinite(tempo) || tempo <= 0) {
     throw new Error('CARRINHO_TEMPO_BLOQUEIO_MIN não configurado ou inválido no .env');
 }
 
+if (!Number.isFinite(tempo) || tempo <= 0) {
+    throw new Error('CARRINHO_TEMPO_AVISO não configurado ou inválido no .env');
+}
+
 module.exports = {
     carrinhoTempoBloqueioMin: tempo,
     carrinhoMinutosAviso: aviso  

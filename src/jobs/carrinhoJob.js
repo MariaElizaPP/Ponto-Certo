@@ -4,7 +4,7 @@ const { CarrinhoService } = require('../service/carrinhoService');
 function iniciarJobsCarrinho() {
     const service = new CarrinhoService();
 
-    cron.schedule('* * * * *', async () => {   // a cada minuto
+    cron.schedule('*/10 * * * * *', async () => {   // a cada minuto
         try {
             await service.avisarExpiracao();
             const expirados = await service.expirarCarrinhos();
