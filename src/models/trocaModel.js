@@ -67,7 +67,7 @@ class TrocaModel {
         return status.stt_id;
     }
 
-    //ficou por ficar( vai usar depois)
+    
     async atualizarStatus(itemId, statusId) {
         await pool.execute(`UPDATE solicitacao_troca SET str_stt_id = ? WHERE str_itm_id = ?`, [statusId, itemId]);
     }
@@ -94,54 +94,89 @@ class TrocaModel {
         return resultado;
     }
 
-    async aprovarTroca(trocaId, statusAprovadoId, statusPendenteId) {
+    // RF0042 + RN0046: EM TROCA -> TROCA AUTORIZADA (sem cupom, sem estoque)
+    async autorizarTroca(trocaId, statusAutorizadaId, statusPendenteId) {
         const conexao = await pool.getConnection();
-        const cupomModel = new CupomModel();
         const notificacaoModel = new NotificacaoModel();
         try {
             await conexao.beginTransaction();
 
             const [[troca]] = await conexao.execute(`
-            SELECT s.str_itm_id,
-                   p.ped_cli_id,
-                   itp.itm_precoUnitario * s.str_quantidade AS valor
+            SELECT s.str_quantidade, p.ped_cli_id, pr.prd_nome
             FROM solicitacao_troca s
             JOIN item_pedido itp ON s.str_itm_id = itp.itm_id
             JOIN pedidos p ON itp.itm_ped_id = p.ped_id
+            JOIN variacao_produto vp ON itp.itm_vpr_id = vp.vpr_id
+            JOIN produtos pr ON vp.vpr_prd_id = pr.prd_id
             WHERE s.str_id = ? AND s.str_stt_id = ?
             FOR UPDATE
         `, [trocaId, statusPendenteId]);
-
 
             if (!troca) {
                 throw { status: 404, mensagem: 'Solicitação não encontrada ou já processada.' };
             }
 
-            await this.aprovar(conexao, trocaId, statusAprovadoId);
-            await cupomModel.trocaAprovarCupom(conexao, troca.ped_cli_id, troca.str_itm_id, Number(troca.valor));
+            await conexao.execute(
+                `UPDATE solicitacao_troca SET str_stt_id = ? WHERE str_id = ?`,
+                [statusAutorizadaId, trocaId]
+            );
 
-            const valorFormatado = Number(troca.valor).toFixed(2).replace('.', ',');
-            const mensagem = `Sua solicitação de troca foi autorizada. Um cupom de troca de R$ ${valorFormatado} foi disponibilizado para você.`;
+            const mensagem = `Sua solicitação de troca de ${troca.str_quantidade}x "${troca.prd_nome}" foi autorizada. O cupom de troca será disponibilizado após o recebimento dos itens.`;
             await notificacaoModel.criar(conexao, troca.ped_cli_id, mensagem.slice(0, 255));
-
 
             await conexao.commit();
         } catch (error) {
             await conexao.rollback();
-            console.log(error);
             throw error;
         } finally {
             conexao.release();
         }
     }
 
-    async aprovar(conexao, trocaId, statusId) {
-        const [resultado] = await conexao.execute(`
-            UPDATE solicitacao_troca SET str_stt_id = ? WHERE str_id = ?
-            
-        `, [statusId, trocaId]);
+    // RF0044 + RN0042 + RF0045: TROCA AUTORIZADA -> TROCADO, estoque opcional e cupom
+    async confirmarRecebimento(trocaId, statusTrocadoId, statusAutorizadaId, retornaEstoque) {
+        const conexao = await pool.getConnection();
+        const cupomModel = new CupomModel();
+        try {
+            await conexao.beginTransaction();
 
-        return resultado;
+            const [[troca]] = await conexao.execute(`
+            SELECT s.str_itm_id, s.str_quantidade, itp.itm_vpr_id, p.ped_cli_id,
+                   itp.itm_precoUnitario * s.str_quantidade AS valor
+            FROM solicitacao_troca s
+            JOIN item_pedido itp ON s.str_itm_id = itp.itm_id
+            JOIN pedidos p ON itp.itm_ped_id = p.ped_id
+            WHERE s.str_id = ? AND s.str_stt_id = ?
+            FOR UPDATE
+        `, [trocaId, statusAutorizadaId]);
+
+            if (!troca) {
+                throw { status: 404, mensagem: 'Solicitação não encontrada ou ainda não autorizada.' };
+            }
+
+            await conexao.execute(
+                `UPDATE solicitacao_troca SET str_stt_id = ? WHERE str_id = ?`,
+                [statusTrocadoId, trocaId]
+            );
+
+            // RF0044 / RF0054: reentrada no estoque somente se o administrador informar
+            if (retornaEstoque) {
+                await conexao.execute(
+                    `UPDATE estoque SET est_quantidade = est_quantidade + ? WHERE est_vpr_id = ?`,
+                    [troca.str_quantidade, troca.itm_vpr_id]
+                );
+            }
+
+            // RF0045: o cupom nasce quando os itens chegaram
+            await cupomModel.trocaAprovarCupom(conexao, troca.ped_cli_id, troca.str_itm_id, Number(troca.valor));
+
+            await conexao.commit();
+        } catch (error) {
+            await conexao.rollback();
+            throw error;
+        } finally {
+            conexao.release();
+        }
     }
 
     async reprovar(trocaId, statusRecusadoId, statusPendenteId) {

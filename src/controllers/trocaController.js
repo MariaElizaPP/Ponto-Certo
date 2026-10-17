@@ -31,17 +31,34 @@ async function solicitacoes (req,res) {
     
 }
 
-async function aprovarTroca(req,res) {
+async function autorizar(req,res) {
      try {
         const service = new TrocaService();
         const {trocaId} = req.params;
-        const solicitacoes = await service.aprovar(trocaId);
+        const solicitacoes = await service.autorizar(trocaId);
         return res.status(200).json(solicitacoes);
         
     } catch (error) {
 
         console.log(error);
-        return res.status(500).json({mensagem: 'Erro ao aprovar troca'})
+        return res.status(500).json({mensagem: 'Erro ao autorizar troca'})
+        
+    }
+    
+}
+
+async function confirmarRecebimento(req,res) {
+     try {
+        const service = new TrocaService();
+        const {trocaId} = req.params;
+        const {retornaEstoque} = req.body;
+        const solicitacoes = await service.confirmarRecebimento(trocaId, retornaEstoque);
+        return res.status(200).json(solicitacoes);
+        
+    } catch (error) {
+
+        console.log(error);
+        return res.status(500).json({mensagem: 'Erro ao confirmar o recebimento da troca'})
         
     }
     
@@ -63,4 +80,4 @@ async function reprovarTroca(req, res) {
 }
 
 
-module.exports = {solicitar, solicitacoes, aprovarTroca, reprovarTroca};
+module.exports = {solicitar, solicitacoes, autorizar, reprovarTroca, confirmarRecebimento};

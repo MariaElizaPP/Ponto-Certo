@@ -1,8 +1,10 @@
-// vai traduzir o que vem do banco pra deixar mais bonitinho para o admin ver
+// Traduz o status que vem do banco para um texto mais amigável ao administrador.
+// "etapa" define quais ações aparecem na linha (RF0042 e RF0044).
 const STATUS = {
-    'EM TROCA': {texto: 'Troca solicitada', pendente: true},
-    'TROCADO': {texto: 'Troca aceita'},
-    'RECUSADO': {texto: 'Troca negada'},
+    'EM TROCA': { texto: 'Troca solicitada', etapa: 'solicitada' },
+    'TROCA AUTORIZADA': { texto: 'Troca autorizada (aguardando recebimento)', etapa: 'autorizada' },
+    'TROCADO': { texto: 'Troca concluída' },
+    'RECUSADO': { texto: 'Troca negada' }
 };
 //guarda todas as solicitações e a partir dela vai dá pra renderizar a tabela 
 let trocas = [];
@@ -15,128 +17,146 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('campo-busca').addEventListener('input', renderizarTrocas);    // Monitora o campo de busca: a cada letra digitada, filtra a lista na memória e redesenha a tabela
 });
 
-//fluxo: procurar o botão de reprovação ou aprovar e, caso ele seja encontrado, chamar processarTroca() com a ação e o ID da troca.
+// Procura qual botão de confirmação foi clicado e chama processarTroca()
+// com a ação (que também é o final da rota) e o id da solicitação
 document.addEventListener('click', (e) => {
-    const aprovar = e.target.closest('.btn-confirmar-aprovar');
-    if(aprovar){
-        processarTroca('aprovar', aprovar.dataset.id); //ela tem dois argumentos, o 'aprovar' que indica a ação que queremos realizar; e o aprovar.dataset.id que recupera o ID da troca associada ao botão
+    const autorizar = e.target.closest('.btn-confirmar-autorizar');
+    if (autorizar) {
+        processarTroca('autorizar', autorizar.dataset.id);
         return;
     }
-
-     const reprovar = e.target.closest('.btn-confirmar-reprovar');
+ 
+    const reprovar = e.target.closest('.btn-confirmar-reprovar');
     if (reprovar) {
         processarTroca('reprovar', reprovar.dataset.id);
+        return;
+    }
+ 
+    // RF0044: o administrador informa se os itens retornam ao estoque
+    const receber = e.target.closest('.btn-confirmar-recebimento');
+    if (receber) {
+        processarTroca('confirmarRecebimento', receber.dataset.id, {
+            retornaEstoque: receber.dataset.retorna === 'true'
+        });
     }
 });
-
 //objetivo da função: buscar no backend todas as solicitações de troca e exibi-las na tabela do admin
 async function carregarTrocas() {
 
-    try {
-        const res = await fetch(`http://localhost:3000/api/solicitacoes`);
+     try {
+        const res = await fetch('http://localhost:3000/api/solicitacoes');
         const resultado = await res.json();
-
-        if(!res.ok){
+ 
+        if (!res.ok) {
             exibirErroServidor(resultado.mensagem);
             return;
         }
-
+ 
         trocas = resultado;
         renderizarTrocas();
-
-    } catch (error) {
-          console.error(error);
-        exibirErroServidor('Erro ao conectar com o servidor');
-    }
-
-    // fluxo: front chama carregarTrocas() -> fetch () envia o get para /api/solicitacoes -> rota -> controller (solicitacoes) -> service(solicitacoes) -> Model (exibirSolicitacoes - consulta o banco e devolve os dados) -> trocas = resultado  -> renderizarTrocas() -> tabela atualizada
-}
-
-//objetivo: enviar ao backend a decisão do admin de aprovar ou reprovar uma solicitação de troca
-
-async function processarTroca(acao, trocaId) {
-    //sabe o fluxo de procurar o botão e ver se foi aprovado ou reprovado e caso seja um dos dois enviar pra processarTrocar('acao', id da troca) é isso que vai chegar aqui;
-    try {
-        const res = await fetch(
-            `http://localhost:3000/api/solicitacoes/${acao}/${trocaId}`,
-            {
-                method: 'PATCH'
-            }
-        );
-
-        const resultado = await res.json();
-
-        if (!res.ok) {
-            exibirErroServidor(resultado.mensagem);
-        } else {
-            mostrarToast(resultado.mensagem, 'sucesso');
-        }
-
+ 
     } catch (error) {
         console.error(error);
         exibirErroServidor('Erro ao conectar com o servidor');
     }
-
-    //fluxo: front(admini confirma uma ação 'aprovar' ou 'reprovar') -> em js processarTroca() recebe a ação e o id da solicitação -> fetch( ) envia uma requisição PATCH para a rota -> rota (router.patch('/solicitacoes/aprovar/:trocaId', trocaController.aprovarTroca) ou router.patch('/solicitacoes/reprovar/:trocaId', trocaController.reprovarTroca);) -> controller ( aprovarTroca ou  reprovarTroca) -> service (aprovar ou reprovar)-> model (aprovarTroca ou reprovar) -> respota do back -> sucesso "mostrarToast() e carregarTrocas() atualiza a tabela" e erro "exibirErroServidor() e catch"
-
-    await carregarTrocas();
-    // recarrega sempre: mostra o novo status ou o estado real se deu erro
-
 }
 
-//objetivo: montar e exibir a tabela 
+// Envia ao back-end a decisão do administrador.
+// Rotas: PATCH /api/solicitacoes/autorizar/:id
+//        PATCH /api/solicitacoes/reprovar/:id
+//        PATCH /api/solicitacoes/confirmarRecebimento/:id  (corpo: { retornaEstoque }
+
+async function processarTroca(acao, trocaId, corpo) {
+    try {
+        const opcoes = { method: 'PATCH' };
+ 
+        if (corpo) {
+            opcoes.headers = { 'Content-Type': 'application/json' };
+            opcoes.body = JSON.stringify(corpo);
+        }
+ 
+        const res = await fetch(`http://localhost:3000/api/solicitacoes/${acao}/${trocaId}`, opcoes);
+        const resultado = await res.json().catch(() => ({}));
+ 
+        if (!res.ok) {
+            exibirErroServidor(resultado.mensagem || 'Erro ao processar a solicitação');
+        } else {
+            mostrarToast(resultado.mensagem, 'sucesso');
+        }
+ 
+    } catch (error) {
+        console.error(error);
+        exibirErroServidor('Erro ao conectar com o servidor');
+    }
+ 
+    // Recarrega sempre: mostra o novo status ou o estado real se deu erro
+    await carregarTrocas();
+}
+
+// Monta e exibe a tabela
 function renderizarTrocas() {
-    // Obtém o corpo da tabela e o texto digitado no campo de busca.
     const tbody = document.getElementById('tabela-trocas');
     const filtro = document.getElementById('campo-busca').value.trim().toLowerCase();
-    // Filtra as solicitações pelo nome do produto, ignorando maiúsculas e minúsculas.
+ 
+    // Filtra pelo nome do produto, ignorando maiúsculas e minúsculas
     const lista = trocas.filter((t) => (t.prd_nome || '').toLowerCase().includes(filtro));
-     // Exibe uma mensagem caso nenhuma solicitação corresponda à pesquisa.
+ 
     if (lista.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5">Nenhuma solicitação encontrada.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6">Nenhuma solicitação encontrada.</td></tr>';
         return;
     }
-    // Gera as linhas da tabela e insere o HTML no corpo da tabela.
+ 
     tbody.innerHTML = lista.map(linhaTroca).join('');
 }
- //obejtivo: Monta o HTML de uma solicitação de troca
+ 
+ // Monta o HTML de uma solicitação. As ações dependem do status:
+//   EM TROCA          -> Autorizar / Reprovar
+//   TROCA AUTORIZADA  -> Confirmar recebimento
+//   TROCADO / RECUSADO -> nenhuma ação
 function linhaTroca(t) {
-    // Obtém o texto e as configurações correspondentes ao status da solicitação.
     const status = STATUS[t.stt_status] || { texto: t.stt_status };
-    // Exibe os botões de aprovar e reprovar somente para solicitações pendentes.
-    const acoes = status.pendente
-        ? `<td class="acoes-tabela">
-             <button type="button" class="botao-aprovar" data-modal="modal-abrir-aprovar-${t.str_id}">Aprovar Troca</button>
-             ${modalAprovar(t.str_id)}
+ 
+    let acoes = '<td></td>';
+ 
+    if (status.etapa === 'solicitada') {
+        acoes = `<td class="acoes-tabela">
+             <button type="button" class="botao-aprovar" data-modal="modal-abrir-autorizar-${t.str_id}">Autorizar Troca</button>
+             ${modalAutorizar(t.str_id)}
              <button type="button" class="botao-reprovar" data-modal="modal-abrir-reprovar-${t.str_id}">Reprovar Troca</button>
              ${modalReprovar(t.str_id)}
-           </td>`
-        : '<td></td>';
-   // Retorna a linha HTML com os dados da solicitação e a coluna de ações.
+           </td>`;
+    } else if (status.etapa === 'autorizada') {
+        acoes = `<td class="acoes-tabela">
+             <button type="button" class="botao-aprovar" data-modal="modal-abrir-receber-${t.str_id}">Confirmar Recebimento</button>
+             ${modalConfirmarRecebimento(t.str_id)}
+           </td>`;
+    }
+ 
     return `
         <tr>
             <td>${esc(t.cli_nome)}</td>
             <td>${esc(t.prd_nome)}</td>
+            <td>${esc(t.str_quantidade)}</td>
+            <td>${formatarMoeda(t.valor)}</td>
             <td>${esc(status.texto)}</td>
             ${acoes}
         </tr>`;
 }
-
-//objetivo: gerar um modal de confirmação para a reprova ou aprova de uma troca
-
-function modalAprovar(id) {
+ 
+// Modal de autorização (RF0042). O cupom NÃO é gerado aqui: só no recebimento (RF0045).
+function modalAutorizar(id) {
     return `
-        <dialog id="modal-abrir-aprovar-${id}" class="modal-abrir">
+        <dialog id="modal-abrir-autorizar-${id}" class="modal-abrir">
             <img class="icone-alerta" src="/public/images/modal-alerta.svg" alt="alerta-modal">
-            <h3>Aprovar troca?</h3>
-            <span>Você realmente deseja aprovar a troca solicitada pelo cliente? Um cupom será gerado e o cliente será notificado.</span>
+            <h3>Autorizar troca?</h3>
+            <span>Você realmente deseja autorizar a troca solicitada pelo cliente? O cliente será notificado. O cupom de troca será gerado após a confirmação do recebimento dos itens.</span>
             <div class="botoes-modais">
-                <button type="button" class="btn-modal-cancelar" data-modal="modal-abrir-aprovar-${id}">Cancelar</button>
-                <button type="button" class="btn-modal-fechar btn-tema-alerta btn-confirmar-aprovar" data-modal="modal-abrir-aprovar-${id}" data-id="${id}">Aprovar</button>
+                <button type="button" class="btn-modal-cancelar" data-modal="modal-abrir-autorizar-${id}">Cancelar</button>
+                <button type="button" class="btn-modal-fechar btn-tema-alerta btn-confirmar-autorizar" data-modal="modal-abrir-autorizar-${id}" data-id="${id}">Autorizar</button>
             </div>
         </dialog>`;
 }
- 
+
 function modalReprovar(id) {
     return `
         <dialog id="modal-abrir-reprovar-${id}" class="modal-abrir">
@@ -146,6 +166,21 @@ function modalReprovar(id) {
             <div class="botoes-modais">
                 <button type="button" class="btn-modal-cancelar" data-modal="modal-abrir-reprovar-${id}">Cancelar</button>
                 <button type="button" class="btn-modal-fechar btn-tema-alerta btn-confirmar-reprovar" data-modal="modal-abrir-reprovar-${id}" data-id="${id}">Reprovar</button>
+            </div>
+        </dialog>`;
+}
+
+// Modal de recebimento (RF0044). Dois botões de confirmação deixam a escolha explícita:
+// o administrador sempre informa se os itens retornam ao estoque.
+function modalConfirmarRecebimento(id) {
+    return `
+        <dialog id="modal-abrir-receber-${id}" class="modal-abrir">
+            <img class="icone-alerta" src="/public/images/modal-alerta.svg" alt="alerta-modal">
+            <h3>Confirmar recebimento?</h3>
+            <span>Confirme que os itens da troca foram recebidos e informe se eles devem retornar ao estoque. O cupom de troca será gerado e disponibilizado ao cliente.</span>
+            <div class="botoes-modais">
+                <button type="button" class="btn-modal-fechar btn-tema-alerta btn-confirmar-recebimento" data-modal="modal-abrir-receber-${id}" data-id="${id}" data-retorna="false">Não retornar ao estoque</button>
+                <button type="button" class="btn-modal-fechar btn-tema-alerta btn-confirmar-recebimento" data-modal="modal-abrir-receber-${id}" data-id="${id}" data-retorna="true">Retornar ao estoque</button>
             </div>
         </dialog>`;
 }
@@ -160,6 +195,11 @@ function esc(valor) {
 
     // Retorna o conteúdo convertido em HTML escapado.
     return div.innerHTML;
+}
+
+// O valor vem do banco como string (DECIMAL), por isso a conversão com Number
+function formatarMoeda(valor) {
+    return Number(valor ?? 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
 function mostrarToast(mensagem, tipo = 'erro') {

@@ -228,7 +228,7 @@ class PedidoModel {
             SELECT p.ped_id, p.ped_realizadoEm, p.ped_totalPedido,
                 i.itm_id, i.itm_quantidade, i.itm_precoUnitario,
                 v.vpr_imgUrl, pr.prd_nome, sp.stp_status,
-                COALESCE(SUM(CASE WHEN st.stt_status = 'EM TROCA' THEN sl.str_quantidade END), 0) AS qtd_emTroca,
+                COALESCE(SUM(CASE WHEN st.stt_status IN ('EM TROCA', 'TROCA AUTORIZADA') THEN sl.str_quantidade END), 0) AS qtd_emTroca,
                 COALESCE(SUM(CASE WHEN st.stt_status = 'TROCADO'  THEN sl.str_quantidade END), 0) AS qtd_trocada
             FROM pedidos p
             JOIN item_pedido i ON i.itm_ped_id = p.ped_id
