@@ -1,66 +1,68 @@
 <!DOCTYPE html>
-  <html lang="pt-BR">
+<html lang="pt-BR">
 
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Ponto Certo - Trocas</title>
-      <link rel="stylesheet" href="/public/css/admin/navbar_master.css">
-      <link rel="stylesheet" href="/public/css/admin/conteudo_master.css">
-    </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ponto Certo - Trocas</title>
+  <link rel="stylesheet" href="/public/css/admin/navbar_master.css">
+  <link rel="stylesheet" href="/public/css/admin/conteudo_master.css">
+</head>
 
-    <body>
-      <div class="layout-master">
+<body>
+  <div class="layout-master">
 
-        <aside class="sidebar-master">
-          <div class="topo-navbar">
-            <img src="/public/images/logo_ponto.svg" alt="logo" class="logo-sidebar">
-            <img src="/public/images/linha_navbar.svg" alt="" class="linha-divisoria">
-          </div>
-          <nav class="menu">
-            <ul>
-              <li><a href="/admin/dashboard.html" class="link-sidebar">Dashboard</a></li>
-              <li><a href="/admin/clientes.html" class="link-sidebar">Clientes</a></li>
-              <li><a href="/admin/pedidos.html" class="link-sidebar">Pedidos</a></li>
-              <li><a href="/admin/trocas.html" class="link-sidebar">Trocas</a></li>
-            </ul>
-          </nav>
-        </aside>
-
-        <main class="conteudo-master">
-
-          <div class="cabecalho-conteudo">
-            <h1 class="titulo-conteudo">TROCAS</h1>
-
-            <div class="barra-acoes">
-              <div class="busca-master">
-                <input type="search" id="campo-busca" placeholder="Pesquise pelo Produto" class="campo-busca-master">
-                <button type="button" class="botao-busca-master">
-                  <img src="/public/images/pesquisar-master.svg" alt="Buscar">
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <table class="tabela-master">
-            <thead>
-              <tr>
-                <th>Nome do Cliente</th>
-                <th>Produto</th>
-                <th>Status</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <!-- linhas e modais gerados por /public/js/trocas.js -->
-            <tbody id="tabela-trocas"></tbody>
-          </table>
-
-        </main>
-
+    <aside class="sidebar-master">
+      <div class="topo-navbar">
+        <img src="/public/images/logo_ponto.svg" alt="logo" class="logo-sidebar">
+        <img src="/public/images/linha_navbar.svg" alt="" class="linha-divisoria">
       </div>
-      <div id="toast" class="toast"></div>
-      <script src="/public/js/modal.js"></script>
-      <script src="/public/js/trocas.js"></script>
-    </body>
+      <nav class="menu">
+        <ul>
+          <li><a href="/admin/dashboard.html" class="link-sidebar">Dashboard</a></li>
+          <li><a href="/admin/clientes.html" class="link-sidebar">Clientes</a></li>
+          <li><a href="/admin/pedidos.html" class="link-sidebar">Pedidos</a></li>
+          <li><a href="/admin/trocas.html" class="link-sidebar">Trocas</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="conteudo-master">
+
+      <div class="cabecalho-conteudo">
+        <h1 class="titulo-conteudo">TROCAS</h1>
+
+        <div class="barra-acoes">
+          <div class="busca-master">
+            <input type="search" id="campo-busca" placeholder="Pesquise pelo Produto" class="campo-busca-master">
+            <button type="button" class="botao-busca-master">
+              <img src="/public/images/pesquisar-master.svg" alt="Buscar">
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <table class="tabela-master">
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Valor</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <!-- linhas e modais gerados por /public/js/trocas.js -->
+        <tbody id="tabela-trocas"></tbody>
+      </table>
+
+    </main>
+
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="/public/js/modal.js"></script>
+  <script src="/public/js/trocas.js"></script>
+</body>
 
 </html>

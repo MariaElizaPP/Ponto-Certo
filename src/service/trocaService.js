@@ -56,7 +56,7 @@ class TrocaService {
 
     }
 
-    async aprovar(trocaId) {
+    async autorizar(trocaId) {
 
         if (!trocaId) {
             throw { status: 400, mensagem: "O id da solicitação de troca é obrigatório" }
@@ -64,14 +64,30 @@ class TrocaService {
 
         const model = new TrocaModel();
         const statusPendenteId = await model.buscarStatusId('EM TROCA');
-        const statusAprovadoId = await model.buscarStatusId('TROCADO');
+        const statusAprovadoId = await model.buscarStatusId('TROCA AUTORIZADA');
 
-        await model.aprovarTroca(trocaId, statusAprovadoId, statusPendenteId);
-        return { mensagem: "Troca aprovado com sucesso" };
+        await model.autorizarTroca(trocaId, statusAprovadoId, statusPendenteId);
+        return { mensagem: "Troca autorizada com sucesso" };
 
     }
 
-   
+    async confirmarRecebimento(trocaId, retornaEstoque) {
+        if (!trocaId) {
+            throw { status: 400, mensagem: 'O id da solicitação de troca é obrigatório' };
+        }
+        if (typeof retornaEstoque !== 'boolean') {
+            throw { status: 400, mensagem: 'Informe se os itens devem retornar ao estoque (retornaEstoque: true ou false).' };
+        }
+
+        const model = new TrocaModel();
+        const statusAutorizadaId = await model.buscarStatusId('TROCA AUTORIZADA');
+        const statusTrocadoId = await model.buscarStatusId('TROCADO');
+
+        await model.confirmarRecebimento(trocaId, statusTrocadoId, statusAutorizadaId, retornaEstoque);
+        return { mensagem: 'Recebimento confirmado com sucesso' };
+    }
+
+
     async reprovar(trocaId) {
         if (!trocaId) {
             throw { status: 400, mensagem: "O id da solicitação de troca é obrigatório" };
