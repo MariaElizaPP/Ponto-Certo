@@ -4,7 +4,7 @@ class NotificacaoModel {
         const [linhas] = await pool.execute(`
             SELECT ntf_id, ntf_mensagem, ntf_criadoEm
             FROM notificacao WHERE ntf_cli_id = ? AND ntf_lidaEm IS NULL
-            ORDER BY ntf_id
+            ORDER BY ntf_criadoEm DESC
         `, [cliId]);
         return linhas;
     }
