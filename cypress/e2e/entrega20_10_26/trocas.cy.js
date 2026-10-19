@@ -55,7 +55,7 @@ describe('Trocas', () =>{
 
         cy.get('.botao-trocar').first().click();
 
-        cy.get('dialog[open] .item-troca').first().within(() =>{
+        cy.get('dialog[open] .item-troca').first().within(() =>{            
             cy.get('.troca-check').check();
             cy.get('.troca-qtd').clear().type('1');
         });
@@ -63,8 +63,6 @@ describe('Trocas', () =>{
         cy.get('dialog[open] .btn-troca-solicitar').click();
         cy.contains('Troca solicitada com sucesso.').should('be.visible');
 
-        //.troca-check
-        //<input type="checkbox" class="troca-check" value="160">
         
         //admin
         cy.visit('https://pontocertoweb.netlify.app/admin/login'); 
@@ -322,8 +320,7 @@ describe('Trocas', () =>{
         cy.get('dialog[open] .btn-troca-solicitar').click();
         cy.contains('Troca solicitada com sucesso.').should('be.visible');
 
-        //.troca-check
-        //<input type="checkbox" class="troca-check" value="160">
+
         
         //admin
         cy.visit('https://pontocertoweb.netlify.app/admin/login'); 
