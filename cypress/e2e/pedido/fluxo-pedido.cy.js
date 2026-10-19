@@ -37,6 +37,22 @@ describe('Fluxo pagamento', () => {
         cy.pause()
     });
 
+    it('Pagamento com sucesso com um cartão', () => {
+
+        cy.get('.linha-enderecos').eq(2).within(() => {
+            cy.get('input[type="radio"]').check()
+        })
+
+        cy.get('#lista-cartoes').eq(0).within(() => {
+            cy.get('input[type="checkbox"]').check()
+        })
+
+        cy.get('.btn-modal-abrir').click();
+
+        cy.contains('Compra realizada com sucesso!').should('be.visible');
+        cy.pause()
+    });
+
     it('Pagamento com dois cartões', () => {
 
 
@@ -56,6 +72,28 @@ describe('Fluxo pagamento', () => {
         cy.get('.btn-modal-abrir').click();
 
         cy.contains('Compra realizada com sucesso!').should('be.visible');
+        cy.pause()
+    });
+
+    it('Compra com dois ou mais cartões, incluindo a tentativa de pagar menos de R$ 10,00 em um deles (deve ser bloqueada).', () => {
+
+
+        cy.get('.linha-enderecos').eq(0).within(() => {
+            cy.get('input[type="radio"]').check()
+        })
+
+    
+        cy.get('.checkbox-pagamento').check()
+        
+        cy.get('#lista-cartoes input[type="checkbox"]').eq(0).check()
+        cy.get('.valor-cartao').eq(0).type(15.80)
+
+        cy.get('#lista-cartoes input[type="checkbox"]').eq(1).check()
+        cy.get('.valor-cartao').eq(1).type(9)
+
+        cy.get('.btn-modal-abrir').click();
+
+        cy.contains('O valor mínimo por cartão é R$ 10,00.').should('be.visible');
         cy.pause()
     });
 
@@ -189,5 +227,6 @@ describe('Fluxo pagamento', () => {
 
 
     });
+
 
 })
