@@ -5,12 +5,12 @@ describe('Cadastro cliente', () => {
     })
 
     it('RF0021 - Cadastrar cliente', () => {
-        cy.get('input[name="nome"]').type('Rafaela Rita Rafaela Pinto');
+        cy.get('input[name="nome"]').type('Joana Marlene Jesus');
         cy.get('input[id="data-nascimento"]').type('2008-02-21');
-        cy.get('input[id="cpf"]').type('54367416577');
+        cy.get('input[id="cpf"]').type('98446774089');
         cy.get('select[id="genero"]').select('Mulher');
-        cy.get('input[id="telefone"]').type('8599987987');
-        cy.get('input[id="email"]').type('rafarrp@gmail.com.br');
+        cy.get('input[id="telefone"]').type('61993496650');
+        cy.get('input[id="email"]').type('jjmarlene@gmail.com.br');
         cy.get('input[id="senha"]').type('NovaSenha1!');
         cy.get('input[id="confirmar-senha"]').type('NovaSenha1!');
 
