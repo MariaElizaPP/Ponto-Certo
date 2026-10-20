@@ -274,29 +274,32 @@ describe('Trocas', () => {
         cy.get('.btn-modal-abrir').click();
         cy.get('.btn-modal-fechar').click();
         cy.visit('https://pontocertoweb.netlify.app/configuracoes');
-        cy.get('.cupom-valor').eq(0).invoke('val').as('cupomTroca');
+        cy.wait(3000);
 
+        cy.get('.cupom-valor', { timeout: 10000 }).eq(0).then(($el) => {
+            const cupom = ($el.val() || $el.text()).trim();
+            expect(cupom, 'código do cupom de troca').to.match(/^TROCA-/);
+            cy.wrap(cupom).as('cupomTroca');
+        });
         cy.visit('https://pontocertoweb.netlify.app/carrinho');
         cy.get('.botao-continuar').click();
 
-        //pagamento
+        // pagamento
         cy.get('.linha-enderecos').eq(0).within(() => {
             cy.get('input[type="radio"]').check()
         })
 
-        cy.get('.checkbox-pagamento').check()
-        cy.get('#lista-cartoes input[type="checkbox"]').eq(0).check()
-        cy.get('.valor-cartao').eq(0).type(9.90)
+        cy.get('.checkbox-pagamento').check();
+        cy.get('#lista-cartoes input[type="checkbox"]').eq(0).check();
+        cy.get('.valor-cartao').eq(0).type('11.90');
 
+        cy.get('#btn-abrir-cupom').click();
         cy.get('@cupomTroca').then((cupom) => {
-            cy.get('#btn-abrir-cupom').click();
             cy.get('.campo-cupom').type(cupom);
             cy.get('#botao-aplicar').click();
         });
         cy.get('.btn-modal-abrir').click();
-
         cy.contains('Compra realizada com sucesso!').should('be.visible');
-        cy.pause()
 
     })
 
@@ -474,49 +477,49 @@ describe('Trocas', () => {
     })
 
     it('Bloqueia a solicitação de troca de um pedido que não está ENTREGUE (back-end)', () => {
-    const api = 'http://localhost:3000/api';
+        const api = 'http://localhost:3000/api';
 
-    // Login só para descobrir o id do cliente
-    cy.visit('https://pontocertoweb.netlify.app/login');
-    cy.get('#btn-entrar').click();
-    cy.url().should('not.include', '/login');
+        // Login só para descobrir o id do cliente
+        cy.visit('https://pontocertoweb.netlify.app/login');
+        cy.get('#btn-entrar').click();
+        cy.url().should('not.include', '/login');
 
-    cy.window().then((win) => {
-        const cliId = Number(win.localStorage.getItem('clienteId'));
+        cy.window().then((win) => {
+            const cliId = Number(win.localStorage.getItem('clienteId'));
 
-        // 1) Pela API, acha um pedido do cliente que NÃO esteja entregue
-        cy.request(`${api}/historico/${cliId}`).then((historico) => {
-            const pedido = historico.body.find((p) => String(p.status).toUpperCase() !== 'ENTREGUE');
-            expect(pedido, 'o cliente precisa ter um pedido que não esteja ENTREGUE').to.exist;
+            // 1) Pela API, acha um pedido do cliente que NÃO esteja entregue
+            cy.request(`${api}/historico/${cliId}`).then((historico) => {
+                const pedido = historico.body.find((p) => String(p.status).toUpperCase() !== 'ENTREGUE');
+                expect(pedido, 'o cliente precisa ter um pedido que não esteja ENTREGUE').to.exist;
 
-            // Quantas solicitações de troca existem antes da tentativa
-            cy.request(`${api}/solicitacoes`).then((antes) => {
+                // Quantas solicitações de troca existem antes da tentativa
+                cy.request(`${api}/solicitacoes`).then((antes) => {
 
-                // 2) Tenta solicitar a troca direto no back-end
-                cy.request({
-                    method: 'POST',
-                    url: `${api}/solicitar`,
-                    body: {
-                        cliId,
-                        pedidoId: pedido.id,
-                        itens: [{ itemId: pedido.itens[0].itemId, quantidade: 1 }]
-                    },
-                    failOnStatusCode: false // sem isso o Cypress falha o teste ao receber 400
-                }).then((resposta) => {
+                    // 2) Tenta solicitar a troca direto no back-end
+                    cy.request({
+                        method: 'POST',
+                        url: `${api}/solicitar`,
+                        body: {
+                            cliId,
+                            pedidoId: pedido.id,
+                            itens: [{ itemId: pedido.itens[0].itemId, quantidade: 1 }]
+                        },
+                        failOnStatusCode: false // sem isso o Cypress falha o teste ao receber 400
+                    }).then((resposta) => {
 
-                    // 3) Foi bloqueada, com a mensagem da regra
-                    expect(resposta.status).to.eq(400);
-                    expect(resposta.body.mensagem).to.contain('ENTREGUE');
+                        // 3) Foi bloqueada, com a mensagem da regra
+                        expect(resposta.status).to.eq(400);
+                        expect(resposta.body.mensagem).to.contain('ENTREGUE');
 
-                    // 4) E nenhuma solicitação foi criada
-                    cy.request(`${api}/solicitacoes`).then((depois) => {
-                        expect(depois.body.length).to.eq(antes.body.length);
+                        // 4) E nenhuma solicitação foi criada
+                        cy.request(`${api}/solicitacoes`).then((depois) => {
+                            expect(depois.body.length).to.eq(antes.body.length);
+                        });
                     });
                 });
             });
         });
     });
-});
 
 
 

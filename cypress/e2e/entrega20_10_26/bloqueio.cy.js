@@ -25,6 +25,8 @@ describe('Bloqueio dos produtos', () => {
         cy.wait(20000);
         
         cy.visit('https://pontocertoweb.netlify.app/notificacoes');
+
+        cy.reload();
         
         cy.pause();
     });
