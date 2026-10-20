@@ -27,9 +27,8 @@ describe('Fluxo pagamento', () => {
             cy.get('input[type="radio"]').check()
         })
 
-        cy.get('#lista-cartoes').eq(0).within(() => {
-            cy.get('input[type="checkbox"]').check()
-        })
+        cy.get('.checkbox-cartao').eq(0).check();
+        
 
         cy.get('.btn-modal-abrir').click();
 
@@ -37,19 +36,17 @@ describe('Fluxo pagamento', () => {
         cy.pause()
     });
 
-    it('Pagamento com sucesso com um cartão', () => {
+    it('Pagamento reprovado', () => {
 
-        cy.get('.linha-enderecos').eq(2).within(() => {
+        cy.get('.linha-enderecos').eq(0).within(() => {
             cy.get('input[type="radio"]').check()
         })
 
-        cy.get('#lista-cartoes').eq(0).within(() => {
-            cy.get('input[type="checkbox"]').check()
-        })
+        cy.get('.checkbox-cartao').eq(2).check();
 
         cy.get('.btn-modal-abrir').click();
 
-        cy.contains('Compra realizada com sucesso!').should('be.visible');
+        cy.contains('Compra reprovada. Transação negada pela operadora.').should('be.visible');
         cy.pause()
     });
 

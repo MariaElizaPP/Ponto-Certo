@@ -8,7 +8,7 @@ class CupomService {
         const model = new CupomModel();
         const cupom = await model.buscarParaValidacao(codigo);
 
-        if (!cupom || (cupom.cpm_cli_id != null && cupom.cpm_cli_id !== cliId)) {
+        if (!cupom || (cupom.cpm_cli_id != null && Number(cupom.cpm_cli_id) !== Number(cliId))) {
             throw { status: 404, mensagem: 'Cupom não encontrado.' };
         }
         if (cupom.usado) {

@@ -7,7 +7,7 @@ const { FreteService } = require('./freteService');
 const Decimal = require('decimal.js');
 
 const MINIMO_POR_CARTAO = new Decimal(10);
-const CARTOES_RECUSADOS = [4, 7]; // RN0037 - simulado
+const CARTOES_RECUSADOS = [4, 7, 95]; // RN0037 - simulado
 
 const TRANSICOES = {
     cancelar: { de: ['EM PROCESSAMENTO', 'APROVADA'], para: 'CANCELADO', erro: 'Este pedido não pode mais ser cancelado' },
