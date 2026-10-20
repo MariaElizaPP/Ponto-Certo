@@ -1,4 +1,4 @@
-// guarda todas as notificações não lidas e a partir dela vai dar pra renderizar a lista
+// Essa variável armazena, na memória do navegador, as notificações recebidas do backend. Ela é utilizada para montar os cards, verificar quais foram lidas e identificar a notificação clicada.
 let notificacoes = [];
 
 // Garante que o JavaScript só vai rodar após todo o HTML da página estar carregado
