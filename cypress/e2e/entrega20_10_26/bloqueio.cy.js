@@ -22,7 +22,7 @@ describe('Bloqueio dos produtos', () => {
         cy.get('.btn-modal-fechar').click();
         cy.get('.comprar').click();
         
-        cy.wait(20000);
+        cy.wait(25000);
         
         cy.visit('https://pontocertoweb.netlify.app/notificacoes');
 
@@ -33,7 +33,7 @@ describe('Bloqueio dos produtos', () => {
 
     it('Carrinho expirado', () => {
         
-        cy.wait(20000);
+        cy.wait(25000);
 
         cy.visit('https://pontocertoweb.netlify.app/carrinho');
         

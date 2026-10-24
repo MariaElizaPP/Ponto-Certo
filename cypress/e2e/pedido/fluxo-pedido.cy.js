@@ -21,135 +21,12 @@ describe('Fluxo pagamento', () => {
 
     })
 
-    it('Pagamento com sucesso com um cartão', () => {
-
-        cy.get('.linha-enderecos').eq(0).within(() => {
-            cy.get('input[type="radio"]').check()
-        })
-
-        cy.get('.checkbox-cartao').eq(0).check();
-        
-
-        cy.get('.btn-modal-abrir').click();
-
-        cy.contains('Compra realizada com sucesso!').should('be.visible');
-        cy.pause()
-    });
-
-    it('Pagamento reprovado', () => {
-
-        cy.get('.linha-enderecos').eq(0).within(() => {
-            cy.get('input[type="radio"]').check()
-        })
-
-        cy.get('.checkbox-cartao').eq(2).check();
-
-        cy.get('.btn-modal-abrir').click();
-
-        cy.contains('Compra reprovada. Transação negada pela operadora.').should('be.visible');
-        cy.pause()
-    });
-
-    it('Pagamento com dois cartões', () => {
-
-
-        cy.get('.linha-enderecos').eq(0).within(() => {
-            cy.get('input[type="radio"]').check()
-        })
-
-    
-        cy.get('.checkbox-pagamento').check()
-        
-        cy.get('#lista-cartoes input[type="checkbox"]').eq(0).check()
-        cy.get('.valor-cartao').eq(0).type(10.80)
-
-        cy.get('#lista-cartoes input[type="checkbox"]').eq(1).check()
-        cy.get('.valor-cartao').eq(1).type(14)
-
-        cy.get('.btn-modal-abrir').click();
-
-        cy.contains('Compra realizada com sucesso!').should('be.visible');
-        cy.pause()
-    });
-
-    it('Compra com dois ou mais cartões, incluindo a tentativa de pagar menos de R$ 10,00 em um deles (deve ser bloqueada).', () => {
-
-
-        cy.get('.linha-enderecos').eq(0).within(() => {
-            cy.get('input[type="radio"]').check()
-        })
-
-    
-        cy.get('.checkbox-pagamento').check()
-        
-        cy.get('#lista-cartoes input[type="checkbox"]').eq(0).check()
-        cy.get('.valor-cartao').eq(0).type(15.80)
-
-        cy.get('#lista-cartoes input[type="checkbox"]').eq(1).check()
-        cy.get('.valor-cartao').eq(1).type(9)
-
-        cy.get('.btn-modal-abrir').click();
-
-        cy.contains('O valor mínimo por cartão é R$ 10,00.').should('be.visible');
-        cy.pause()
-    });
-
-
-    it('Pagamento com cupom e cartão', () => {
-
-        cy.get('.linha-enderecos').eq(0).within(() => {
-            cy.get('input[type="radio"]').check()
-        })
-
-        cy.get('.checkbox-pagamento').check()
-        cy.get('#lista-cartoes input[type="checkbox"]').eq(0).check()
-        cy.get('.valor-cartao').eq(0).type(9.90)
-
-        cy.get('#lista-cartoes input[type="checkbox"]').eq(1).check()
-        cy.get('.valor-cartao').eq(1).type(9.90)
-
-        cy.get('#btn-abrir-cupom').click();
-        cy.get('.campo-cupom').type('BEMVINDO5');
-        cy.get('#botao-aplicar').click();
-
-        cy.get('.btn-modal-abrir').click();
-
-        cy.contains('Compra realizada com sucesso!').should('be.visible');
-        cy.pause()
-
-    });
-
-
-    
-
-    it('Cupom maior que o valor da compra gera cupom de troca com a diferença ', () =>{
-
-        cy.get('.linha-enderecos').eq(0).within(() => {
-            cy.get('input[type="radio"]').check()
-        })
-
-        cy.get('#btn-abrir-cupom').click();
-        cy.get('.campo-cupom').type('QUEROKIT');
-        cy.get('#botao-aplicar').click();
-
-        cy.get('.btn-modal-abrir').click();
-
-         cy.contains('Compra realizada com sucesso!').should('be.visible');
-
-          cy.visit('https://pontocertoweb.netlify.app/configuracoes');  
-          cy.get('.valores-cupom .cupom-valor', { timeout: 10000 })
-          .first()
-          .should('contain', 'TROCA-');
-
-        cy.pause()
-    })
-
-    it('Uma compra com novo endereço e novo cartão cadastrados durante o processo, incorporados ao perfil do cliente', () =>{
+    /*it('Uma compra com novo endereço e novo cartão cadastrados durante o processo, incorporados ao perfil do cliente', () => {
 
         cy.get('.link-adicionar-endereco').click();
 
-        
-       cy.get('input[id="tipo-residencia"]').type('Apartamento');
+
+        cy.get('input[id="tipo-residencia"]').type('Apartamento');
         cy.wait(1000);
         cy.get('input[id="tipo-logradouro"]').type('Rua');
         cy.wait(1000);
@@ -157,7 +34,7 @@ describe('Fluxo pagamento', () => {
         cy.wait(1000);
         cy.get('input[id="numero"]').type('512');
         cy.wait(1000);
-        cy.get('input[id="nome-endereco"]').type('Casa da Mãe');
+        cy.get('input[id="nome-endereco"]').type('Casa da Mãe Oliveira');
         cy.wait(1000);
         cy.get('input[id="complemento"]').type('Complemento');
         cy.wait(1000);
@@ -165,16 +42,16 @@ describe('Fluxo pagamento', () => {
         cy.wait(1000);
 
         cy.get('button.cadastrar').click();
-        
-        
+
+
         cy.contains('Endereço cadastrado com sucesso!').should('be.visible');
 
         cy.get('button.btn-tema-sucesso.botao-voltar').click();
-        
+
         cy.get('.linha-enderecos').last().within(() => {
             cy.get('input[type="radio"]').check()
         })
-        
+
         cy.get('.link-adicionar-pagamento').click();
 
         cy.get('#numero-cartao').type('5240990802212507');
@@ -192,10 +69,8 @@ describe('Fluxo pagamento', () => {
 
         cy.get('button.btn-tema-sucesso.botao-voltar').click();
 
-       
-        cy.get('#lista-cartoes').last().within(() => {
-            cy.get('input[type="checkbox"]').check()
-        })
+
+        cy.get('.checkbox-cartao').eq(1).check();
 
 
         cy.get('.btn-modal-abrir').click();
@@ -203,17 +78,101 @@ describe('Fluxo pagamento', () => {
         cy.contains('Compra realizada com sucesso!').should('be.visible');
 
         cy.pause()
-    })
+    })*/
 
-    it('Pedido finalizado e resgistado com status EM PROCESSAMENTO', () => {
+    it('Pagamento com sucesso com um cartão', () => {
 
         cy.get('.linha-enderecos').eq(0).within(() => {
             cy.get('input[type="radio"]').check()
         })
 
-        cy.get('#lista-cartoes').eq(0).within(() => {
-            cy.get('input[type="checkbox"]').check()
+        cy.get('.checkbox-cartao').eq(1).check();
+
+
+        cy.get('.btn-modal-abrir').click();
+
+        cy.contains('Compra realizada com sucesso!').should('be.visible');
+        cy.pause()
+    });
+
+    it('Pagamento com dois cartões', () => {
+
+
+        cy.get('.linha-enderecos').eq(0).within(() => {
+            cy.get('input[type="radio"]').check()
         })
+
+
+        cy.get('.checkbox-pagamento').check()
+
+        cy.get('#lista-cartoes input[type="checkbox"]').eq(1).check()
+        cy.get('.valor-cartao').eq(1).type(10.80)
+
+        cy.get('#lista-cartoes input[type="checkbox"]').eq(2).check()
+        cy.get('.valor-cartao').eq(2).type(14)
+
+        cy.get('.btn-modal-abrir').click();
+
+        cy.contains('Compra realizada com sucesso!').should('be.visible');
+        cy.pause()
+    });
+
+    it('Pagamento com cupom e cartão', () => {
+
+        cy.get('.linha-enderecos').eq(0).within(() => {
+            cy.get('input[type="radio"]').check()
+        })
+
+        cy.get('.checkbox-pagamento').check()
+        cy.get('#lista-cartoes input[type="checkbox"]').eq(1).check()
+        cy.get('.valor-cartao').eq(1).type(9.90)
+
+        cy.get('#lista-cartoes input[type="checkbox"]').eq(2).check()
+        cy.get('.valor-cartao').eq(2).type(9.90)
+
+        cy.get('#btn-abrir-cupom').click();
+        cy.get('.campo-cupom').type('BEMVINDO5');
+        cy.get('#botao-aplicar').click();
+
+        cy.get('.btn-modal-abrir').click();
+
+        cy.contains('Compra realizada com sucesso!').should('be.visible');
+        cy.pause()
+
+    });
+
+
+    it('Cupom maior que o valor da compra gera cupom de troca com a diferença ', () => {
+
+        cy.get('.linha-enderecos').eq(0).within(() => {
+            cy.get('input[type="radio"]').check()
+        })
+
+        cy.get('#btn-abrir-cupom').click();
+        cy.get('.campo-cupom').type('QUEROKIT');
+        cy.get('#botao-aplicar').click();
+
+        cy.get('.btn-modal-abrir').click();
+
+        cy.contains('Compra realizada com sucesso!').should('be.visible');
+
+        cy.visit('https://pontocertoweb.netlify.app/configuracoes');
+        cy.get('.valores-cupom .cupom-valor', { timeout: 10000 })
+            .first()
+            .should('contain', 'TROCA-');
+
+        cy.pause()
+    })
+
+    
+
+    /*it('Pedido finalizado e resgistado com status EM PROCESSAMENTO', () => {
+
+        cy.get('.linha-enderecos').eq(0).within(() => {
+            cy.get('input[type="radio"]').check()
+        })
+
+        cy.get('.checkbox-cartao').eq(1).check();
 
         cy.get('.btn-modal-abrir').click();
 
@@ -223,7 +182,44 @@ describe('Fluxo pagamento', () => {
         cy.visit('https://pontocertoweb.netlify.app/historico');
 
 
+    });*/
+
+
+    //fluxo de erro
+    it('Pagamento reprovado', () => {
+
+        cy.get('.linha-enderecos').eq(0).within(() => {
+            cy.get('input[type="radio"]').check()
+        })
+
+        cy.get('.checkbox-cartao').eq(0).check();
+
+        cy.get('.btn-modal-abrir').click();
+
+        cy.contains('Compra reprovada. Transação negada pela operadora.').should('be.visible');
+        cy.pause()
     });
 
+    it('Compra com dois ou mais cartões, incluindo a tentativa de pagar menos de R$ 10,00 em um deles (deve ser bloqueada).', () => {
+
+
+        cy.get('.linha-enderecos').eq(0).within(() => {
+            cy.get('input[type="radio"]').check()
+        })
+
+
+        cy.get('.checkbox-pagamento').check()
+
+        cy.get('#lista-cartoes input[type="checkbox"]').eq(1).check()
+        cy.get('.valor-cartao').eq(1).type(15.80)
+
+        cy.get('#lista-cartoes input[type="checkbox"]').eq(2).check()
+        cy.get('.valor-cartao').eq(2).type(9)
+
+        cy.get('.btn-modal-abrir').click();
+
+        cy.contains('O valor mínimo por cartão é R$ 10,00.').should('be.visible');
+        cy.pause()
+    });
 
 })

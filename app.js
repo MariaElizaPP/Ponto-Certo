@@ -12,6 +12,8 @@ const marcasRoutes = require('./src/routes/marcasRoutes');
 const cupomRoutes = require('./src/routes/cupomRoutes');
 const trocaRoutes = require('./src/routes/trocaRoutes');
 const notificacaoRoutes = require('./src/routes/notificacaoRoutes');
+const dashboardRoutes = require('./src/routes/dashboardRoutes')
+const exportacaoRoutes = require('./src/routes/exportacaoRoutes');
 
 const app = express();
 app.use(express.json());
@@ -34,6 +36,8 @@ app.use('/api', marcasRoutes);
 app.use('/api', cupomRoutes);
 app.use('/api', trocaRoutes);
 app.use('/api', notificacaoRoutes);
+app.use('/api', dashboardRoutes);
+app.use('/api', exportacaoRoutes);
 
-
+ 
 module.exports = app;

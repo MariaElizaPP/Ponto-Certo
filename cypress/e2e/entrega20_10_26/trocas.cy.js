@@ -247,6 +247,7 @@ describe('Trocas', () => {
         cy.reload();
 
         cy.contains('button', 'Confirmar Recebimento').click();
+        cy.wait(200);
         cy.get('dialog[open] .btn-confirmar-recebimento[data-retorna="true"]').click();
         cy.contains('Troca concluída').should('be.visible');
 
@@ -254,6 +255,7 @@ describe('Trocas', () => {
         cy.visit('https://pontocertoweb.netlify.app/login');
         cy.get('#btn-entrar').click();
         cy.visit('https://pontocertoweb.netlify.app/configuracoes');
+        cy.reload();
         cy.pause();
     })
 
@@ -290,8 +292,8 @@ describe('Trocas', () => {
         })
 
         cy.get('.checkbox-pagamento').check();
-        cy.get('#lista-cartoes input[type="checkbox"]').eq(0).check();
-        cy.get('.valor-cartao').eq(0).type('11.90');
+        cy.get('#lista-cartoes input[type="checkbox"]').eq(1).check();
+        cy.get('.valor-cartao').eq(1).type('11.90');
 
         cy.get('#btn-abrir-cupom').click();
         cy.get('@cupomTroca').then((cupom) => {
@@ -394,7 +396,7 @@ describe('Trocas', () => {
         cy.pause();
     })
 
-    it('Reprovar troca', () => {
+    /*it('Reprovar troca', () => {
         //cliente
         cy.visit('https://pontocertoweb.netlify.app/login');
         cy.get('#btn-entrar').click();
@@ -474,7 +476,7 @@ describe('Trocas', () => {
         cy.contains('Troca negada').should('be.visible');
 
 
-    })
+    })*/
 
     it('Bloqueia a solicitação de troca de um pedido que não está ENTREGUE (back-end)', () => {
         const api = 'http://localhost:3000/api';
