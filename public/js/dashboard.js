@@ -1,38 +1,68 @@
 
+
 const CORES = ['#6D5960', '#e63946', '#1d3557', '#2a9d8f', '#f4a261', '#6a4c93', '#8d99ae', '#06d6a0', '#ef476f'];
 const brl = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
 
 const ctx = document.getElementById('myChart').getContext('2d');
 const erro = document.getElementById('erro');
+const listaCategorias = document.getElementById('listaCategorias');
+const todasOpcoes = document.getElementById('todas-opcoes');
 let myChart = null;
 
+// Monta os parâmetros. Retorna null se o preenchimento estiver incompleto.
 function filtros() {
-    const selecionadas = [...document.getElementById('categorias').selectedOptions].map(o => o.value);
+    const mesInicio = document.getElementById('mesInicio').value;
+    const mesFim = document.getElementById('mesFim').value;
+    const ano = document.getElementById('ano').value;
     const params = new URLSearchParams();
 
-    const inicio = document.getElementById('inicio').value;
-    const fim = document.getElementById('fim').value;
+    if ((mesInicio || mesFim) && !ano) {
+        erro.textContent = 'Selecione o ano.';
+        return null;
+    }
 
-    if (inicio) params.append('dataInicio', inicio);
-    if (fim) params.append('dataFinal', fim);
+    // Só o ano: janeiro a dezembro. Mês vazio completa o lado que faltou.
+    if (ano) {
+        params.append('dataInicio', `${ano}-${mesInicio || '01'}`);
+        params.append('dataFinal', `${ano}-${mesFim || '12'}`);
+    }
+
+    const selecionadas = [...document.querySelectorAll('.cat-check:checked')].map(c => c.value);
     if (selecionadas.length) params.append('categorias', selecionadas.join(','));
 
     return params;
 }
 
 async function carregarCategorias() {
-    const resp = await fetch(`http://localhost:3000/api/categorias`); 
+    const resp = await fetch(`http://localhost:3000/api/categorias`);
     const categorias = await resp.json();
 
-    document.getElementById('categorias').innerHTML = categorias
-        .map(c => `<option value="${c.cat_id}">${c.cat_nome}</option>`)
-        .join('');
+    listaCategorias.innerHTML = categorias.map(c => `
+    <div class="item-categoria">
+        <input type="checkbox" class="cat-check" id="cat-${c.cat_id}" value="${c.cat_id}">
+        <label for="cat-${c.cat_id}">${c.cat_nome}</label>
+    </div>
+`).join('');
 }
+
+// "Selecionar Tudo" marca/desmarca todas
+todasOpcoes.addEventListener('change', () => {
+    document.querySelectorAll('.cat-check').forEach(c => c.checked = todasOpcoes.checked);
+});
+
+// Mantém o "Selecionar Tudo" coerente quando se marca uma por uma
+listaCategorias.addEventListener('change', () => {
+    const todas = [...document.querySelectorAll('.cat-check')];
+    todasOpcoes.checked = todas.length > 0 && todas.every(c => c.checked);
+});
 
 async function carregarGrafico() {
     erro.textContent = '';
 
-    const resp = await fetch(`http://localhost:3000/api/dashboard?${filtros()}`);
+    const params = filtros();
+    if (!params) return;
+
+    const resp = await fetch(`http://localhost:3000/api/dashboard?${params}`);
     const dados = await resp.json();
 
     if (!resp.ok) {
@@ -81,7 +111,10 @@ async function carregarGrafico() {
 async function exportar() {
     erro.textContent = '';
 
-    const resp = await fetch(`http://localhost:3000/api/exportacao/vendas?${filtros()}`);
+    const params = filtros();
+    if (!params) return;
+
+    const resp = await fetch(`http://localhost:3000/api/exportacao/vendas?${params}`);
     if (!resp.ok) {
         const dados = await resp.json();
         erro.textContent = dados.mensagem;
@@ -100,4 +133,4 @@ document.getElementById('filtrar').addEventListener('click', carregarGrafico);
 document.getElementById('exportar').addEventListener('click', exportar);
 
 carregarCategorias();
-carregarGrafico(); 
+carregarGrafico();
