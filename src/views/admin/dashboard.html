@@ -35,81 +35,76 @@
                 <h1 class="titulo-conteudo">DASHBOARD</h1>
 
                 <div class="area-filtros">
-                    <h2 class="titulo-grafico">Análise de Vendas</h3>
+                    <h2 class="titulo-grafico">Análise de Vendas</h2>
 
                     <div class="selects-filtros">
-                        <h3 class="titulo-filtro">De</h3>
-                        <select class="mes">
-                            <option class="placeholder" disabled selected hidden>Mês</option>
-                            <option class="mes">Jan</option>
-                            <option class="mes">Fev</option>
-                            <option class="mes">Mar</option>
-                            <option class="mes">Abr</option>
-                            <option class="mes">Maio</option>
-                            <option class="mes">Jun</option>
-                            <option class="mes">Jul</option>
-                            <option class="mes">Ago</option>
-                            <option class="mes">Set</option>
-                            <option class="mes">Out</option>
-                            <option class="mes">Nov</option>
-                            <option class="mes">Dez</option>
+                        <h3 class="titulo-filtro" id="inicio">De</h3>
+                        <select id="mesInicio" class="mes">
+                            <option class="placeholder" value="01" disabled selected hidden>Mês</option>
+                            <option class="mes" value="01">Jan</option>
+                            <option class="mes" value="02">Fev</option>
+                            <option class="mes" value="03">Mar</option>
+                            <option class="mes" value="04">Abr</option>
+                            <option class="mes" value="05">Maio</option>
+                            <option class="mes" value="06">Jun</option>
+                            <option class="mes" value="07">Jul</option>
+                            <option class="mes" value="08">Ago</option>
+                            <option class="mes" value="09">Set</option>
+                            <option class="mes" value="10">Out</option>
+                            <option class="mes" value="11">Nov</option>
+                            <option class="mes" value="12">Dez</option>
                         </select>
 
-                        <h3 class="titulo-filtro">Até</h3>
-                        <select class="mes">
-                            <option class="placeholder" disabled selected hidden>Mês</option>
-                            <option class="mes">Jan</option>
-                            <option class="mes">Fev</option>
-                            <option class="mes">Mar</option>
-                            <option class="mes">Abr</option>
-                            <option class="mes">Maio</option>
-                            <option class="mes">Jun</option>
-                            <option class="mes">Jul</option>
-                            <option class="mes">Ago</option>
-                            <option class="mes">Set</option>
-                            <option class="mes">Out</option>
-                            <option class="mes">Nov</option>
-                            <option class="mes">Dez</option>
+                        <h3 class="titulo-filtro" id="fim">Até</h3>
+                        <select id="mesFim" class="mes">
+                            <option class="placeholder" value="12" disabled selected hidden>Mês</option>
+                            <option class="mes" value="01">Jan</option>
+                            <option class="mes" value="02">Fev</option>
+                            <option class="mes" value="03">Mar</option>
+                            <option class="mes" value="04">Abr</option>
+                            <option class="mes" value="05">Maio</option>
+                            <option class="mes" value="06">Jun</option>
+                            <option class="mes" value="07">Jul</option>
+                            <option class="mes" value="08">Ago</option>
+                            <option class="mes" value="09">Set</option>
+                            <option class="mes" value="10">Out</option>
+                            <option class="mes" value="11">Nov</option>
+                            <option class="mes" value="12">Dez</option>
                         </select>
 
                         <h3 class="titulo-filtro">Ano</h3>
-                        <select class="ano">
-                            <option disabled selected hidden>Ano</option>
-                            <option class="ano">2026</option>
-                            <option class="ano">2025</option>
-                            <option class="ano">2024</option>
+                        <select class="ano" id="ano">
+                            <option disabled selected hidden value="2026">Ano</option>
+                            <option class="ano" value="2026">2026</option>
+                            <option class="ano" value="2025">2025</option>
+                            <option class="ano" value="2024">2024</option>
                         </select>
 
-                        <button type="button" class="btn-filtar">Filtrar</button>
-                         <button type="button" class="btn-filtar">Exportar para CSV</button>
-                    </div>   
-                    <div class="categorias">
+                        <button type="button" class="btn-filtar" id="filtrar">Filtrar</button>
+                        <button type="button" class="btn-filtar" id="exportar">Exportar para CSV</button>
+
+                        <p id="erro" class="erro-filtro" style="color:#b00020"></p>
+
+                    </div>
+                    <div class="categorias" id="categorias">
                         <input type="checkbox" id="todas-opcoes">
                         <label for="todas-opcoes">Selecionar Tudo</label>
-                        <br>
-                        <input type="checkbox" id="crocheTrico">
-                        <label for="crocheTrico">Crochê e Tricô</label>
-                        <br>
-                        <input type="checkbox" id="lasBarbantes">
-                        <label for="lasBarbantes">Lãs e Barbantes</label>
-                        <br>
-                        <input type="checkbox" id="kits">
-                        <label for="kits">Kits</label>
-                        <br>
-                        
+                        <div id="listaCategorias"></div>
+
                     </div>
-                   
+
 
                 </div>
-                
+
                 <div class="chart">
                     <canvas id="myChart"></canvas>
                 </div>
             </div>
+        </main>
     </div>
 
+
     
-    </main>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/public/js/dashboard.js"></script>

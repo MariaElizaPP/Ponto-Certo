@@ -16,4 +16,3 @@ async function vendas(req, res) {
 
 module.exports = { vendas };
 
-//verificar o utils
