@@ -14,7 +14,121 @@
 
 describe('Dashboard', () => {
 
+    it("Consulta de uma categoria em um período válido, com valores mensais iguais à soma das vendas ENTREGUE registradas na base.", () => {
 
+        cy.visit("https://pontocertoweb.netlify.app/admin/login")
+        cy.wait(500);
+        cy.get('#email').type('admin@gmail.com');
+        cy.wait(30);
+        cy.get('#senha').type('1234');
+        cy.wait(30);
+        cy.get('#btn-entrar').click();
+        cy.wait(500)
+        cy.visit('https://pontocertoweb.netlify.app/admin/dashboard');
+
+        cy.get("#cat-2").check();
+        cy.get("#ano").select(1);        
+        cy.get("#mesInicio").select(9);  
+        cy.get("#mesFim").select(10);     
+
+        cy.get("#filtrar").click();
+
+        cy.wait(1000);
+
+        cy.get("#myChart").should("be.visible");
+        cy.get("#erro").should("be.empty");
+
+        cy.pause();
+
+       
+    });
+
+    it("Comparação entre duas ou mais categorias no período.", () => {
+         cy.visit("https://pontocertoweb.netlify.app/admin/login")
+        cy.wait(500);
+        cy.get('#email').type('admin@gmail.com');
+        cy.wait(30);
+        cy.get('#senha').type('1234');
+        cy.wait(30);
+        cy.get('#btn-entrar').click();
+        cy.wait(500)
+        cy.visit('https://pontocertoweb.netlify.app/admin/dashboard');
+
+        cy.get("#cat-2").check();
+        cy.get("#cat-3").check();
+        cy.get("#ano").select(1);        
+        cy.get("#mesInicio").select(9);  
+        cy.get("#mesFim").select(10);     
+
+        cy.get("#filtrar").click();
+
+        cy.wait(1000);
+
+        cy.get("#myChart").should("be.visible");
+        cy.get("#erro").should("be.empty");
+
+        cy.pause();
+
+    });
+
+    it("Apresentação do resultado em gráfico de linhas, com valores em reais agrupados por mês.", () => {
+        cy.visit("https://pontocertoweb.netlify.app/admin/login")
+        cy.wait(500);
+        cy.get('#email').type('admin@gmail.com');
+        cy.wait(30);
+        cy.get('#senha').type('1234');
+        cy.wait(30);
+        cy.get('#btn-entrar').click();
+        cy.wait(500)
+        cy.visit('https://pontocertoweb.netlify.app/admin/dashboard');
+
+        cy.get("#cat-2").check();
+        cy.get("#ano").select(1);
+        cy.get("#mesInicio").select(7);   
+        cy.get("#mesFim").select(10);     
+
+        cy.get("#filtrar").click();
+
+        cy.wait(1000);
+
+        cy.get("#myChart").should("be.visible");
+        cy.get("#erro").should("be.empty");
+
+        cy.pause();
+    });
+
+    it("Alteração da data de início ou de fim resultando em um novo resultado no gráfico.", () => {
+        cy.visit("https://pontocertoweb.netlify.app/admin/login")
+        cy.wait(500);
+        cy.get('#email').type('admin@gmail.com');
+        cy.wait(30);
+        cy.get('#senha').type('1234');
+        cy.wait(30);
+        cy.get('#btn-entrar').click();
+        cy.wait(500)
+        cy.visit('https://pontocertoweb.netlify.app/admin/dashboard');
+
+        cy.get("#cat-2").check();
+        cy.get("#ano").select(1);
+        cy.get("#mesInicio").select(9);   
+        cy.get("#mesFim").select(10);    
+
+        cy.get("#filtrar").click();
+
+        cy.wait(1000);
+
+        cy.pause();                       
+
+        cy.get("#mesInicio").select(7);  
+
+        cy.get("#filtrar").click();
+
+        cy.wait(1000);
+
+        cy.pause();                    
+    });
+
+   
     it("Compra que passa a ENTREGUE dentro do período refletida na consulta seguinte.", () => {
         cy.visit('https://pontocertoweb.netlify.app/login');
         cy.wait(500);
@@ -81,6 +195,7 @@ describe('Dashboard', () => {
 
         cy.pause();
     });
+
 
     it("Compra com status DIFERENTE de ENTREGUE não contabilizada no gráfico.", () => {
         cy.visit('https://pontocertoweb.netlify.app/login');
