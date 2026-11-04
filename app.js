@@ -14,6 +14,7 @@ const trocaRoutes = require('./src/routes/trocaRoutes');
 const notificacaoRoutes = require('./src/routes/notificacaoRoutes');
 const dashboardRoutes = require('./src/routes/dashboardRoutes')
 const exportacaoRoutes = require('./src/routes/exportacaoRoutes');
+const chatRoutes = require('./src/routes/chatRoutes');
 
 const app = express();
 app.use(express.json());
@@ -38,6 +39,7 @@ app.use('/api', trocaRoutes);
 app.use('/api', notificacaoRoutes);
 app.use('/api', dashboardRoutes);
 app.use('/api', exportacaoRoutes);
+app.use('/api', chatRoutes);
 
  
 module.exports = app;
