@@ -1,6 +1,6 @@
 const pool = require('../config/database');
 
-const STATUS_CONTABILIZADOS = ['APROVADA', 'EM TRÂNSITO', 'EM TRANSPORTE', 'ENTREGUE'];
+const STATUS_CONTABILIZADOS = ['APROVADA', 'EM TRANSPORTE', 'ENTREGUE'];
 
 class DashboardModel {
 
