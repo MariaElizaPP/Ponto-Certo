@@ -128,7 +128,7 @@ describe('Dashboard', () => {
         cy.pause();                    
     });
 
-
+   
     it("Compra que passa a ENTREGUE dentro do período refletida na consulta seguinte.", () => {
         cy.visit('https://pontocertoweb.netlify.app/login');
         cy.wait(500);
@@ -195,6 +195,7 @@ describe('Dashboard', () => {
 
         cy.pause();
     });
+
 
     it("Compra com status DIFERENTE de ENTREGUE não contabilizada no gráfico.", () => {
         cy.visit('https://pontocertoweb.netlify.app/login');
