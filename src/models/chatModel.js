@@ -92,6 +92,32 @@ class ChatModel {
         );
         return rows;
     }
+
+    //Adicione este método no seu ChatModel
+    async buscarHistoricoMensagens(sessaoId) {
+        const [rows] = await pool.query(
+            `SELECT msg_remetente AS remetente, msg_conteudo AS conteudo
+                FROM chat_mensagem
+                WHERE msg_ses_id = ?
+                ORDER BY msg_id DESC
+                LIMIT 10`,
+            [sessaoId]
+        );
+        // Inverte para ficar da mais antiga para a mais recente
+        return rows.reverse();
+    }
+
+    async salvarFeedback(msgId, feedback) {
+        const [resultado] = await pool.query(
+            `UPDATE chat_mensagem SET msg_feedback = ? WHERE msg_id = ?`,
+            [feedback, msgId]
+        );
+        // 'resultado.affectedRows' informa quantas linhas do banco foram alteradas pelo UPDATE.
+        // Se for maior que 0, significa que encontrou a mensagem e salvou o feedback com sucesso (retorna true).
+        // Se for 0, significa que o ID da mensagem não existe no banco (retorna false).
+        return resultado.affectedRows > 0;
+
+    }
 }
 
 module.exports = { ChatModel };

@@ -1,35 +1,30 @@
 const { GoogleGenAI } = require('@google/genai');
 
-const ai = new GoogleGenAI({}); // Usa a GEMINI_API_KEY do ambiente
+// Inicializa o cliente do Gemini usando diretamente a variável de ambiente
+const ai = new GoogleGenAI();
 
-class GeminiService {
+async function responder(historico, promptComRegras, mensagemAtual) {
+    try {
+        // Cria a sessão de chat com o histórico e regras
+        const chat = ai.chats.create({
+            model: process.env.GEMINI_MODEL,
+            history: historico,
+            config: {
+                systemInstruction: promptComRegras,
+                temperature: 0.3,
+            }
+        });
 
-    async responder(entrada, historicoAnterior = []) {
-        try {
-            // 1. Criamos uma sessão de chat enviando o histórico (se houver)
-            const chat = ai.chats.create({
-                model: process.env.GEMINI_MODEL,
-                history: historicoAnterior
-            });
+        // Envia a mensagem atual
+        const resultado = await chat.sendMessage({
+            message: mensagemAtual
+        });
 
-            // 2. Enviamos a mensagem atual do usuário
-            const resultado = await chat.sendMessage({
-                message: entrada
-            });
-
-            // 3. Pegamos a resposta em texto da IA
-            const respostaTexto = resultado.text;
-
-            return {
-                texto: respostaTexto,
-                // Opcional: se quiser depois extrair produtos, podemos simplificar aqui também
-            };
-
-        } catch (erro) {
-            console.error('[Gemini Error]', erro);
-            throw new Error('O assistente está indisponível no momento.');
-        }
+        return resultado.text;
+    } catch (error) {
+        console.error('Erro ao chamar o Gemini:', error);
+        throw { status: 500, mensagem: 'Erro ao se comunicar com a inteligência artificial.' };
     }
 }
 
-module.exports = { GeminiService };
+module.exports = { responder };

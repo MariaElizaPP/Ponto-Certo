@@ -275,11 +275,10 @@ describe('Dashboard', () => {
         cy.get('#btn-entrar').click();
         cy.url().should('not.include', '/login');
 
-        // registrar ANTES de abrir a página, senão perde a requisição
         cy.intercept('GET', '**/api/dashboard*').as('dashboard');
 
         cy.visit('https://pontocertoweb.netlify.app/admin/dashboard');
-        cy.wait('@dashboard'); // carga inicial, fora da medição
+        cy.wait('@dashboard'); 
 
         let inicio;
         cy.get('#filtrar').should('be.visible').then(() => {
