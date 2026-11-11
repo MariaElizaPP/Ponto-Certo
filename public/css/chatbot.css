@@ -118,13 +118,37 @@
     object-fit: contain;
 }
 
-/* Container que engloba os botões de feedback logo abaixo da mensagem do bot */
+/* Faz com que a mensagem do bot se comporte como um balão único */
+.mensagem-bot {
+    justify-content: flex-start;
+}
+
+/* O container interno do bot ganha o fundo amarelo e o formato de balão */
+.conteudo-bot {
+    background-color: #FFF8B8;
+    color: #000;
+    padding: 12px 16px;
+    max-width: 80%;
+    border-radius: 10px 10px 10px 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+/* Garante que o parágrafo dentro do bot não tenha padding próprio duplicado */
+.conteudo-bot p {
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+}
+
+/* Estilo do bloco de feedback para ficar organizado embaixo do texto */
 .feedback-container {
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
+    margin-top: 12px;
     padding-top: 8px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1); /* Linha sutil separando o texto do feedback */
+    border-top: 1px solid rgba(0, 0, 0, 0.15); /* Linha sutil separando o texto */
     font-size: 12px;
     color: #333;
 }
@@ -132,7 +156,7 @@
 .feedback-acoes {
     display: flex;
     gap: 8px;
-    margin-top: 5px;
+    margin-top: 6px;
 }
 
 /* Estilo dos botões de Sim / Não */
@@ -150,7 +174,7 @@
     background-color: #f0f0f0;
 }
 
-/* Estilo da mensagem de sucesso após o clique */
+/* Mensagem de sucesso após clicar */
 .feedback-sucesso {
     color: #2e7d32;
     font-weight: bold;

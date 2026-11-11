@@ -48,9 +48,14 @@ function adicionarMensagemBot(texto, mensagemId) {
             </div>
         `;
     }
+
+    novaMensagem.innerHTML = `
+        <div class="conteudo-bot">
+            <p>${texto}</p>
+            ${htmlFeedback}
+        </div>
+    `;
  
-    // Usamos uma div interna para separar bem o texto do bloco de feedback
-    novaMensagem.innerHTML = `<div class="texto-mensagem">${texto}</div>${htmlFeedback}`;
     listaMensagens.appendChild(novaMensagem);
     listaMensagens.scrollTop = listaMensagens.scrollHeight;
 }
