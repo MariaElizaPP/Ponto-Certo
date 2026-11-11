@@ -55,7 +55,7 @@ function adicionarMensagemBot(texto, mensagemId) {
 // Função para enviar o feedback (Item 7)
 async function enviarFeedback(msgId, feedback, elementoBotao) {
     try {
-        const resposta = await fetch('/chat/feedback', {
+        const resposta = await fetch('http://localhost:3000/api/chat/feedback', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -99,7 +99,7 @@ async function enviarMensagem() {
 
     try {
         // Requisição real para a rota do Node.js (/chat)
-        const respostaServidor = await fetch('/chat', {
+        const respostaServidor = await fetch('http://localhost:3000/api/chat', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
