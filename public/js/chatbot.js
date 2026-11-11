@@ -39,15 +39,18 @@ function adicionarMensagemBot(texto, mensagemId) {
     let htmlFeedback = '';
     if (mensagemId) {
         htmlFeedback = `
-            <div class="feedback-container" data-msg-id="${mensagemId}" style="margin-top: 8px; font-size: 12px;">
+            <div class="feedback-container" data-msg-id="${mensagemId}">
                 <span>Esta resposta foi útil?</span>
-                <button type="button" class="btn-feedback" onclick="enviarFeedback(${mensagemId}, 'util', this)" style="cursor: pointer; margin-left: 5px;">👍 Sim</button>
-                <button type="button" class="btn-feedback" onclick="enviarFeedback(${mensagemId}, 'nao_util', this)" style="cursor: pointer; margin-left: 5px;">👎 Não</button>
+                <div class="feedback-acoes">
+                    <button type="button" class="btn-feedback" onclick="enviarFeedback(${mensagemId}, 'util', this)">👍 Sim</button>
+                    <button type="button" class="btn-feedback" onclick="enviarFeedback(${mensagemId}, 'nao_util', this)">👎 Não</button>
+                </div>
             </div>
         `;
     }
  
-    novaMensagem.innerHTML = `<p>${texto}</p>${htmlFeedback}`;
+    // Usamos uma div interna para separar bem o texto do bloco de feedback
+    novaMensagem.innerHTML = `<div class="texto-mensagem">${texto}</div>${htmlFeedback}`;
     listaMensagens.appendChild(novaMensagem);
     listaMensagens.scrollTop = listaMensagens.scrollHeight;
 }
@@ -66,8 +69,8 @@ async function enviarFeedback(msgId, feedback, elementoBotao) {
         const dados = await resposta.json();
 
         if (resposta.ok) {
-            const container = elementoBotao.parentElement;
-            container.innerHTML = `<span style="color: green; font-weight: bold;">✔ Feedback (${feedback === 'util' ? 'Útil' : 'Não útil'}) registrado com sucesso!</span>`;
+            const container = elementoBotao.closest('.feedback-container');
+            container.innerHTML = `<span class="feedback-sucesso">✔ Feedback (${feedback === 'util' ? 'Útil' : 'Não útil'}) registrado com sucesso!</span>`;
         } else {
             alert('Erro ao registrar feedback: ' + dados.mensagem);
         }
