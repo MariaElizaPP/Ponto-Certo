@@ -117,3 +117,44 @@
     user-select: none;
     object-fit: contain;
 }
+
+/* Container que engloba os botões de feedback logo abaixo da mensagem do bot */
+.feedback-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1); /* Linha sutil separando o texto do feedback */
+    font-size: 12px;
+    color: #333;
+}
+
+.feedback-acoes {
+    display: flex;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+/* Estilo dos botões de Sim / Não */
+.btn-feedback {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.2s;
+}
+
+.btn-feedback:hover {
+    background-color: #f0f0f0;
+}
+
+/* Estilo da mensagem de sucesso após o clique */
+.feedback-sucesso {
+    color: #2e7d32;
+    font-weight: bold;
+    font-size: 12px;
+    margin-top: 8px;
+    display: block;
+}
