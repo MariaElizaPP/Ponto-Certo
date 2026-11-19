@@ -11,10 +11,20 @@ PESO_NAO_UTIL = -0.5
 PESO_POPULARIDADE = 0.05   # desempate e cliente novo (cold start)
 TOP_N = 8
 
+from pathlib import Path
+
+env_path = Path(__file__).resolve().parent.parent / '.env'
+if env_path.exists():
+    for linha in env_path.read_text(encoding='utf-8').splitlines():
+        linha = linha.strip()
+        if linha and not linha.startswith('#') and '=' in linha:
+            chave, valor = linha.split('=', 1)
+            os.environ.setdefault(chave.strip(), valor.strip().strip('"').strip("'"))
+
 con = pymysql.connect(
     host=os.getenv('DB_HOST', 'localhost'),
     user=os.getenv('DB_USER', 'root'),
-    password=os.getenv('DB_PASSWORD', ''),
+    password=os.getenv('DB_PASSWORD'),
     database=os.getenv('DB_NAME', 'ponto_certo'),
     charset='utf8mb4',
     cursorclass=pymysql.cursors.DictCursor,
