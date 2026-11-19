@@ -107,17 +107,34 @@ class ChatModel {
         return rows.reverse();
     }
 
-    async salvarFeedback(msgId, feedback) {
+    async salvarFeedback(mensagemId, cliId, feedback) {
         const [resultado] = await pool.query(
-            `UPDATE chat_mensagem SET msg_feedback = ? WHERE msg_id = ?`,
-            [feedback, msgId]
+            `UPDATE chat_mensagem m
+           JOIN chat_sessao s ON s.ses_id = m.msg_ses_id
+            SET m.msg_feedback = ?, m.msg_feedbackEm = NOW(), m.msg_feedback_mdv_id = NULL
+          WHERE m.msg_id = ? AND s.ses_cli_id = ? AND m.msg_remetente = 'bot'`,
+            [feedback, mensagemId, cliId]
         );
-        // 'resultado.affectedRows' informa quantas linhas do banco foram alteradas pelo UPDATE.
-        // Se for maior que 0, significa que encontrou a mensagem e salvou o feedback com sucesso (retorna true).
-        // Se for 0, significa que o ID da mensagem não existe no banco (retorna false).
         return resultado.affectedRows > 0;
-
     }
+
+    async buscarRecomendacoes(cliId, limite) {
+        const [rows] = await pool.query(
+            `SELECT pr.prd_id AS id, pr.prd_nome AS nome, MIN(pr.prd_preco) AS preco
+           FROM recomendacao_cliente r
+           JOIN produtos pr         ON pr.prd_id = r.rec_prd_id
+           JOIN variacao_produto v  ON v.vpr_prd_id = pr.prd_id
+          WHERE r.rec_cli_id = ?
+            AND r.rec_mdv_id = (SELECT MAX(mdv_id) FROM modelo_versao)
+          GROUP BY pr.prd_id, pr.prd_nome, r.rec_score
+          ORDER BY r.rec_score DESC
+          LIMIT ?`,
+            [cliId, limite]
+        );
+        return rows;
+    }
+
+
 }
 
 module.exports = { ChatModel };

@@ -1,29 +1,34 @@
-const { GoogleGenAI } = require('@google/genai');
+const { GoogleGenAI, Type } = require('@google/genai');
 
-// Inicializa o cliente do Gemini usando diretamente a variável de ambiente
 const ai = new GoogleGenAI();
+
+const ESQUEMA = {
+    type: Type.OBJECT,
+    properties: {
+        texto: { type: Type.STRING },
+        produtos: { type: Type.ARRAY, items: { type: Type.INTEGER } }
+    },
+    required: ['texto', 'produtos']
+};
 
 async function responder(historico, promptComRegras, mensagemAtual) {
     try {
-        // Cria a sessão de chat com o histórico e regras
         const chat = ai.chats.create({
             model: process.env.GEMINI_MODEL,
             history: historico,
             config: {
                 systemInstruction: promptComRegras,
                 temperature: 0.3,
+                responseMimeType: 'application/json',
+                responseSchema: ESQUEMA
             }
         });
 
-        // Envia a mensagem atual
-        const resultado = await chat.sendMessage({
-            message: mensagemAtual
-        });
-
-        return resultado.text;
+        const resultado = await chat.sendMessage({ message: mensagemAtual });
+        return JSON.parse(resultado.text); // { texto, produtos }
     } catch (error) {
         console.error('Erro ao chamar o Gemini:', error);
-        throw { status: 500, mensagem: 'Erro ao se comunicar com a inteligência artificial.' };
+        throw { status: 502, mensagem: 'O assistente está indisponível no momento. Tente novamente.' };
     }
 }
 
