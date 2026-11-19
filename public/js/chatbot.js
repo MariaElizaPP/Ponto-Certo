@@ -61,14 +61,25 @@ function adicionarMensagemBot(texto, mensagemId) {
 }
 
 // Função para enviar o feedback (Item 7)
-async function enviarFeedback(msgId, feedback, elementoBotao) {
+async function enviarFeedback(mensagemId, feedback, elementoBotao) {
+    const cliId = Number(clienteId);
+
+    if (!cliId) {
+        alert('Faça login para avaliar a resposta.');
+        return;
+    }
+
     try {
         const resposta = await fetch('http://localhost:3000/api/chat/feedback', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ msgId, feedback })
+            body: JSON.stringify({
+                cliId,
+                mensagemId,
+                feedback
+            })
         });
 
         const dados = await resposta.json();
@@ -85,7 +96,6 @@ async function enviarFeedback(msgId, feedback, elementoBotao) {
     }
 }
 
-// Função principal: enviar mensagem (ADICIONADO 'async' AQUI)
 async function enviarMensagem() {
     const textoDigitado = campoMensagem.value.trim();
 
