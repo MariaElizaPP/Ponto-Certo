@@ -16,4 +16,19 @@ async function processar(req, res) {
     }
 }
 
-module.exports = { processar };
+async function feedback(req, res) {
+    try {
+        const { cliId, mensagemId, feedback } = req.body;
+        const resultado = await service.registrarFeedback({ cliId, mensagemId, feedback });
+        return res.status(200).json(resultado);
+    } catch (error) {
+        if (error.status)
+            return res.status(error.status).json({ mensagem: error.mensagem });
+        console.log(error);
+        return res.status(500).json({ mensagem: 'Erro ao registrar o feedback.' });
+    }
+}
+
+module.exports = { processar, feedback };
+
+module.exports = { processar, feedback };

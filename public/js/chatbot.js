@@ -7,86 +7,158 @@ const campoMensagem = document.getElementById('campo-mensagem');
 const listaMensagens = document.getElementById('lista-mensagens');
 const botaoEnviar = document.getElementById('botao-enviar');
 
+// Pega o ID do cliente salvo no localStorage (ajustado para o nome correto)
+const clienteId = localStorage.getItem('clienteId');
+
+let sessaoId = null; // Guarda o ID da sessão atual para manter o histórico ativo
 
 // Abrir e fechar o chat 
-
 botaoAbrir.addEventListener('click', function () {
-  chatbot.classList.add('aberto');
+    chatbot.classList.add('aberto');
 });
 
 botaoFechar.addEventListener('click', function () {
-  chatbot.classList.remove('aberto');
+    chatbot.classList.remove('aberto');
 });
 
-
 // Adicionar mensagem do usuário na tela 
-
 function adicionarMensagemUsuario(texto) {
-  const novaMensagem = document.createElement('li');
-  novaMensagem.classList.add('mensagem', 'mensagem-usuario');
-  novaMensagem.innerHTML = `<p>${texto}</p>`;
+    const novaMensagem = document.createElement('li');
+    novaMensagem.classList.add('mensagem', 'mensagem-usuario');
+    novaMensagem.innerHTML = `<p>${texto}</p>`;
 
-  listaMensagens.appendChild(novaMensagem);
-  listaMensagens.scrollTop = listaMensagens.scrollHeight;
+    listaMensagens.appendChild(novaMensagem);
+    listaMensagens.scrollTop = listaMensagens.scrollHeight;
 }
-
 
 // Adicionar mensagem do bot na tela
+function adicionarMensagemBot(texto, mensagemId) {
+    const novaMensagem = document.createElement('li');
+    novaMensagem.classList.add('mensagem', 'mensagem-bot');
 
-function adicionarMensagemBot(texto) {
-  const novaMensagem = document.createElement('li');
-  novaMensagem.classList.add('mensagem', 'mensagem-bot');
-  novaMensagem.innerHTML = `<p>${texto}</p>`;
-
-  listaMensagens.appendChild(novaMensagem);
-  listaMensagens.scrollTop = listaMensagens.scrollHeight;
-}
-
-
-//Simular uma resposta do botão//
-
-function responderComoBot(textoDigitado) {
-  setTimeout(function () {
-    const texto = textoDigitado.toLowerCase();
-
-    if (texto.includes('lã')) {
-      adicionarMensagemBot('Temos várias opções de lã disponíveis! Você prefere lã lisa ou texturizada?');
-    } else if (texto.includes('preço') || texto.includes('preco')) {
-      adicionarMensagemBot('Nossos produtos variam de R$5,90 a R$45,00, dependendo do tipo.');
-    } else if (texto.includes('entrega') || texto.includes('frete')) {
-      adicionarMensagemBot('O prazo de entrega varia de acordo com o seu CEP. Você pode conferir na tela de pagamento!');
-    } else {
-      adicionarMensagemBot('Deixa eu verificar isso pra você! Um momento...');
+    let htmlFeedback = '';
+    if (mensagemId) {
+        htmlFeedback = `
+            <div class="feedback-container" data-msg-id="${mensagemId}">
+                <span>Esta resposta foi útil?</span>
+                <div class="feedback-acoes">
+                    <button type="button" class="btn-feedback" onclick="enviarFeedback(${mensagemId}, 'util', this)">👍 Sim</button>
+                    <button type="button" class="btn-feedback" onclick="enviarFeedback(${mensagemId}, 'nao_util', this)">👎 Não</button>
+                </div>
+            </div>
+        `;
     }
-  }, 1500);
+
+    novaMensagem.innerHTML = `
+        <div class="conteudo-bot">
+            <p>${texto}</p>
+            ${htmlFeedback}
+        </div>
+    `;
+ 
+    listaMensagens.appendChild(novaMensagem);
+    listaMensagens.scrollTop = listaMensagens.scrollHeight;
 }
 
+// Função para enviar o feedback (Item 7)
+async function enviarFeedback(mensagemId, feedback, elementoBotao) {
+    const cliId = Number(clienteId);
 
-// Função principal: enviar mensagem
+    if (!cliId) {
+        alert('Faça login para avaliar a resposta.');
+        return;
+    }
 
-function enviarMensagem() {
-  const textoDigitado = campoMensagem.value.trim();
+    try {
+        const resposta = await fetch('http://localhost:3000/api/chat/feedback', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                cliId,
+                mensagemId,
+                feedback
+            })
+        });
 
-  if (textoDigitado === '') {
-    return; 
-  }
+        const dados = await resposta.json();
 
-  adicionarMensagemUsuario(textoDigitado);
-  campoMensagem.value = ''; 
-
-  responderComoBot(textoDigitado);
+        if (resposta.ok) {
+            const container = elementoBotao.closest('.feedback-container');
+            container.innerHTML = `<span class="feedback-sucesso">✔ Feedback (${feedback === 'util' ? 'Útil' : 'Não útil'}) registrado com sucesso!</span>`;
+        } else {
+            alert('Erro ao registrar feedback: ' + dados.mensagem);
+        }
+    } catch (error) {
+        console.error('Erro de rede ao enviar feedback:', error);
+        alert('Erro de conexão ao enviar feedback.');
+    }
 }
 
+async function enviarMensagem() {
+    const textoDigitado = campoMensagem.value.trim();
 
-//  Eventos que disparam o envio 
+    if (textoDigitado === '') {
+        return; 
+    }
 
+    adicionarMensagemUsuario(textoDigitado);
+    campoMensagem.value = ''; 
 
+    // Indicador visual de carregamento
+    const idCarregando = 'carregando-' + Date.now();
+    const liCarregando = document.createElement('li');
+    liCarregando.id = idCarregando;
+    liCarregando.classList.add('mensagem', 'mensagem-bot');
+    liCarregando.innerHTML = `<p><em>Pontinho está digitando...</em></p>`;
+    listaMensagens.appendChild(liCarregando);
+    listaMensagens.scrollTop = listaMensagens.scrollHeight;
+
+    try {
+        // Requisição real para a rota do Node.js (/chat)
+        const respostaServidor = await fetch('http://localhost:3000/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                cliId: clienteId, // Corrigido para usar a variável correta
+                sessaoId: sessaoId, 
+                mensagem: textoDigitado
+            })
+        });
+
+        // Remove o "digitando..."
+        if (document.getElementById(idCarregando)) {
+            document.getElementById(idCarregando).remove();
+        }
+
+        if (!respostaServidor.ok) {
+            throw new Error('Erro ao processar a mensagem no servidor.');
+        }
+
+        const dados = await respostaServidor.json();
+
+        // Atualiza o ID da sessão e exibe a resposta da IA junto com o ID para o feedback
+        sessaoId = dados.sessaoId;
+        adicionarMensagemBot(dados.texto, dados.mensagemId);
+
+    } catch (error) {
+        console.error('Erro:', error);
+        if (document.getElementById(idCarregando)) {
+            document.getElementById(idCarregando).remove();
+        }
+        adicionarMensagemBot('Desculpe, ocorreu um erro ao conectar com o assistente. Tente novamente mais tarde.');
+    }
+}
+
+// Eventos que disparam o envio 
 botaoEnviar.addEventListener('click', enviarMensagem);
 
-
 campoMensagem.addEventListener('keydown', function (evento) {
-  if (evento.key === 'Enter' && !evento.shiftKey) {
-    evento.preventDefault();
-    enviarMensagem();
-  }
+    if (evento.key === 'Enter' && !evento.shiftKey) {
+        evento.preventDefault();
+        enviarMensagem();
+    }
 });

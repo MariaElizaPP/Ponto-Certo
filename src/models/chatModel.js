@@ -92,6 +92,49 @@ class ChatModel {
         );
         return rows;
     }
+
+    //Adicione este método no seu ChatModel
+    async buscarHistoricoMensagens(sessaoId) {
+        const [rows] = await pool.query(
+            `SELECT msg_remetente AS remetente, msg_conteudo AS conteudo
+                FROM chat_mensagem
+                WHERE msg_ses_id = ?
+                ORDER BY msg_id DESC
+                LIMIT 10`,
+            [sessaoId]
+        );
+        // Inverte para ficar da mais antiga para a mais recente
+        return rows.reverse();
+    }
+
+    async salvarFeedback(mensagemId, cliId, feedback) {
+        const [resultado] = await pool.query(
+            `UPDATE chat_mensagem m
+           JOIN chat_sessao s ON s.ses_id = m.msg_ses_id
+            SET m.msg_feedback = ?, m.msg_feedbackEm = NOW(), m.msg_feedback_mdv_id = NULL
+          WHERE m.msg_id = ? AND s.ses_cli_id = ? AND m.msg_remetente = 'bot'`,
+            [feedback, mensagemId, cliId]
+        );
+        return resultado.affectedRows > 0;
+    }
+
+    async buscarRecomendacoes(cliId, limite) {
+        const [rows] = await pool.query(
+            `SELECT pr.prd_id AS id, pr.prd_nome AS nome, MIN(pr.prd_preco) AS preco
+           FROM recomendacao_cliente r
+           JOIN produtos pr         ON pr.prd_id = r.rec_prd_id
+           JOIN variacao_produto v  ON v.vpr_prd_id = pr.prd_id
+          WHERE r.rec_cli_id = ?
+            AND r.rec_mdv_id = (SELECT MAX(mdv_id) FROM modelo_versao)
+          GROUP BY pr.prd_id, pr.prd_nome, r.rec_score
+          ORDER BY r.rec_score DESC
+          LIMIT ?`,
+            [cliId, limite]
+        );
+        return rows;
+    }
+
+
 }
 
 module.exports = { ChatModel };
