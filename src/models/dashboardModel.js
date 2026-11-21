@@ -1,5 +1,5 @@
 const pool = require('../config/database');
-
+// Define uma constante com os status de pedidos que devem entrar na contagem financeira do dashboard
 const STATUS_CONTABILIZADOS = ['APROVADA', 'EM TRANSPORTE', 'ENTREGUE'];
 
 class DashboardModel {
@@ -7,6 +7,7 @@ class DashboardModel {
     async vendas({ categorias, dataInicio, dataFimExclusiva }) {
         const sql = `
             SELECT
+            -- Agrupa e formata a data do pedido no padrão ano-mês (ex: '2026-03')
                 DATE_FORMAT(p.ped_realizadoEm, '%Y-%m') AS mes_ano,
                 c.cat_id,
                 c.cat_nome,
